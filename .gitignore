@@ -455,3 +455,6 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,angular,visualstudio,visualstudiocode
+/FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Infrastructure.dll
+/FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.dll
+/FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.exe
