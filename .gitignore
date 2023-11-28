@@ -458,3 +458,4 @@ FodyWeavers.xsd
 /FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Infrastructure.dll
 /FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.dll
 /FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.exe
+/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.csproj.AssemblyReference.cache
