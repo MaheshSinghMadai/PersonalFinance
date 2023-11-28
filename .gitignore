@@ -455,40 +455,7 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/dotnetcore,angular,visualstudio,visualstudiocode
-/Core/bin/Debug/net6.0/FinancePersonal.Core.dll
-/Core/bin/Debug/net6.0/FinancePersonal.Core.pdb
-/Core/obj/Debug/net6.0/ref/FinancePersonal.Core.dll
-/Core/obj/Debug/net6.0/refint/FinancePersonal.Core.dll
-/Core/obj/Debug/net6.0/FinancePersonal.Core.AssemblyInfo.cs
-/Core/obj/Debug/net6.0/FinancePersonal.Core.AssemblyInfoInputs.cache
-/Core/obj/Debug/net6.0/FinancePersonal.Core.csproj.FileListAbsolute.txt
-/Core/obj/Debug/net6.0/FinancePersonal.Core.dll
-/Core/obj/Debug/net6.0/FinancePersonal.Core.pdb
-/FinancePersonal.Infrastructure/bin/Debug/net6.0/FinancePersonal.Core.dll
-/FinancePersonal.Infrastructure/bin/Debug/net6.0/FinancePersonal.Core.pdb
-/FinancePersonal.Infrastructure/bin/Debug/net6.0/FinancePersonal.Infrastructure.dll
-/FinancePersonal.Infrastructure/bin/Debug/net6.0/FinancePersonal.Infrastructure.pdb
-/FinancePersonal.Infrastructure/obj/Debug/net6.0/ref/FinancePersonal.Infrastructure.dll
-/FinancePersonal.Infrastructure/obj/Debug/net6.0/refint/FinancePersonal.Infrastructure.dll
-/FinancePersonal.Infrastructure/obj/Debug/net6.0/FinancePersonal.Infrastructure.AssemblyInfo.cs
-/FinancePersonal.Infrastructure/obj/Debug/net6.0/FinancePersonal.Infrastructure.AssemblyInfoInputs.cache
-/FinancePersonal.Infrastructure/obj/Debug/net6.0/FinancePersonal.Infrastructure.csproj.AssemblyReference.cache
-/FinancePersonal.Infrastructure/obj/Debug/net6.0/FinancePersonal.Infrastructure.csproj.FileListAbsolute.txt
-/FinancePersonal.Infrastructure/obj/Debug/net6.0/FinancePersonal.Infrastructure.dll
-/FinancePersonal.Infrastructure/obj/Debug/net6.0/FinancePersonal.Infrastructure.pdb
-/FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Core.dll
-/FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Core.pdb
 /FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Infrastructure.dll
-/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.AssemblyInfo.cs
-/FinancePersonal.Server/obj/Debug/net6.0/ref/FinancePersonal.Server.dll
-/FinancePersonal.Server/obj/Debug/net6.0/refint/FinancePersonal.Server.dll
-/FinancePersonal.Server/obj/Debug/net6.0/apphost.exe
-/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.AssemblyInfoInputs.cache
-/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.csproj.AssemblyReference.cache
-/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.csproj.FileListAbsolute.txt
-/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.dll
-/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.pdb
-/FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Infrastructure.pdb
 /FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.dll
 /FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.exe
-/FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.pdb
+/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.csproj.AssemblyReference.cache
