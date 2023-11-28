@@ -1,0 +1,1 @@
+D:\DotnetProjects\FinancePersonal\financepersonal.client\obj\Debug\financepersonal.client.esproj.CoreCompileInputs.cache

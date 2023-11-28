@@ -1,0 +1,11 @@
+D:\DotnetProjects\FinancePersonal\Core\bin\Debug\net6.0\FinancePersonal.Core.deps.json
+D:\DotnetProjects\FinancePersonal\Core\bin\Debug\net6.0\FinancePersonal.Core.dll
+D:\DotnetProjects\FinancePersonal\Core\bin\Debug\net6.0\FinancePersonal.Core.pdb
+D:\DotnetProjects\FinancePersonal\Core\obj\Debug\net6.0\FinancePersonal.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\DotnetProjects\FinancePersonal\Core\obj\Debug\net6.0\FinancePersonal.Core.AssemblyInfoInputs.cache
+D:\DotnetProjects\FinancePersonal\Core\obj\Debug\net6.0\FinancePersonal.Core.AssemblyInfo.cs
+D:\DotnetProjects\FinancePersonal\Core\obj\Debug\net6.0\FinancePersonal.Core.csproj.CoreCompileInputs.cache
+D:\DotnetProjects\FinancePersonal\Core\obj\Debug\net6.0\FinancePersonal.Core.dll
+D:\DotnetProjects\FinancePersonal\Core\obj\Debug\net6.0\refint\FinancePersonal.Core.dll
+D:\DotnetProjects\FinancePersonal\Core\obj\Debug\net6.0\FinancePersonal.Core.pdb
+D:\DotnetProjects\FinancePersonal\Core\obj\Debug\net6.0\ref\FinancePersonal.Core.dll
