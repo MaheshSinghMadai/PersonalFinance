@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MfYT/xhgHR0VsDRMMg71ftnTQKm/Lzym3kDFlut9GhYwsTMAeTQ6Whkm78hFUr7pZXin9ryVR/48TMto74xJ0g==",
+  "dgSpecHash": "mKWfBI5zCkpCjlMl1M3h6pvyim5ZbfVFQmqOXWqrGV7kqbOt4P7Wuk8pBfLFgPAQDxjKNv0FzkLAGpKNPDbBkg==",
   "success": true,
-  "projectFilePath": "D:\\DotnetProjects\\FinancePersonal\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj",
+  "projectFilePath": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dell\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Dell\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

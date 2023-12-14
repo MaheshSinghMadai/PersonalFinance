@@ -1,1 +1,22 @@
-<p>expense works!</p>
+<table class="table table-responsive table-bordered align-items-center" style="margin-top:100px">
+  <thead style="background-color:cadetblue">
+    <tr>
+      <th scope="col">ExpnseId</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Date</th>
+      <th scope="col">Username</th>
+      <th scope="col">Category</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let expense of userExpenseList">
+    <tr>
+      <td>{{ expense.expenseId }}</td>
+      <td>{{ expense.amount }}</td>
+      <td>{{ expense.date | date }}</td>
+      <td>{{ expense.username }}</td>
+      <td>{{ expense.categoryName }}</td>
+      <td>{{ expense.description }} </td>
+    </tr>
+  </tbody>
+</table>

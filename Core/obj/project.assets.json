@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\DotnetProjects\\FinancePersonal\\Core\\FinancePersonal.Core.csproj",
+      "projectUniqueName": "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj",
       "projectName": "FinancePersonal.Core",
-      "projectPath": "D:\\DotnetProjects\\FinancePersonal\\Core\\FinancePersonal.Core.csproj",
+      "projectPath": "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj",
       "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "D:\\DotnetProjects\\FinancePersonal\\Core\\obj\\",
+      "outputPath": "D:\\PROJECTS\\FinancePersonal\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
