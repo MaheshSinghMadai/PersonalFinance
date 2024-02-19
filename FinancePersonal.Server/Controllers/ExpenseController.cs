@@ -40,7 +40,7 @@ namespace FinancePersonal.Server.Controllers
                              Description = e.Description,
                              Username = u.Name,
                              CategoryName = c.CategoryName
-                            }).ToListAsync();
+                            }).AsNoTracking().ToListAsync();
 
             return Ok(await query);
         }
