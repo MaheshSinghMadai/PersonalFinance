@@ -65,35 +65,35 @@ namespace FinancePersonal.Server.Controllers
             return Ok();
         }
 
-        [HttpPatch("id")]
-        [Route("[action]")]
-        public async Task<IActionResult> EditExpense(int id, JsonPatchDocument<Expense> expense)
-        {
-            var exp = await _db.Expenses.FirstOrDefaultAsync(a => a.ExpenseId == id);
-            expense.ApplyTo(exp, ModelState);
-            if (ModelState.IsValid)
-            {
-                _db.Update(exp);
-                _db.SaveChanges();
-            }
+        //[HttpPatch("id")]
+        //[Route("[action]")]
+        //public async Task<IActionResult> EditExpense(int id, JsonPatchDocument<Expense> expense)
+        //{
+        //    var exp = await _db.Expenses.FirstOrDefaultAsync(a => a.ExpenseId == id);
+        //    expense.ApplyTo(exp, ModelState);
+        //    if (ModelState.IsValid)
+        //    {
+        //        _db.Update(exp);
+        //        _db.SaveChanges();
+        //    }
 
-            var model = new
-            {
-                exp = expense
-            };
-            return Ok(model);
-        }
+        //    var model = new
+        //    {
+        //        exp = expense
+        //    };
+        //    return Ok(model);
+        //}
 
-        [HttpDelete("id")]
-        [Route("[action]")]
-        public async Task<IActionResult> DeleteExpense(int id)
-        {
-            var expense = await _db.Expenses.FirstOrDefaultAsync(a => a.ExpenseId == id);
+        //[HttpDelete("id")]
+        //[Route("[action]")]
+        //public async Task<IActionResult> DeleteExpense(int id)
+        //{
+        //    var expense = await _db.Expenses.FirstOrDefaultAsync(a => a.ExpenseId == id);
 
-            _db.Remove(expense);
-            await _db.SaveChangesAsync();
+        //    _db.Remove(expense);
+        //    await _db.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
     }
 }
