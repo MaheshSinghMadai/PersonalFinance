@@ -10,6 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTO\**" />
+    <Compile Remove="ReturnDTOs\**" />
+    <Content Remove="DTO\**" />
+    <Content Remove="ReturnDTOs\**" />
+    <EmbeddedResource Remove="DTO\**" />
+    <EmbeddedResource Remove="ReturnDTOs\**" />
+    <None Remove="DTO\**" />
+    <None Remove="ReturnDTOs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>6.*-*</Version>
     </PackageReference>
@@ -28,11 +39,6 @@
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\FinancePersonal.Infrastructure\FinancePersonal.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DTO\" />
-    <Folder Include="ReturnDTOs\" />
   </ItemGroup>
 
 </Project>
