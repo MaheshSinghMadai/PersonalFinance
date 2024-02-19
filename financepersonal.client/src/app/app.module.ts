@@ -8,6 +8,8 @@ import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './shared/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';  
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { MaterialModule } from './shared/material.module';
     HttpClientModule, 
     BrowserAnimationsModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    NgxDocViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

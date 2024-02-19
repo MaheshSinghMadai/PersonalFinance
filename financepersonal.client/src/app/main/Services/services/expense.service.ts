@@ -8,6 +8,7 @@ import { UserExpense } from '../../Models/UserExpense';
 })
 export class ExpenseService {
 
+  isAdding: boolean = false;
   private baseUrl = 'https://localhost:7068';
   constructor(private http: HttpClient) { }
 
@@ -17,5 +18,17 @@ export class ExpenseService {
 
   getUserExpenses(){
     return this.http.get<UserExpense[]>(`${this.baseUrl}/GetUserExpense`);
+  }
+
+  toggleAdd(){
+    this.isAdding == !this.isAdding;
+  }
+
+  AddExpense(){
+    
+  }
+
+  clearForm(){
+
   }
 }

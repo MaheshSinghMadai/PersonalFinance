@@ -1,22 +1,76 @@
-<table class="table table-responsive table-bordered align-items-center" style="margin-top:100px">
-  <thead style="background-color:cadetblue">
-    <tr>
-      <th scope="col">ExpnseId</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Date</th>
-      <th scope="col">Username</th>
-      <th scope="col">Category</th>
-      <th scope="col">Description</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let expense of userExpenseList">
-    <tr>
-      <td>{{ expense.expenseId }}</td>
-      <td>{{ expense.amount }}</td>
-      <td>{{ expense.date | date }}</td>
-      <td>{{ expense.username }}</td>
-      <td>{{ expense.categoryName }}</td>
-      <td>{{ expense.description }} </td>
-    </tr>
-  </tbody>
-</table>
+<div class="main-content" style="margin-top:100px">
+  <div class="row">
+    <div class="col-md-2 ">
+      <button class="btn btn-sm btn-info" (click)="toggleAdd()">
+        <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+      </button>
+    </div>
+
+    @if(isAdding){
+      <div class="col-md-10 p-2">
+        <div class="form" [formGroup]="addExpenseForm">
+          <div class="card">
+            <div class="card-body">
+              <div class="row d-flex justify-content-center">
+                <div class="col-sm-2">
+                  <label class="form-label">
+                    Amount
+                  </label>
+                  <input type="number" placeholder="Enter Amount" formControlName="amount" />
+                </div>
+                <div class="col-sm-2">
+                  <label class="form-label">
+                    Date
+                  </label>
+                  <input type="date" placeholder="Select Date" formControlName="date" />
+                </div>
+                <div class="col-sm-2">
+                  <label class="form-label">
+                    Description
+                  </label>
+                  <input type="text" placeholder="Enter Description" formControlName="description" />
+                </div>
+                <div class="col-sm-2">
+                  <label class="form-label">
+                    Category
+                  </label>
+                  <input type="text" placeholder="Enter Category" name="category" formControlName="category" />
+                </div>
+                <div class="col-sm-2 d-flex align-items-end">
+                  <button (click)="addExpense()" title="Submit" class="btn btn-sm btn-info">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="done"></mat-icon>
+                  </button>
+                  <button (click)="clearForm()" title="Cancel" class="btn btn-sm btn-danger ms-1">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <table class="table table-responsive table-bordered align-items-center">
+    <thead style="background-color:cadetblue">
+      <tr>
+        <th scope="col">ExpnseId</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Date</th>
+        <th scope="col">Username</th>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let expense of userExpenseList">
+      <tr>
+        <td>{{ expense.expenseId }}</td>
+        <td>{{ expense.amount }}</td>
+        <td>{{ expense.date | date }}</td>
+        <td>{{ expense.username }}</td>
+        <td>{{ expense.categoryName }}</td>
+        <td>{{ expense.description }} </td>
+      </tr>
+    </tbody>
+  </table>

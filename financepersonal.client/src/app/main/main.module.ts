@@ -5,6 +5,8 @@ import { DashboardComponent } from './Pages/dashboard/dashboard.component';
 import { MainRoutingModule } from './main-routing.module';
 import { CategoriesComponent } from './Pages/categories/categories.component';
 import { MaterialModule } from '../shared/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { MaterialModule } from '../shared/material.module';
   imports: [
     CommonModule,
     MainRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    NgxDocViewerModule
   ]
 })
 export class MainModule { }
