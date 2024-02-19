@@ -53,7 +53,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.AspNetCore.SpaProxy/6.0.25": {
+      "Microsoft.AspNetCore.SpaProxy/6.0.27": {
         "type": "package",
         "compile": {
           "lib/net6.0/Microsoft.AspNetCore.SpaProxy.dll": {}
@@ -1018,10 +1018,10 @@
         "microsoft.aspnetcore.mvc.newtonsoftjson.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.SpaProxy/6.0.25": {
-      "sha512": "RsBiU5qnOYJ4+awwptNl3LEP1HW41S2O0yilxwhMOpbyNXgWhvbIzBsndNrUxT/l3dpun25PhnhO0oiTpcVxYQ==",
+    "Microsoft.AspNetCore.SpaProxy/6.0.27": {
+      "sha512": "ycFdFMcEQ/fCmQCesRKl5wWe6KRBucrjLMUWKwLmO22NclwrI1K78ZnHL8LLCWtv25y0bvRCmin4GyI9wIcdwg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.spaproxy/6.0.25",
+      "path": "microsoft.aspnetcore.spaproxy/6.0.27",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1029,7 +1029,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "build/Microsoft.AspNetCore.SpaProxy.targets",
         "lib/net6.0/Microsoft.AspNetCore.SpaProxy.dll",
-        "microsoft.aspnetcore.spaproxy.6.0.25.nupkg.sha512",
+        "microsoft.aspnetcore.spaproxy.6.0.27.nupkg.sha512",
         "microsoft.aspnetcore.spaproxy.nuspec"
       ]
     },
@@ -2622,19 +2622,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dell\\.nuget\\packages\\": {}
+    "C:\\Users\\MaheshMadai\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Server\\FinancePersonal.Server.csproj",
+      "projectUniqueName": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Server\\FinancePersonal.Server.csproj",
       "projectName": "FinancePersonal.Server",
-      "projectPath": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Server\\FinancePersonal.Server.csproj",
-      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Server\\obj\\",
+      "projectPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Server\\FinancePersonal.Server.csproj",
+      "packagesPath": "C:\\Users\\MaheshMadai\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MaheshMadai\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2648,11 +2648,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj": {
-              "projectPath": "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj"
+            "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\Core\\FinancePersonal.Core.csproj": {
+              "projectPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\Core\\FinancePersonal.Core.csproj"
             },
-            "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj": {
-              "projectPath": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj"
+            "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj"
             }
           }
         }
@@ -2661,6 +2661,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2717,7 +2722,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

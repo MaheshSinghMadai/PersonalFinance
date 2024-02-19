@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj": {}
+    "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj": {}
   },
   "projects": {
-    "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj": {
+    "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\Core\\FinancePersonal.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj",
+        "projectUniqueName": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\Core\\FinancePersonal.Core.csproj",
         "projectName": "FinancePersonal.Core",
-        "projectPath": "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "D:\\PROJECTS\\FinancePersonal\\Core\\obj\\",
+        "projectPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\Core\\FinancePersonal.Core.csproj",
+        "packagesPath": "C:\\Users\\MaheshMadai\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MaheshMadai\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -55,21 +60,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj": {
+    "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj",
         "projectName": "FinancePersonal.Infrastructure",
-        "projectPath": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Infrastructure\\FinancePersonal.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\MaheshMadai\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\FinancePersonal.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MaheshMadai\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -83,8 +88,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj": {
-                "projectPath": "D:\\PROJECTS\\FinancePersonal\\Core\\FinancePersonal.Core.csproj"
+              "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\Core\\FinancePersonal.Core.csproj": {
+                "projectPath": "C:\\Users\\MaheshMadai\\Source\\Repos\\PersonalFinance\\Core\\FinancePersonal.Core.csproj"
               }
             }
           }
@@ -93,6 +98,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -130,7 +140,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
