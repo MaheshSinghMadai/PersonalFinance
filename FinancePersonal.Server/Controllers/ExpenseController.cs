@@ -67,7 +67,7 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpPatch("id")]
         [Route("[action]")]
-        public async Task<IActionResult> EditDeviceConfig(int id, JsonPatchDocument<Expense> expense)
+        public async Task<IActionResult> EditExpense(int id, JsonPatchDocument<Expense> expense)
         {
             var exp = await _db.Expenses.FirstOrDefaultAsync(a => a.ExpenseId == id);
             expense.ApplyTo(exp, ModelState);
