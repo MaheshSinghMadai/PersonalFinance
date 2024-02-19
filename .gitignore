@@ -459,3 +459,12 @@ FodyWeavers.xsd
 /FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.dll
 /FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.exe
 /FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.csproj.AssemblyReference.cache
+/Core/obj/Debug/net6.0/FinancePersonal.Core.csproj.CoreCompileInputs.cache
+/financepersonal.client/obj/Debug/financepersonal.client.esproj.FileListAbsolute.txt
+/FinancePersonal.Infrastructure/obj/Debug/net6.0/FinancePersonal.Infrastructure.csproj.CoreCompileInputs.cache
+/FinancePersonal.Infrastructure/obj/Debug/net6.0/FinancePersonal.Infrastructure.genruntimeconfig.cache
+/FinancePersonal.Server/bin/Debug/net6.0/FinancePersonal.Server.deps.json
+/FinancePersonal.Server/bin/Debug/net6.0/spa.proxy.json
+/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.csproj.CoreCompileInputs.cache
+/FinancePersonal.Server/obj/Debug/net6.0/FinancePersonal.Server.genruntimeconfig.cache
+/FinancePersonal.Server/obj/Debug/net6.0/staticwebassets.build.json

@@ -1,8 +1,0 @@
-{
-"SpaProxyServer": {
-"ServerUrl": "https://localhost:4200",
-"LaunchCommand": "npm start",
-"WorkingDirectory": "D:\\PROJECTS\\FinancePersonal\\FinancePersonal.Server\\..\\financepersonal.client",
-"MaxTimeoutInSeconds": "120"
-}
-}
