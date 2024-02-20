@@ -10,6 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './shared/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';  
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     SharedModule,
     MaterialModule,
     ReactiveFormsModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

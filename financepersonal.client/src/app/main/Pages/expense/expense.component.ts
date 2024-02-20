@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../../Services/services/expense.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Expense } from '../../Models/expense';
+import { UserExpense } from '../../Models/UserExpense';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-expense',
@@ -16,17 +17,23 @@ export class ExpenseComponent implements OnInit {
   userExpenseList: any[] = [];
   addExpenseForm: FormGroup;
   isAdding: boolean = false;
-  isEditing: boolean = false;
-  isDeleting: boolean = false;
+  isEditDelete: boolean = false;
+  editModal : boolean = false;
+  editExpenseList: any[] = [];
 
-  constructor(private formBuilder: FormBuilder, private expenseService: ExpenseService) {
-    this.addExpenseForm = this.formBuilder.group({
+  constructor(
+    private formBuilder: FormBuilder, 
+    private expenseService: ExpenseService,
+    private toastr: ToastrService) 
+    {
+      this.addExpenseForm = this.formBuilder.group({
       amount: ['', Validators.required],
       date: ['', Validators.required],
       description: ['', Validators.required],
       category: ['', Validators.required],
     })
   }
+
   ngOnInit() {
     this.getUserExpenses();
   }
@@ -73,6 +80,57 @@ export class ExpenseComponent implements OnInit {
       }
     )
   }
+
+  editExpense(item: any) {
+      var id= item.ExpenseId;
+      var body = [
+        {
+          op: 'replace',
+          path: '/Amount',
+          value: item.Amount,
+        },
+        {
+          op: 'replace',
+          path: '/Description',
+          value: item.Description,
+        },
+        {
+          op: 'replace',
+          path: '/Date',
+          value: item.Date,
+        },
+        {
+          op: 'replace',
+          path: '/CategoryId',
+          value: item.CategoryId,
+        },
+      ];
+
+        this.expenseService.EditExpense(id, body).subscribe(
+          (response) => {
+            console.log(response);
+            this.getUserExpenses();
+            this.editModal = false;
+          },
+          error =>{
+            console.log(error);
+          }
+        )
+  }
+
+  deleteExpense(item : UserExpense) {
+    var id = item.expenseId;
+    this.expenseService.DeleteExpense(id).subscribe(
+      (response) => {
+        console.log(response);
+        this.getUserExpenses();
+        this.toastr.success('Deleted Successfuly')
+      },
+      error =>{
+        console.log(error);
+      }
+    )
+  }
   toggleAdd() {
     this.isAdding = !this.isAdding;
   }
@@ -83,7 +141,11 @@ export class ExpenseComponent implements OnInit {
   }
 
   toggleActions(){
-    this.isEditing = !this.isEditing;
-    this.isDeleting = !this.isDeleting;
+    this.isEditDelete = !this.isEditDelete;
   }
+
+  editModalToggle(){
+    this.editModal = !this.editModal;
+  }
+
 }
