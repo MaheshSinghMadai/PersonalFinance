@@ -5,53 +5,55 @@
         <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
       </button>
     </div>
-</div>
-    @if(isAdding){
-      <div class="col-md-12 my-2">
-        <div class="form" [formGroup]="addExpenseForm">
-          <div class="card">
-            <div class="card-body">
-              <div class="row d-flex justify-content-between">
-                <div class="col-sm-2">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Amount</mat-label>
-                    <input type="number" matInput placeholder="Enter Amount" formControlName="amount">
-                  </mat-form-field>
-                </div>    
-                <div class="col-sm-2 mr-4">
-                  <mat-form-field>
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                </div> 
-                <div class="col-sm-2">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Description</mat-label>
-                    <input type="text" matInput placeholder="Enter Description" formControlName="description">
-                  </mat-form-field>
-                </div> 
-                <div class="col-sm-2">
-                  <mat-form-field class="example-full-width">
-                    <mat-label>Category</mat-label>
-                    <input type="number" matInput placeholder="Enter Category" formControlName="category">
-                  </mat-form-field>
-                </div>             
-                <div class="col-sm-1 align-items-end">
-                  <button (click)="addExpense()" title="Submit" class="btn btn-sm btn-info">
-                    <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon" fontIcon="done"></mat-icon>
-                  </button>
-                  <button (click)="clearForm()" title="Cancel" class="btn btn-sm btn-danger ms-1">
-                    <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon" fontIcon="close"></mat-icon>
-                  </button>
-                </div>
-              </div>
+  </div>
+  @if(isAdding){
+  <div class="col-md-12 my-2">
+    <div class="form" [formGroup]="addExpenseForm">
+      <div class="card">
+        <div class="card-body">
+          <div class="row d-flex justify-content-between">
+            <div class="col-sm-2">
+              <mat-form-field class="example-full-width">
+                <mat-label>Amount</mat-label>
+                <input type="number" matInput placeholder="Enter Amount" formControlName="amount">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-2 mr-4">
+              <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-2">
+              <mat-form-field class="example-full-width">
+                <mat-label>Description</mat-label>
+                <input type="text" matInput placeholder="Enter Description" formControlName="description">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-2">
+              <mat-form-field class="example-full-width">
+                <mat-label>Category</mat-label>
+                <input type="number" matInput placeholder="Enter Category" formControlName="category">
+              </mat-form-field>
+            </div>
+            <div class="col-sm-1 align-items-end">
+              <button (click)="addExpense()" title="Submit" class="btn btn-sm btn-info">
+                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
+                  fontIcon="done"></mat-icon>
+              </button>
+              <button (click)="clearForm()" title="Cancel" class="btn btn-sm btn-danger ms-1">
+                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
+                  fontIcon="close"></mat-icon>
+              </button>
             </div>
           </div>
         </div>
       </div>
-    }
- 
+    </div>
+  </div>
+  }
+
   <table class="table table-responsive table-bordered align-items-center">
     <thead>
       <!-- <h1>Expenses</h1> -->
@@ -62,10 +64,11 @@
         <th scope="col">Username</th>
         <th scope="col">Category</th>
         <th scope="col">Description</th>
-        <th>   
+        <th>
           <button class="btn btn-sm" (click)="toggleActions()">
-            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_drop_down"></mat-icon>
-          </button>        
+            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+              fontIcon="arrow_drop_down"></mat-icon>
+          </button>
         </th>
       </tr>
     </thead>
@@ -77,31 +80,49 @@
         <td>{{ expense.username }}</td>
         <td>{{ expense.categoryName }}</td>
         <td>{{ expense.description }} </td>
-        <td> 
-          <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="isEditDelete" >
-            <mat-icon class="mat-icon edit-btn" aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+        <td>
+          <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            *ngIf="isEditDelete" (click)="editModalToggle()">
+            <mat-icon class="mat-icon edit-btn" aria-hidden="false" aria-label="Example home icon"
+              fontIcon="edit"></mat-icon>
           </button>
           <button class="btn btn-sm" *ngIf="isEditDelete" (click)="deleteExpense(expense)">
-            <mat-icon class="mat-icon delete-btn" aria-hidden="false" aria-label="Example home icon" fontIcon="delete"></mat-icon>
+            <mat-icon class="mat-icon delete-btn" aria-hidden="false" aria-label="Example home icon"
+              fontIcon="delete"></mat-icon>
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-
- 
 </div>
 
- <!--Modal-->
- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Expense Details</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="col-sm-12 ">
+            <label class="form-label d-flex align-items-start">Amount</label>
+            <input type="number" class="form-control" placeholder="Enter Amount">
+          </div>
+          <div class="col-sm-12">
+            <label class="form-label d-flex align-items-start">Date</label>
+            <input type="date" class="form-control"  placeholder="Choose a Date">
+          </div>
+          <div class="col-sm-12">
+            <label class="form-label d-flex align-items-start">Description</label>
+            <input type="text" class="form-control" placeholder="Enter Description">
+          </div>
+          <div class="col-sm-12">
+            <label class="form-label d-flex align-items-start">Category</label>
+            <input type="number" class="form-control" placeholder="Enter Category">
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -110,9 +131,3 @@
     </div>
   </div>
 </div>
-
- 
-
-
-
-

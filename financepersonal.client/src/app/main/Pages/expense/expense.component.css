@@ -15,3 +15,6 @@ table, th, td {
    border-left: none;
    border-right: none;
  }
+ .form-label{
+   margin-top:10px
+ }

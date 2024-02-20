@@ -145,7 +145,7 @@ export class ExpenseComponent implements OnInit {
   }
 
   editModalToggle(){
-    this.editModal = !this.editModal;
+    console.log('modal toggled');
   }
 
 }
