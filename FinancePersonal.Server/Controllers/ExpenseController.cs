@@ -45,6 +45,7 @@ namespace FinancePersonal.Server.Controllers
             return Ok(await query);
         }
 
+
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> AddNewExpense(Expense exp)
@@ -64,12 +65,18 @@ namespace FinancePersonal.Server.Controllers
             return Ok();
         }
 
-        [HttpPatch("id")]
+        //[ApiExplorerSettings(IgnoreApi = true)]
+        [HttpPatch]
         [Route("[action]")]
-        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> EditExpense(int id, JsonPatchDocument<Expense> expense)
         {
             var exp = await _db.Expenses.FirstOrDefaultAsync(a => a.ExpenseId == id);
+
+            if(exp == null)
+            {
+                return NotFound();
+            }
+
             expense.ApplyTo(exp, ModelState);
             if (ModelState.IsValid)
             {
@@ -77,19 +84,24 @@ namespace FinancePersonal.Server.Controllers
                 _db.SaveChanges();
             }
 
-            var model = new
-            {
-                exp = expense
-            };
-            return Ok(model);
+            //var model = new
+            //{
+            //    exp = expense
+            //};
+            return Ok(exp);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete]
         [Route("[action]")]
-        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> DeleteExpense(int id)
         {
             var expense = await _db.Expenses.FirstOrDefaultAsync(a => a.ExpenseId == id);
+
+
+            if (expense == null)
+            {
+                return NotFound();
+            }
 
             _db.Remove(expense);
             await _db.SaveChangesAsync();

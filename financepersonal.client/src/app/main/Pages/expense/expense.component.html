@@ -1,42 +1,43 @@
 <div class="main-content" style="margin-top:100px">
   <div class="row">
-    <div class="col-md-2 ">
-      <button class="btn btn-sm btn-info" (click)="toggleAdd()">
+    <div class="col-md-1 my-2">
+      <button class="btn btn-sm btn-outline-secondary pull-left" (click)="toggleAdd()">
         <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
       </button>
     </div>
-
+</div>
     @if(isAdding){
-      <div class="col-md-10 p-2">
+      <div class="col-md-12 my-2">
         <div class="form" [formGroup]="addExpenseForm">
           <div class="card">
             <div class="card-body">
-              <div class="row d-flex justify-content-center">
+              <div class="row d-flex justify-content-between">
                 <div class="col-sm-2">
-                  <label class="form-label">
-                    Amount
-                  </label>
-                  <input type="number" placeholder="Enter Amount" formControlName="amount" />
-                </div>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Amount</mat-label>
+                    <input type="number" matInput placeholder="Enter Amount" formControlName="amount">
+                  </mat-form-field>
+                </div>    
+                <div class="col-sm-2 mr-4">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div> 
                 <div class="col-sm-2">
-                  <label class="form-label">
-                    Date
-                  </label>
-                  <input type="date" placeholder="Select Date" formControlName="date" />
-                </div>
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Description</mat-label>
+                    <input type="text" matInput placeholder="Enter Description" formControlName="description">
+                  </mat-form-field>
+                </div> 
                 <div class="col-sm-2">
-                  <label class="form-label">
-                    Description
-                  </label>
-                  <input type="text" placeholder="Enter Description" formControlName="description" />
-                </div>
-                <div class="col-sm-2">
-                  <label class="form-label">
-                    Category
-                  </label>
-                  <input type="text" placeholder="Enter Category" name="category" formControlName="category" />
-                </div>
-                <div class="col-sm-2 d-flex align-items-end">
+                  <mat-form-field class="example-full-width">
+                    <mat-label>Category</mat-label>
+                    <input type="number" matInput placeholder="Enter Category" formControlName="category">
+                  </mat-form-field>
+                </div>             
+                <div class="col-sm-1 align-items-end">
                   <button (click)="addExpense()" title="Submit" class="btn btn-sm btn-info">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="done"></mat-icon>
                   </button>
@@ -50,10 +51,10 @@
         </div>
       </div>
     }
-  </div>
-
+ 
   <table class="table table-responsive table-bordered align-items-center">
-    <thead style="background-color:cadetblue">
+    <thead>
+      <!-- <h1>Expenses</h1> -->
       <tr>
         <th scope="col">ExpnseId</th>
         <th scope="col">Amount</th>
@@ -61,6 +62,11 @@
         <th scope="col">Username</th>
         <th scope="col">Category</th>
         <th scope="col">Description</th>
+        <th>   
+          <button class="btn btn-sm" (click)="toggleActions()">
+            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="arrow_drop_down"></mat-icon>
+          </button>        
+        </th>
       </tr>
     </thead>
     <tbody *ngFor="let expense of userExpenseList">
@@ -71,6 +77,15 @@
         <td>{{ expense.username }}</td>
         <td>{{ expense.categoryName }}</td>
         <td>{{ expense.description }} </td>
+        <td> 
+          <button class="btn btn-sm mr-2" *ngIf="isEditing">
+            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+          </button>
+          <button class="btn btn-sm" *ngIf="isDeleting">
+            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="delete_sweep"></mat-icon>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+</div>

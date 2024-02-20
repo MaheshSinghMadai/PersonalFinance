@@ -11,8 +11,8 @@ export class CategoriesComponent implements OnInit{
   selectedType = 'docx';   
   DemoDoc="https://www.le.ac.uk/oerresources/bdra/html/resources/example.txt"  ;
 
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  ngOnInit() {
+
   }
   
   openDoc(){

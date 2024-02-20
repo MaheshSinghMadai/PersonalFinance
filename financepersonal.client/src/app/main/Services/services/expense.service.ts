@@ -24,8 +24,9 @@ export class ExpenseService {
     this.isAdding == !this.isAdding;
   }
 
-  AddExpense(){
-    
+  AddExpense(body: Expense){
+  
+    return this.http.post<any>(`${this.baseUrl}/AddNewExpense`, body)
   }
 
   clearForm(){

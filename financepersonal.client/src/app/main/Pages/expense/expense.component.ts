@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../../Services/services/expense.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-// class scheduleToAdd {
-//   amount : number = '';
-//   date : number = '';
-//   description : number = '';
-//   cate : number = '';
-  
-// };
+import { Expense } from '../../Models/expense';
 
 @Component({
   selector: 'app-expense',
@@ -19,57 +12,78 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ExpenseComponent implements OnInit {
 
   //make an empty list to store expense-api response data
-  expenseList :any[] = [];
-  userExpenseList : any[] = [];
-  addExpenseForm: FormGroup ;
-  isAdding : boolean = false;
+  expenseList: any[] = [];
+  userExpenseList: any[] = [];
+  addExpenseForm: FormGroup;
+  isAdding: boolean = false;
+  isEditing: boolean = false;
+  isDeleting: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private expenseService : ExpenseService) { 
-
-  }
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder, private expenseService: ExpenseService) {
     this.addExpenseForm = this.formBuilder.group({
       amount: ['', Validators.required],
-      Date: ['', Validators.required],
+      date: ['', Validators.required],
       description: ['', Validators.required],
       category: ['', Validators.required],
     })
+  }
+  ngOnInit() {
     this.getUserExpenses();
   }
 
-  getAllExpenses(){
+  getAllExpenses() {
     this.expenseService.getExpenses().subscribe(
-      (response)=>{
+      (response) => {
         this.expenseList = response;
         console.log(this.expenseList);
       },
-      error =>{
+      error => {
         console.log(error);
       }
     )
   }
 
-  getUserExpenses(){
+  getUserExpenses() {
     this.expenseService.getUserExpenses().subscribe(
-      (response)=>{
+      (response) => {
         this.userExpenseList = response;
         console.log(this.userExpenseList);
       },
-      error =>{
+      error => {
         console.log(error);
       }
     )
   }
 
-  addExpense(){
-    
+  addExpense() {
+    const body = {
+      amount: this.addExpenseForm.value['amount'],
+      date: this.addExpenseForm.value['date'],
+      description: this.addExpenseForm.value['description'],
+      userId: 1,
+      categoryId: this.addExpenseForm.value['category'],
+    }
+    console.log(body);
+    this.expenseService.AddExpense(body).subscribe(
+      (response) => {
+        console.log(response);
+        this.clearForm();
+        this.toggleAdd();
+        this.getUserExpenses();
+      }
+    )
   }
-  toggleAdd(){
-    this.isAdding =  !this.isAdding;
+  toggleAdd() {
+    this.isAdding = !this.isAdding;
   }
 
-  clearForm(){
+  clearForm() {
     this.addExpenseForm.reset();
     this.isAdding = false;
+  }
+
+  toggleActions(){
+    this.isEditing = !this.isEditing;
+    this.isDeleting = !this.isDeleting;
   }
 }
