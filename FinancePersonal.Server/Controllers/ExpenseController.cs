@@ -39,7 +39,8 @@ namespace FinancePersonal.Server.Controllers
                              Date = e.Date,
                              Description = e.Description,
                              Username = u.Name,
-                             CategoryName = c.CategoryName
+                             CategoryName = c.CategoryName,
+                             CategoryId = c.CategoryId
                             }).AsNoTracking().ToListAsync();
 
             return Ok(await query);
@@ -65,7 +66,6 @@ namespace FinancePersonal.Server.Controllers
             return Ok();
         }
 
-        //[ApiExplorerSettings(IgnoreApi = true)]
         [HttpPatch]
         [Route("[action]")]
         public async Task<IActionResult> EditExpense(int id, JsonPatchDocument<Expense> expense)
@@ -84,11 +84,11 @@ namespace FinancePersonal.Server.Controllers
                 _db.SaveChanges();
             }
 
-            //var model = new
-            //{
-            //    exp = expense
-            //};
-            return Ok(exp);
+            var model = new
+            {
+                exp = expense
+            };
+            return Ok(model);
         }
 
         [HttpDelete]

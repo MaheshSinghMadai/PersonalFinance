@@ -1,3 +1,20 @@
-.mat-icon{
-   padding:0px;
+.mat-icon {
+   font-size: 20px;
+   
 }
+.add-btn{
+   font-size:25px;
+}
+.edit-btn{
+   color: #0a4c81;
+}
+.delete-btn{
+   color:red;
+}
+table, th, td {
+   border-left: none;
+   border-right: none;
+ }
+ .form-label{
+   margin-top:10px
+ }

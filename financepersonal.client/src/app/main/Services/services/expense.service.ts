@@ -29,6 +29,14 @@ export class ExpenseService {
     return this.http.post<any>(`${this.baseUrl}/AddNewExpense`, body)
   }
 
+  EditExpense(id:number, body: any){
+    return this.http.patch<Expense[]>(`${this.baseUrl}/EditExpense?id=${id}`, body)
+  }
+
+  DeleteExpense(id: number){
+    return this.http.delete<Expense[]>(`${this.baseUrl}/DeleteExpense?id=${id}`)
+  }
+
   clearForm(){
 
   }

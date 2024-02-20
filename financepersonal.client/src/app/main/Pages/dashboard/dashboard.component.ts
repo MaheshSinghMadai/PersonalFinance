@@ -7,15 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit { 
 
-testBoolean: boolean = false;
-userList: { id: number, name: string }[] = [
-    { "id": 0, "name": "Available" },
-    { "id": 1, "name": "Ready" },
-    { "id": 2, "name": "Started" }
-];
-
 ngOnInit(){
-  console.log(this.userList);
+
 }
 }
 

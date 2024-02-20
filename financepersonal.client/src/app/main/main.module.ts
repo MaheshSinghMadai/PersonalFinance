@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ExpenseComponent } from './Pages/expense/expense.component';
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';
 import { MainRoutingModule } from './main-routing.module';
 import { CategoriesComponent } from './Pages/categories/categories.component';
 import { MaterialModule } from '../shared/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
-
 
 @NgModule({
   declarations: [
@@ -21,7 +20,9 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     MainRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    NgxDocViewerModule
+    NgxDocViewerModule,
+    FormsModule,
+    DatePipe
   ]
 })
 export class MainModule { }
