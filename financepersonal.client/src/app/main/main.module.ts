@@ -2,16 +2,26 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExpenseComponent } from './Pages/expense/expense.component';
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';
-
+import { MainRoutingModule } from './main-routing.module';
+import { CategoriesComponent } from './Pages/categories/categories.component';
+import { MaterialModule } from '../shared/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 
 @NgModule({
   declarations: [
     ExpenseComponent,
-    DashboardComponent
+    DashboardComponent,
+    CategoriesComponent,
+
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MainRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    NgxDocViewerModule
   ]
 })
 export class MainModule { }

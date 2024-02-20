@@ -16,12 +16,22 @@ namespace FinancePersonal.Infrastructure.Data
         {
 
         }
+
         public DbSet<Expense> Expenses { get; set; }
-      
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<User> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-   
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Expenses)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(e => e.Expenses)
+                .WithOne(e => e.Category)
+                .HasForeignKey(e => e.CategoryId);
         }
 
     }
