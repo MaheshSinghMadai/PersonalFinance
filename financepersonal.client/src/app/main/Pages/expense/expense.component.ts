@@ -3,6 +3,8 @@ import { ExpenseService } from '../../Services/services/expense.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserExpense } from '../../Models/UserExpense';
 import { ToastrService } from 'ngx-toastr';
+import { Expense } from '../../Models/expense';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-expense',
@@ -15,22 +17,26 @@ export class ExpenseComponent implements OnInit {
   //make an empty list to store expense-api response data
   expenseList: any[] = [];
   userExpenseList: any[] = [];
+  selectedExpense: any = {};
+  editedExpense: any = {};
+  expenditureDate: any;
+
   addExpenseForm: FormGroup;
   isAdding: boolean = false;
   isEditDelete: boolean = false;
   editModal : boolean = false;
-  editExpenseList: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder, 
     private expenseService: ExpenseService,
-    private toastr: ToastrService) 
+    private toastr: ToastrService,
+    private datePipe: DatePipe) 
     {
       this.addExpenseForm = this.formBuilder.group({
-      amount: ['', Validators.required],
-      date: ['', Validators.required],
-      description: ['', Validators.required],
-      category: ['', Validators.required],
+          amount: ['', Validators.required],
+          date: ['', Validators.required],
+          description: ['', Validators.required],
+          category: ['', Validators.required],
     })
   }
 
@@ -38,11 +44,12 @@ export class ExpenseComponent implements OnInit {
     this.getUserExpenses();
   }
 
+
   getAllExpenses() {
     this.expenseService.getExpenses().subscribe(
       (response) => {
         this.expenseList = response;
-        console.log(this.expenseList);
+        // console.log(this.expenseList);
       },
       error => {
         console.log(error);
@@ -70,10 +77,10 @@ export class ExpenseComponent implements OnInit {
       userId: 1,
       categoryId: this.addExpenseForm.value['category'],
     }
-    console.log(body);
+    // console.log(body);
     this.expenseService.AddExpense(body).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.clearForm();
         this.toggleAdd();
         this.getUserExpenses();
@@ -81,48 +88,50 @@ export class ExpenseComponent implements OnInit {
     )
   }
 
-  editExpense(item: any) {
-      var id= item.ExpenseId;
-      var body = [
-        {
-          op: 'replace',
-          path: '/Amount',
-          value: item.Amount,
-        },
-        {
-          op: 'replace',
-          path: '/Description',
-          value: item.Description,
-        },
-        {
-          op: 'replace',
-          path: '/Date',
-          value: item.Date,
-        },
-        {
-          op: 'replace',
-          path: '/CategoryId',
-          value: item.CategoryId,
-        },
-      ];
+  editExpense() {
+    const id = this.selectedExpense['expenseId'];
+    var body = [
+      {
+        op: 'replace',
+        path: '/Amount',
+        value: this.selectedExpense['amount'],
+      },
+      {
+        op: 'replace',
+        path: '/Description',
+        value: this.selectedExpense['description'],
+      },
+      {
+        op: 'replace',
+        path: '/Date',
+        value: this.selectedExpense['date'],
+      },
+      {
+        op: 'replace',
+        path: '/CategoryId',
+        value: this.selectedExpense['categoryId'],
+      },
+    ];
 
-        this.expenseService.EditExpense(id, body).subscribe(
-          (response) => {
-            console.log(response);
-            this.getUserExpenses();
-            this.editModal = false;
-          },
-          error =>{
-            console.log(error);
-          }
-        )
+    console.log(body);
+    this.expenseService.EditExpense(id, body).subscribe(
+      (response) => {
+        console.log(response);
+        this.getUserExpenses();
+        this.editModal = false;
+        this.toastr.success('Edited Successfully')
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   deleteExpense(item : UserExpense) {
     var id = item.expenseId;
     this.expenseService.DeleteExpense(id).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.getUserExpenses();
         this.toastr.success('Deleted Successfuly')
       },
@@ -131,21 +140,26 @@ export class ExpenseComponent implements OnInit {
       }
     )
   }
+
   toggleAdd() {
     this.isAdding = !this.isAdding;
   }
-
   clearForm() {
     this.addExpenseForm.reset();
     this.isAdding = false;
   }
 
+  //for edit and delete buttons inside table
   toggleActions(){
     this.isEditDelete = !this.isEditDelete;
   }
 
-  editModalToggle(){
+
+  editModalToggle(item: Expense){
     console.log('modal toggled');
+    this.selectedExpense = { ...item };
+    this.selectedExpense['date'] = this.datePipe.transform(this.selectedExpense['date'] , 'yyyy-MM-dd');
+    console.log(this.selectedExpense);
   }
 
 }

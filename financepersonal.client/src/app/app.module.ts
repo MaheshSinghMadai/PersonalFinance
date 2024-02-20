@@ -8,9 +8,10 @@ import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './shared/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';  
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,11 @@ import { ToastrModule } from 'ngx-toastr';
     MaterialModule,
     ReactiveFormsModule,
     NgxDocViewerModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FormsModule,
+  
   ],
-  providers: [],
+  providers: [  DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

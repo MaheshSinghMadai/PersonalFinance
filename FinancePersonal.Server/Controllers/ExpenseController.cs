@@ -39,7 +39,8 @@ namespace FinancePersonal.Server.Controllers
                              Date = e.Date,
                              Description = e.Description,
                              Username = u.Name,
-                             CategoryName = c.CategoryName
+                             CategoryName = c.CategoryName,
+                             CategoryId = c.CategoryId
                             }).AsNoTracking().ToListAsync();
 
             return Ok(await query);

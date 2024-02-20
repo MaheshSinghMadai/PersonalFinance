@@ -82,7 +82,7 @@
         <td>{{ expense.description }} </td>
         <td>
           <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            *ngIf="isEditDelete" (click)="editModalToggle()">
+            *ngIf="isEditDelete" (click)="editModalToggle(expense)">
             <mat-icon class="mat-icon edit-btn" aria-hidden="false" aria-label="Example home icon"
               fontIcon="edit"></mat-icon>
           </button>
@@ -108,25 +108,25 @@
         <form>
           <div class="col-sm-12 ">
             <label class="form-label d-flex align-items-start">Amount</label>
-            <input type="number" class="form-control" placeholder="Enter Amount">
+            <input type="number" class="form-control" placeholder="Enter Amount" [(ngModel)]="selectedExpense['amount']" name="amount">
           </div>
           <div class="col-sm-12">
             <label class="form-label d-flex align-items-start">Date</label>
-            <input type="date" class="form-control"  placeholder="Choose a Date">
+            <input type="date" class="form-control"  placeholder="Choose a Date" [(ngModel)]="selectedExpense['date']" value="expenditureDate" name="date"> 
           </div>
           <div class="col-sm-12">
             <label class="form-label d-flex align-items-start">Description</label>
-            <input type="text" class="form-control" placeholder="Enter Description">
+            <input type="text" class="form-control" placeholder="Enter Description" [(ngModel)]="selectedExpense['description']" name="description">
           </div>
           <div class="col-sm-12">
             <label class="form-label d-flex align-items-start">Category</label>
-            <input type="number" class="form-control" placeholder="Enter Category">
+            <input type="number" class="form-control" placeholder="Enter Category" [(ngModel)]="selectedExpense['categoryId']" name="category">
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="editExpense()">Submit</button>
       </div>
     </div>
   </div>
