@@ -65,7 +65,6 @@ namespace FinancePersonal.Server.Controllers
             return Ok();
         }
 
-        //[ApiExplorerSettings(IgnoreApi = true)]
         [HttpPatch]
         [Route("[action]")]
         public async Task<IActionResult> EditExpense(int id, JsonPatchDocument<Expense> expense)
@@ -84,11 +83,11 @@ namespace FinancePersonal.Server.Controllers
                 _db.SaveChanges();
             }
 
-            //var model = new
-            //{
-            //    exp = expense
-            //};
-            return Ok(exp);
+            var model = new
+            {
+                exp = expense
+            };
+            return Ok(model);
         }
 
         [HttpDelete]
