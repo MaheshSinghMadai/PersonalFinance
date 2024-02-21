@@ -1,4 +1,4 @@
-<div class="main-content" style="margin-top:100px">
+<div class="main-content">
   <div class="row">
     <div class="col-md-1 my-2">
       <button class="btn btn-sm btn-outline-secondary pull-left" (click)="toggleAdd()">
@@ -64,7 +64,7 @@
         <th scope="col">Username</th>
         <th scope="col">Category</th>
         <th scope="col">Description</th>
-        <th>
+        <th scope="col align-items-center">
           <button class="btn btn-sm" (click)="toggleActions()">
             <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
               fontIcon="arrow_drop_down"></mat-icon>
@@ -112,7 +112,7 @@
           </div>
           <div class="col-sm-12">
             <label class="form-label d-flex align-items-start">Date</label>
-            <input type="date" class="form-control"  placeholder="Choose a Date" [(ngModel)]="selectedExpense['date']" value="expenditureDate" name="date"> 
+            <input type="date" class="form-control"  placeholder="Choose a Date" [(ngModel)]="selectedExpense['date']" name="date"> 
           </div>
           <div class="col-sm-12">
             <label class="form-label d-flex align-items-start">Description</label>

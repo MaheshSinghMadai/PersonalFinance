@@ -6,7 +6,7 @@ import { CategoriesComponent } from './Pages/categories/categories.component';
 
 const routes: Routes = [
   {
-    path: '',  
+    path: 'dashboard',  
     component: DashboardComponent,
   },
 

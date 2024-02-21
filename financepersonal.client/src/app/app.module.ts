@@ -17,7 +17,7 @@ import { DatePipe } from '@angular/common';
   declarations: [
     AppComponent,
     NavBarComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     AppRoutingModule,

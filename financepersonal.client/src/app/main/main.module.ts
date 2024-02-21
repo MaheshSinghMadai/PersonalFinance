@@ -13,7 +13,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     ExpenseComponent,
     DashboardComponent,
     CategoriesComponent,
-
+    
   ],
   imports: [
     CommonModule,
@@ -22,7 +22,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     ReactiveFormsModule,
     NgxDocViewerModule,
     FormsModule,
-    DatePipe
+    DatePipe,
   ]
 })
 export class MainModule { }
