@@ -1,1 +1,65 @@
-<router-outlet></router-outlet>
+<mat-drawer-container class="example-container">
+    <mat-drawer #drawer class="example-sidenav" mode="side" style="width:20%">
+        <div class="row header-row">
+
+            <p class="sidenav-header">FINANCE</p>
+        </div>
+        <ul class="nav-item active ">
+            <a class="nav-link active" [routerLink]="['/main/dashboard']" routerLinkActive="active">
+                <p class="sidebar-header">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="bar_chart_4_bars"></mat-icon>
+                    Dashboard
+                </p>
+            </a>
+        </ul>
+        <ul class="nav-item active ">
+            <a class="nav-link active" [routerLink]="['/main/expense']" routerLinkActive="active">
+                <p class="sidebar-header">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="calculate"></mat-icon>
+                    Expenses
+                </p>
+            </a>
+        </ul>
+        <ul class="nav-item active ">
+            <a class="nav-link " [routerLink]="['/main/categories']" routerLinkActive="active">
+                <p class="sidebar-header">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="category"></mat-icon>
+                    Categories
+                </p>
+            </a>
+        </ul>
+
+        <div class="sidebar-footer">
+            <ul class="nav-item active">
+                <a class="nav-link"  routerLinkActive="active"  (click)="logout()" style="cursor: pointer;">
+                    <p class="sidebar-header">
+                        <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                            fontIcon="logout"></mat-icon>
+                        Logout
+                    </p>
+                </a>
+            </ul>
+        </div>
+        
+
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <div class="row nav-row">
+            <div class="col-sm-2" style="margin:10px;padding:0">
+                <button type="button pull-left" mat-button (click)="drawer.toggle()">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="more_vert"
+                        style="color:white"></mat-icon>
+                </button>
+            </div>
+            <div class="col-sm-10">
+            </div>
+        </div>
+        <div class="row pages-row">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</mat-drawer-container>

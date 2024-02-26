@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
@@ -12,12 +12,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';  
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { LoggingInterceptor } from './shared/interceptors/logging-interceptor';
+import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -32,7 +34,19 @@ import { DatePipe } from '@angular/common';
     FormsModule,
   
   ],
-  providers: [  DatePipe],
+  providers: [
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggingInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -483,3 +483,6 @@ FodyWeavers.xsd
 /Core/obj/Debug/net6.0/FinancePersonal.Core.assets.cache
 /Core/obj/Debug/net6.0/FinancePersonal.Core.GeneratedMSBuildEditorConfig.editorconfig
 /Core/obj/FinancePersonal.Core.csproj.nuget.dgspec.json
+/Core/bin/Debug/net6.0/FinancePersonal.Core.deps.json
+/FinancePersonal.Infrastructure/obj/FinancePersonal.Infrastructure.csproj.nuget.g.props
+/FinancePersonal.Server/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll
