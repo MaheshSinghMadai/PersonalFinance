@@ -18,6 +18,3 @@ table, th, td {
  .form-label{
    margin-top:10px
  }
- .modal-backdrop{
-   z-index: none !important;
- }

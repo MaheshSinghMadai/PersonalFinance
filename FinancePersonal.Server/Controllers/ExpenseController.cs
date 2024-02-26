@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FinancePersonal.Server.Controllers
 {
     [ApiController]
+    [Route("[controller]")]
     public class ExpenseController : Controller
     {
         private readonly ApplicationDbContext _db;
