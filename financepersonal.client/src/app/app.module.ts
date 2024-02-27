@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,7 +18,6 @@ import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,
     MainComponent,
   ],
   imports: [
@@ -32,6 +31,7 @@ import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
     NgxDocViewerModule,
     ToastrModule.forRoot(),
     FormsModule,
+    
   
   ],
   providers: [

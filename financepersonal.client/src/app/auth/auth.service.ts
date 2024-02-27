@@ -16,7 +16,7 @@ export class AuthService {
       let user = localStorage.getItem('user');
       if(user){
         const returnUser : User = JSON.parse(user);
-        console.log(returnUser);
+        // console.log(returnUser);
         this.currentUserSource.next(returnUser);
       }
   }

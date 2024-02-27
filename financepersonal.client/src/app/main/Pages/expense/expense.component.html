@@ -32,9 +32,17 @@
               </mat-form-field>
             </div>
             <div class="col-sm-2">
-              <mat-form-field class="example-full-width">
+              <!-- <mat-form-field class="example-full-width">
                 <mat-label>Category</mat-label>
                 <input type="number" matInput placeholder="Enter Category" formControlName="category">
+              </mat-form-field> -->
+              <mat-form-field>
+                <mat-label>Choose Category</mat-label>
+                <mat-select [(value)]="selectedCategory">
+                  @for (category of Categories; track category) {
+                    <mat-option [value]="category" >{{category.categoryId}} | {{category.categoryName}}</mat-option>
+                  }
+                </mat-select>
               </mat-form-field>
             </div>
             <div class="col-sm-1 align-items-end">

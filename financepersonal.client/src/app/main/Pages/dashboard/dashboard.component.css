@@ -23,4 +23,13 @@
     background-color: #0a4c81;
     color:white;
   }
+
+  .card{
+    margin:70px;
+    font-size:30px ;
+  }
+
+  .chart-container{
+    margin-bottom:20px
+  }
   

@@ -5,6 +5,7 @@ import { UserExpense } from '../../Models/UserExpense';
 import { ToastrService } from 'ngx-toastr';
 import { Expense } from '../../Models/expense';
 import { DatePipe } from '@angular/common';
+import { User } from 'src/app/auth/model/user';
 
 @Component({
   selector: 'app-expense',
@@ -20,6 +21,15 @@ export class ExpenseComponent implements OnInit {
   selectedExpense: any = {};
   editedExpense: any = {};
   expenditureDate: any;
+  // categoryNames: string[] = [];
+  // categoryIds: number[] = [];
+  Categories = [
+    {categoryId: 1, categoryName: 'Food'},
+    {categoryId: 2, categoryName: 'Travel'},
+    {categoryId: 3, categoryName: 'Biscuits'},
+    {categoryId: 4, categoryName: 'Misc'},
+  ];
+  selectedCategory: any;
 
   addExpenseForm: FormGroup;
   isAdding: boolean = false;
@@ -49,6 +59,7 @@ export class ExpenseComponent implements OnInit {
     this.expenseService.getExpenses().subscribe(
       (response) => {
         this.expenseList = response;
+        // this.categories = response["categories"];
         // console.log(this.expenseList);
       },
       error => {
@@ -75,15 +86,20 @@ export class ExpenseComponent implements OnInit {
       date: this.addExpenseForm.value['date'],
       description: this.addExpenseForm.value['description'],
       userId: 1,
-      categoryId: this.addExpenseForm.value['category'],
+      categoryId: this.selectedCategory.categoryId,
     }
     // console.log(body);
     this.expenseService.AddExpense(body).subscribe(
       (response) => {
         // console.log(response);
+        this.toastr.success('Expense Added Successfully!!');
         this.clearForm();
+        this.selectedCategory = '';
         this.toggleAdd();
         this.getUserExpenses();
+      },
+      error => {
+        console.log(error);
       }
     )
   }
@@ -154,12 +170,10 @@ export class ExpenseComponent implements OnInit {
     this.isEditDelete = !this.isEditDelete;
   }
 
-
   editModalToggle(item: Expense){
     console.log('modal toggled');
     this.selectedExpense = { ...item };
     this.selectedExpense['date'] = this.datePipe.transform(this.selectedExpense['date'] , 'yyyy-MM-dd');
     console.log(this.selectedExpense);
   }
-
 }
