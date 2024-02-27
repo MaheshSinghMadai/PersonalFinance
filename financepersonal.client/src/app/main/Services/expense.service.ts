@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Expense } from '../../Models/expense';
-import { UserExpense } from '../../Models/UserExpense';
-
+import { UserExpense } from '../Models/UserExpense';
+import { Expense } from '../Models/expense';
 @Injectable({
   providedIn: 'root'
 })

@@ -1,5 +1,7 @@
 ﻿using FinancePersonal.Core.Entities;
 using FinancePersonal.Infrastructure.Data;
+using FinancePersonal.Server.Helper;
+using FinancePersonal.Server.Pagination;
 using FinancePersonal.Server.ReturnDTOs;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -108,6 +110,55 @@ namespace FinancePersonal.Server.Controllers
             await _db.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> filterExpense([FromQuery] PaginationFilter pageFilter, [FromQuery] ExpenseFilter expenseFilter)
+        {
+            var validFilter = new PaginationFilter(pageFilter.PageNumber, pageFilter.PageSize);
+
+            var results = (from e in _db.Expenses
+                           join u in _db.Users on e.UserId equals u.UserId
+                           join c in _db.Categories on e.CategoryId equals c.CategoryId
+                           select new UserExpenseWithCategory
+                           {
+                               ExpenseId = e.ExpenseId,
+                               Amount = e.Amount,
+                               Date = e.Date,
+                               Description = e.Description,
+                               Username = u.Name,
+                               CategoryName = c.CategoryName,
+                               CategoryId = c.CategoryId
+                           }).ToList();
+
+            var query = results.AsQueryable();
+
+            if (!string.IsNullOrEmpty(expenseFilter.Username))
+            {
+                query = query.Where(x => x.Username.StartsWith(expenseFilter.Username));
+            }
+            if (!string.IsNullOrEmpty(expenseFilter.CategoryName))
+            {
+                query = query.Where(x => x.CategoryName.StartsWith(expenseFilter.CategoryName));
+            }
+            if (expenseFilter.StartDate.HasValue)
+            {
+                query = query.Where(x => x.Date >= expenseFilter.StartDate);
+            }
+            if (expenseFilter.EndDate.HasValue)
+            {
+                var endDate = expenseFilter.EndDate.Value.AddDays(1);
+                query = query.Where(x => x.Date <= expenseFilter.EndDate);
+            }
+
+            var pagedData = query
+                            .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+                            .Take(validFilter.PageSize)
+                            .ToList();
+            var totalRecords = query.Count();
+            var pagedResponse = PaginationHelper.CreatePagedReponse<UserExpenseWithCategory>(pagedData, validFilter, totalRecords);
+            return Ok(pagedResponse);
         }
     }
 }

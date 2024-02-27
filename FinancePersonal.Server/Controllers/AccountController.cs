@@ -1,6 +1,7 @@
 ﻿using FinancePersonal.Core.Entities;
 using FinancePersonal.Core.Entities.Identity;
 using FinancePersonal.Core.Interface;
+using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,17 +22,20 @@ namespace FinancePersonal.Server.Controllers
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
+        private readonly ApplicationDbContext _db;
         public AccountController(
             UserManager<AppUser> userManager, 
             IConfiguration config,
             SignInManager<AppUser> signInManager,
-            ITokenService tokenService)
+            ITokenService tokenService,
+            ApplicationDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
+            _db = db;
         }
 
         [HttpPost]
@@ -50,8 +54,14 @@ namespace FinancePersonal.Server.Controllers
                 return Unauthorized();
             }
 
+
+            var userId = (from a in _db.Users
+                          where a.Name == loginDto.Username
+                          select a.UserId).FirstOrDefault();
+
             return new UserDto
             {
+                UserId = userId,
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
                 Email = user.Email,

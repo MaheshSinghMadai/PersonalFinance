@@ -13,7 +13,6 @@ namespace FinancePersonal.Core.Entities
         public int UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-
         public ICollection<Expense> Expenses { get; set; }
 
     }

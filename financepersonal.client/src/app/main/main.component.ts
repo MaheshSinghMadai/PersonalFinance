@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
+import IdleTimer from "../main/idle-timer.js";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -8,15 +10,14 @@ import { AuthService } from '../auth/auth.service';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private authService: AuthService){
-
-  }
-  ngOnInit(){
-    
+  timer = IdleTimer;
+  constructor(private authService: AuthService, private router: Router) {}
+  ngOnInit() {
   }
 
-  logout(){
+  logout() {
     this.authService.logout();
   }
+
 }
 
