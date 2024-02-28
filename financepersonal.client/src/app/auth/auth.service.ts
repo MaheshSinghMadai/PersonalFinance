@@ -35,6 +35,10 @@ export class AuthService {
       })
     );
   }
+
+  register(body: any){
+    return this.http.post<any>(`${this.baseUrl}/Account/Register`, body);
+  }
   
   logout(){
     localStorage.clear();

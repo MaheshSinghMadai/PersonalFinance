@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FinancePersonal.Infrastructure.Migrations.ApplicationDb
+namespace FinancePersonal.Infrastructure.Migrations
 {
-    public partial class NewMigration : Migration
+    public partial class NewDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
