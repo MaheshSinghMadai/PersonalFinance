@@ -55,13 +55,41 @@ namespace FinancePersonal.Server.Controllers
             }
 
 
-            var userId = (from a in _db.Users
-                          where a.Name == loginDto.Username
-                          select a.UserId).FirstOrDefault();
+            return new UserDto
+            {
+                Token = _tokenService.CreateToken(user),
+                Username = user.UserName,
+                Email = user.Email,
+                ExpiresAt = DateTime.Now.AddMinutes(15)
+            };
+        }
+
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        {
+           if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = new AppUser
+            {
+                UserName = registerDto.Username,
+                Email = registerDto.Email,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+            };
+
+            var result = await _userManager.CreateAsync(user, registerDto.Password) ;
+            if (!result.Succeeded)
+            {
+                return BadRequest();
+            }
 
             return new UserDto
             {
-                UserId = userId,
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
                 Email = user.Email,

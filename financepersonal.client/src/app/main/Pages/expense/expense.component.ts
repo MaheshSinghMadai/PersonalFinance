@@ -4,7 +4,6 @@ import { UserExpense } from '../../Models/UserExpense';
 import { ToastrService } from 'ngx-toastr';
 import { Expense } from '../../Models/expense';
 import { DatePipe } from '@angular/common';
-import { User } from 'src/app/auth/model/user';
 import { ExpenseService } from '../../Services/expense.service';
 
 @Component({

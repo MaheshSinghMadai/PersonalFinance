@@ -18,3 +18,7 @@ table, th, td {
  .form-label{
    margin-top:10px
  }
+
+ .modal{
+   z-index: 1050;
+ }
