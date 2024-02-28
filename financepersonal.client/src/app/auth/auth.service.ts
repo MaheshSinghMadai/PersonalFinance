@@ -16,12 +16,11 @@ export class AuthService {
       let user = localStorage.getItem('user');
       if(user){
         const returnUser : User = JSON.parse(user);
-        // console.log(returnUser);
         this.currentUserSource.next(returnUser);
       }
   }
 
-  getCurrentUserValue(){
+  public getCurrentUserValue(){
     return this.currentUserSource.value;
   }
 
@@ -36,13 +35,18 @@ export class AuthService {
       })
     );
   }
+
+  register(body: any){
+    return this.http.post<any>(`${this.baseUrl}/Account/Register`, body);
+  }
   
   logout(){
     localStorage.clear();
     this.currentUserSource.next(null);
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/']);
   }
 
+  //for interceptor
   getToken(){
     return localStorage.getItem('token');
   }

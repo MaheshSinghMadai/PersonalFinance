@@ -1,6 +1,7 @@
 ﻿using FinancePersonal.Core.Entities;
 using FinancePersonal.Core.Entities.Identity;
 using FinancePersonal.Core.Interface;
+using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,17 +22,20 @@ namespace FinancePersonal.Server.Controllers
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
+        private readonly ApplicationDbContext _db;
         public AccountController(
             UserManager<AppUser> userManager, 
             IConfiguration config,
             SignInManager<AppUser> signInManager,
-            ITokenService tokenService)
+            ITokenService tokenService,
+            ApplicationDbContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
+            _db = db;
         }
 
         [HttpPost]
@@ -52,6 +56,7 @@ namespace FinancePersonal.Server.Controllers
 
             return new UserDto
             {
+                UserId = user.Id,
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
                 Email = user.Email,
@@ -60,36 +65,64 @@ namespace FinancePersonal.Server.Controllers
         }
 
 
-        [HttpPost("refresh-token")]
-        public IActionResult RefreshToken([FromBody] UserDto user)
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            var claims = new List<Claim>
+            if (!ModelState.IsValid)
             {
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.GivenName, user.Username)
+                return BadRequest(ModelState);
+            }
+            
+            var user = new AppUser
+            {
+                UserName = registerDto.Username,
+                DisplayName = registerDto.Username,
+                Email = registerDto.Email,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
             };
 
-            try
+            var result = await _userManager.CreateAsync(user, registerDto.Password) ;
+            if (!result.Succeeded)
             {
-                var identity = HttpContext.User.Identity as ClaimsIdentity;
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.Now.AddMinutes(15),
-                    SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                user.Token = tokenHandler.WriteToken(token);
-                //user.DisplayName = identity.FindFirst("GivenName").Value;
-                user.ExpiresAt = tokenDescriptor.Expires;
+                return BadRequest();
+            }
 
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { error = new { code = "Internal Server Error", message = ex.GetBaseException().Message } });
-            }
+            return Ok();
         }
+
+
+        //[HttpPost("refresh-token")]
+        //public IActionResult RefreshToken([FromBody] UserDto user)
+        //{
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.Email, user.Email),
+        //        new Claim(ClaimTypes.GivenName, user.Username)
+        //    };
+
+        //    try
+        //    {
+        //        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //        var tokenHandler = new JwtSecurityTokenHandler();
+        //        var tokenDescriptor = new SecurityTokenDescriptor
+        //        {
+        //            Subject = new ClaimsIdentity(claims),
+        //            Expires = DateTime.Now.AddMinutes(15),
+        //            SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature)
+        //        };
+        //        var token = tokenHandler.CreateToken(tokenDescriptor);
+        //        user.Token = tokenHandler.WriteToken(token);
+        //        //user.DisplayName = identity.FindFirst("GivenName").Value;
+        //        user.ExpiresAt = tokenDescriptor.Expires;
+
+        //        return Ok(user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { error = new { code = "Internal Server Error", message = ex.GetBaseException().Message } });
+        //    }
+        //}
     }
 }

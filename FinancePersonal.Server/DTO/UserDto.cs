@@ -1,7 +1,10 @@
-﻿namespace FinancePersonal.Server.DTO
+﻿using FinancePersonal.Core.Entities;
+
+namespace FinancePersonal.Server.DTO
 {
     public class UserDto
     {
+        public string UserId { get; set; }
         public string Token { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }

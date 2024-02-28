@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,10 +20,6 @@ namespace FinancePersonal.Infrastructure.Data.Identity
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<IdentityUser>(entity =>
-            {
-                entity.ToTable(name: "User");
-            });
             builder.Entity<IdentityRole>(entity =>
             {
                 entity.ToTable(name: "Role");

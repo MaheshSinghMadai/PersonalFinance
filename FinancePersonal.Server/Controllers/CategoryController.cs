@@ -16,15 +16,21 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetCategoryWiseExpense([FromQuery] int userId, [FromQuery] int categoryId)
+        public async Task<IActionResult> GetCategorywiseExpense([FromQuery] string userId)
         {
+            var expenseSummary = (from e in _db.Expenses
+                                  join c in _db.Categories on e.CategoryId equals c.CategoryId
+                                  where e.UserId == userId 
+                                  group e by c.CategoryName into g
+                                  select new
+                                  {
+                                      CategoryName = g.Key,
+                                      TotalAmount = g.Sum(x => x.Amount)
+                                  });
+            var categoricalExpneseList = await expenseSummary.ToListAsync();
+       
 
-            var sumOfAmount = (from e in _db.Expenses
-                               join c in _db.Categories on e.CategoryId equals c.CategoryId
-                               where e.UserId == userId && c.CategoryId == categoryId
-                               select e.Amount).Sum();
-
-            return Ok(sumOfAmount);
+            return Ok(categoricalExpneseList);
         }
     }
 }

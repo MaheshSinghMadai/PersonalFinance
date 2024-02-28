@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ExpenseService } from '../../Services/services/expense.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserExpense } from '../../Models/UserExpense';
 import { ToastrService } from 'ngx-toastr';
 import { Expense } from '../../Models/expense';
 import { DatePipe } from '@angular/common';
-import { User } from 'src/app/auth/model/user';
+import { ExpenseService } from '../../Services/expense.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-expense',
@@ -15,19 +15,17 @@ import { User } from 'src/app/auth/model/user';
 
 export class ExpenseComponent implements OnInit {
 
-  //make an empty list to store expense-api response data
   expenseList: any[] = [];
   userExpenseList: any[] = [];
   selectedExpense: any = {};
   editedExpense: any = {};
   expenditureDate: any;
-  // categoryNames: string[] = [];
-  // categoryIds: number[] = [];
+
   Categories = [
     {categoryId: 1, categoryName: 'Food'},
     {categoryId: 2, categoryName: 'Travel'},
-    {categoryId: 3, categoryName: 'Biscuits'},
-    {categoryId: 4, categoryName: 'Misc'},
+    {categoryId: 3, categoryName: 'Misc'},
+    {categoryId: 4, categoryName: 'Others'},
   ];
   selectedCategory: any;
 
@@ -36,11 +34,15 @@ export class ExpenseComponent implements OnInit {
   isEditDelete: boolean = false;
   editModal : boolean = false;
 
+  userId : any = this.authService.currentUserSource.value.userId;
+  username : any = this.authService.currentUserSource.value.username;
+
   constructor(
     private formBuilder: FormBuilder, 
     private expenseService: ExpenseService,
     private toastr: ToastrService,
-    private datePipe: DatePipe) 
+    private datePipe: DatePipe,
+    private authService: AuthService) 
     {
       this.addExpenseForm = this.formBuilder.group({
           amount: ['', Validators.required],
@@ -54,13 +56,10 @@ export class ExpenseComponent implements OnInit {
     this.getUserExpenses();
   }
 
-
   getAllExpenses() {
     this.expenseService.getExpenses().subscribe(
       (response) => {
         this.expenseList = response;
-        // this.categories = response["categories"];
-        // console.log(this.expenseList);
       },
       error => {
         console.log(error);
@@ -69,8 +68,9 @@ export class ExpenseComponent implements OnInit {
   }
 
   getUserExpenses() {
-    this.expenseService.getUserExpenses().subscribe(
+    this.expenseService.getUserExpenses(this.userId, this.username).subscribe(
       (response) => {
+        console.log(this.username)
         this.userExpenseList = response;
         console.log(this.userExpenseList);
       },
@@ -85,13 +85,13 @@ export class ExpenseComponent implements OnInit {
       amount: this.addExpenseForm.value['amount'],
       date: this.addExpenseForm.value['date'],
       description: this.addExpenseForm.value['description'],
-      userId: 1,
+      userId: this.userId,
       categoryId: this.selectedCategory.categoryId,
     }
-    // console.log(body);
-    this.expenseService.AddExpense(body).subscribe(
+    console.log(body);
+    this.expenseService.AddExpense( body).subscribe(
       (response) => {
-        // console.log(response);
+        console.log(response);
         this.toastr.success('Expense Added Successfully!!');
         this.clearForm();
         this.selectedCategory = '';
