@@ -486,3 +486,4 @@ FodyWeavers.xsd
 /Core/bin/Debug/net6.0/FinancePersonal.Core.deps.json
 /FinancePersonal.Infrastructure/obj/FinancePersonal.Infrastructure.csproj.nuget.g.props
 /FinancePersonal.Server/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+/FinancePersonal.Infrastructure/Migrations/ApplicationDb
