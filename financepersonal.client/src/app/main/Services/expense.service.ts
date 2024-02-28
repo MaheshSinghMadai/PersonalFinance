@@ -15,8 +15,8 @@ export class ExpenseService {
     return this.http.get<Expense[]>(`${this.baseUrl}/Expense/expense`);
   }
 
-  getUserExpenses(){
-    return this.http.get<UserExpense[]>(`${this.baseUrl}/Expense/GetUserExpense`);
+  getUserExpenses(userId: string, username:string){
+    return this.http.get<UserExpense[]>(`${this.baseUrl}/Expense/GetCurrentUserExpense?userId=${userId}&username=${username}`);
   }
 
   toggleAdd(){
@@ -24,7 +24,6 @@ export class ExpenseService {
   }
 
   AddExpense(body: Expense){
-  
     return this.http.post<any>(`${this.baseUrl}/Expense/AddNewExpense`, body)
   }
 

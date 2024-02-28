@@ -56,6 +56,7 @@ namespace FinancePersonal.Server.Controllers
 
             return new UserDto
             {
+                UserId = user.Id,
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
                 Email = user.Email,

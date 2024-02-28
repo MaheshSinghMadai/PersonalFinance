@@ -12,7 +12,6 @@ namespace FinancePersonal.Core.Entities
         [Key]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-
         public ICollection<Expense> Expenses { get; set; }
     }
 }
