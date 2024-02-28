@@ -16,6 +16,15 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpGet]
         [Route("[action]")]
+        public async Task<IActionResult> GetCategoriesList()
+        {
+            var categoriesList = await _db.Categories.ToListAsync();
+
+            return Ok(categoriesList);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
         public async Task<IActionResult> GetCategorywiseExpense([FromQuery] string userId)
         {
             var expenseSummary = (from e in _db.Expenses

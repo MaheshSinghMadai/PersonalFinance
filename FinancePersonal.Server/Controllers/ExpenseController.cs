@@ -25,13 +25,13 @@ namespace FinancePersonal.Server.Controllers
         [Route("expense")]
         public async Task<IActionResult> GetExpense()
         {
-            
+
             return Ok(await _db.Expenses.ToListAsync());
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetCurrentUserExpense([FromQuery] string userId, [FromQuery] string username)
+        public async Task<IActionResult> GetCurrentUserExpense([FromQuery] string userId)
         {
             var query = (from e in _db.Expenses
                          join c in _db.Categories on e.CategoryId equals c.CategoryId
@@ -42,7 +42,7 @@ namespace FinancePersonal.Server.Controllers
                              Amount = e.Amount,
                              Date = e.Date,
                              Description = e.Description,
-                             Username = username,
+                             Username = e.Username,
                              CategoryName = c.CategoryName,
                              CategoryId = c.CategoryId
                          }).AsNoTracking().ToListAsync();
@@ -61,7 +61,8 @@ namespace FinancePersonal.Server.Controllers
                 Date = exp.Date,
                 Description = exp.Description,
                 UserId = exp.UserId,
-                CategoryId = exp.CategoryId
+                CategoryId = exp.CategoryId,
+                Username = exp.Username
             };
 
             _db.Add(expenses);
@@ -76,7 +77,7 @@ namespace FinancePersonal.Server.Controllers
         {
             var exp = await _db.Expenses.FirstOrDefaultAsync(a => a.ExpenseId == id);
 
-            if(exp == null)
+            if (exp == null)
             {
                 return NotFound();
             }
@@ -113,53 +114,54 @@ namespace FinancePersonal.Server.Controllers
             return NoContent();
         }
 
-        //[HttpGet]
-        //[Route("[action]")]
-        //public async Task<IActionResult> filterExpense([FromQuery] PaginationFilter pageFilter, [FromQuery] ExpenseFilter expenseFilter)
-        //{
-        //    var validFilter = new PaginationFilter(pageFilter.PageNumber, pageFilter.PageSize);
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> filterExpense([FromQuery] string userId, [FromQuery] PaginationFilter pageFilter, [FromQuery] ExpenseFilter expenseFilter)
+        {
+            var validFilter = new PaginationFilter(pageFilter.PageNumber, pageFilter.PageSize);
 
-        //    var results = (from e in _db.Expenses
-        //                   join u in _db.Users on e.UserId equals u.UserId
-        //                   join c in _db.Categories on e.CategoryId equals c.CategoryId
-        //                   select new UserExpenseWithCategory
-        //                   {
-        //                       ExpenseId = e.ExpenseId,
-        //                       Amount = e.Amount,
-        //                       Date = e.Date,
-        //                       Description = e.Description,
-        //                       Username = u.Name,
-        //                       CategoryName = c.CategoryName,
-        //                       CategoryId = c.CategoryId
-        //                   }).ToList();
+            var results = (from e in _db.Expenses
+                           join c in _db.Categories on e.CategoryId equals c.CategoryId
+                           where e.UserId == userId
+                           select new UserExpenseWithCategory
+                           {
+                               ExpenseId = e.ExpenseId,
+                               Amount = e.Amount,
+                               Date = e.Date,
+                               Description = e.Description,
+                               Username = e.Username,
+                               CategoryName = c.CategoryName,
+                               CategoryId = c.CategoryId
+                           }).ToList();
 
-        //    var query = results.AsQueryable();
+            var query = results.AsQueryable();
 
-        //    if (!string.IsNullOrEmpty(expenseFilter.Username))
-        //    {
-        //        query = query.Where(x => x.Username.StartsWith(expenseFilter.Username));
-        //    }
-        //    if (!string.IsNullOrEmpty(expenseFilter.CategoryName))
-        //    {
-        //        query = query.Where(x => x.CategoryName.StartsWith(expenseFilter.CategoryName));
-        //    }
-        //    if (expenseFilter.StartDate.HasValue)
-        //    {
-        //        query = query.Where(x => x.Date >= expenseFilter.StartDate);
-        //    }
-        //    if (expenseFilter.EndDate.HasValue)
-        //    {
-        //        var endDate = expenseFilter.EndDate.Value.AddDays(1);
-        //        query = query.Where(x => x.Date <= expenseFilter.EndDate);
-        //    }
+            if (!string.IsNullOrEmpty(expenseFilter.Username))
+            {
+                query = query.Where(x => x.Username.StartsWith(expenseFilter.Username));
+            }
+            if (!string.IsNullOrEmpty(expenseFilter.CategoryName))
+            {
+                query = query.Where(x => x.CategoryName.StartsWith(expenseFilter.CategoryName));
+            }
+            if (expenseFilter.StartDate.HasValue)
+            {
+                query = query.Where(x => x.Date >= expenseFilter.StartDate);
+            }
+            if (expenseFilter.EndDate.HasValue)
+            {
+                var endDate = expenseFilter.EndDate.Value.AddDays(1);
+                query = query.Where(x => x.Date <= expenseFilter.EndDate);
+            }
 
-        //    var pagedData = query
-        //                    .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
-        //                    .Take(validFilter.PageSize)
-        //                    .ToList();
-        //    var totalRecords = query.Count();
-        //    var pagedResponse = PaginationHelper.CreatePagedReponse<UserExpenseWithCategory>(pagedData, validFilter, totalRecords);
-        //    return Ok(pagedResponse);
-        //
+            var pagedData = query
+                            .Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+                            .Take(validFilter.PageSize)
+                            .ToList();
+            var totalRecords = query.Count();
+            var pagedResponse = PaginationHelper.CreatePagedReponse<UserExpenseWithCategory>(pagedData, validFilter, totalRecords);
+            return Ok(pagedResponse);
+
+        }
     }
 }

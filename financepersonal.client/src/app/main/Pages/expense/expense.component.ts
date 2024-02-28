@@ -6,6 +6,7 @@ import { Expense } from '../../Models/expense';
 import { DatePipe } from '@angular/common';
 import { ExpenseService } from '../../Services/expense.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { CategoryService } from '../../Services/category.service';
 
 @Component({
   selector: 'app-expense',
@@ -21,12 +22,14 @@ export class ExpenseComponent implements OnInit {
   editedExpense: any = {};
   expenditureDate: any;
 
-  Categories = [
-    {categoryId: 1, categoryName: 'Food'},
-    {categoryId: 2, categoryName: 'Travel'},
-    {categoryId: 3, categoryName: 'Misc'},
-    {categoryId: 4, categoryName: 'Others'},
-  ];
+  Categories :any;
+
+  // Categories = [
+  //   {categoryId: 1, categoryName: 'Food'},
+  //   {categoryId: 2, categoryName: 'Travel'},
+  //   {categoryId: 3, categoryName: 'Misc'},
+  //   {categoryId: 4, categoryName: 'Others'},
+  // ];
   selectedCategory: any;
 
   addExpenseForm: FormGroup;
@@ -42,7 +45,8 @@ export class ExpenseComponent implements OnInit {
     private expenseService: ExpenseService,
     private toastr: ToastrService,
     private datePipe: DatePipe,
-    private authService: AuthService) 
+    private authService: AuthService,
+    private categoryService: CategoryService) 
     {
       this.addExpenseForm = this.formBuilder.group({
           amount: ['', Validators.required],
@@ -54,6 +58,7 @@ export class ExpenseComponent implements OnInit {
 
   ngOnInit() {
     this.getUserExpenses();
+    this.getCategories();
   }
 
   getAllExpenses() {
@@ -68,9 +73,8 @@ export class ExpenseComponent implements OnInit {
   }
 
   getUserExpenses() {
-    this.expenseService.getUserExpenses(this.userId, this.username).subscribe(
+    this.expenseService.getUserExpenses(this.userId).subscribe(
       (response) => {
-        console.log(this.username)
         this.userExpenseList = response;
         console.log(this.userExpenseList);
       },
@@ -86,6 +90,7 @@ export class ExpenseComponent implements OnInit {
       date: this.addExpenseForm.value['date'],
       description: this.addExpenseForm.value['description'],
       userId: this.userId,
+      username: this.username,
       categoryId: this.selectedCategory.categoryId,
     }
     console.log(body);
@@ -175,5 +180,17 @@ export class ExpenseComponent implements OnInit {
     this.selectedExpense = { ...item };
     this.selectedExpense['date'] = this.datePipe.transform(this.selectedExpense['date'] , 'yyyy-MM-dd');
     console.log(this.selectedExpense);
+  }
+
+  getCategories(){
+    this.categoryService.getCategories().subscribe(
+      (result) => {
+        this.Categories = result;
+        console.log(this.Categories);
+      },
+      error => {
+        this.toastr.warning(error);
+      }
+    )
   }
 }
