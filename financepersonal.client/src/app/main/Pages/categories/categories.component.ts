@@ -21,7 +21,7 @@ export class CategoriesComponent implements OnInit{
   getCategoricalExpense(){
     this.categoryService.getCategoricalExpense(this.userId).subscribe(
       (result) => {
-        console.log(result);
+        // console.log(result);
         this.foodExpenseCount = result;
       }
     ); 

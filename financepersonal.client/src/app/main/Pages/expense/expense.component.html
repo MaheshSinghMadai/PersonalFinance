@@ -32,10 +32,6 @@
               </mat-form-field>
             </div>
             <div class="col-sm-2">
-              <!-- <mat-form-field class="example-full-width">
-                <mat-label>Category</mat-label>
-                <input type="number" matInput placeholder="Enter Category" formControlName="category">
-              </mat-form-field> -->
               <mat-form-field>
                 <mat-label>Choose Category</mat-label>
                 <mat-select [(value)]="selectedCategory">
@@ -65,7 +61,7 @@
   <table class="table table-responsive table-bordered align-items-center">
     <thead>
       <tr>
-        <th scope="col">ExpnseId</th>
+        <th scope="col">S.N.</th>
         <th scope="col">Amount</th>
         <th scope="col">Date</th>
         <th scope="col">Username</th>
@@ -79,9 +75,9 @@
         </th>
       </tr>
     </thead>
-    <tbody *ngFor="let expense of userExpenseList">
+    <tbody *ngFor="let expense of userExpenseList;let i = index">
       <tr>
-        <td>{{ expense.expenseId }}</td>
+        <td>{{i+1}}</td>
         <td>{{ expense.amount }}</td>
         <td>{{ expense.date | date }}</td>
         <td>{{ expense.username }}</td>
