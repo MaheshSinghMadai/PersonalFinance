@@ -76,7 +76,7 @@ export class ExpenseComponent implements OnInit {
     this.expenseService.getUserExpenses(this.userId).subscribe(
       (response) => {
         this.userExpenseList = response;
-        console.log(this.userExpenseList);
+        // console.log(this.userExpenseList);
       },
       error => {
         console.log(error);
@@ -93,10 +93,9 @@ export class ExpenseComponent implements OnInit {
       username: this.username,
       categoryId: this.selectedCategory.categoryId,
     }
-    console.log(body);
+    // console.log(body);
     this.expenseService.AddExpense( body).subscribe(
       (response) => {
-        console.log(response);
         this.toastr.success('Expense Added Successfully!!');
         this.clearForm();
         this.selectedCategory = '';
@@ -134,10 +133,10 @@ export class ExpenseComponent implements OnInit {
       },
     ];
 
-    console.log(body);
+    // console.log(body);
     this.expenseService.EditExpense(id, body).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.getUserExpenses();
         this.editModal = false;
         this.toastr.success('Edited Successfully')
@@ -176,17 +175,15 @@ export class ExpenseComponent implements OnInit {
   }
 
   editModalToggle(item: Expense){
-    console.log('modal toggled');
     this.selectedExpense = { ...item };
     this.selectedExpense['date'] = this.datePipe.transform(this.selectedExpense['date'] , 'yyyy-MM-dd');
-    console.log(this.selectedExpense);
   }
 
   getCategories(){
     this.categoryService.getCategories().subscribe(
       (result) => {
         this.Categories = result;
-        console.log(this.Categories);
+        // console.log(this.Categories);
       },
       error => {
         this.toastr.warning(error);

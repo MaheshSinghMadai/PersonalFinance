@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit{
      this.authService.register(this.registrationForm.value).subscribe(
       (result) => {
         this.isLoading = false;
-        console.log(result);
+        // console.log(result);
         this.router.navigate(["/"]);
       },
       error => {
