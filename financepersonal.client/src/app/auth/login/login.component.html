@@ -1,59 +1,59 @@
 <div class="main-component">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="container">
+      <div class="row ">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5 login-div">
-          <div class="card shadow-2-strong outer-login-card" style="border-radius: 1rem">
-            <div class="card-body p-5 text-center login-card">
-              <h3 class="mb-3 mt-3 attendance-text">Welcome to Finance Manager</h3>
+            <div class="card-body p-5 text-center login-card">        
+                <p class="login-text"><b>Login</b></p>
               
-              <h4 class="my-4"></h4>
               <form [formGroup]="loginForm" >
-                <div class="row">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Username</mat-label>
-                    <input formControlName="username" matInput placeholder="Enter username" />
-                    <mat-icon matSuffix>perm_identity</mat-icon>
-                  </mat-form-field>
+                <div class="row input-row">
+                  <div class="input-group mb-4">
+                    <input type="text" class="form-control" formControlName="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
                 </div>
+                <div class="row input-row">
+                  <div class="input-group mb-0">
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                </div>
+
                 <div class="row">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input
-                      formControlName="password"
-                      matInput
-                      [type]="hide ? 'password' : 'text'"
-                      placeholder="Enter Password"
-                    />
-                    <button
-                      type="button"
-                      mat-icon-button
-                      matSuffix
-                      (click)="hide = !hide"
-                      [attr.aria-label]="'Hide password'"
-                      [attr.aria-pressed]="hide"
-                    >
-                      <mat-icon>{{
-                        hide ? "visibility_off" : "visibility"
-                      }}
-                    </mat-icon>
-                    </button>
-                  </mat-form-field>
+                  <div class="col-sm-6 d-flex flex-direction-row">
+                    <input type="checkbox"><p class="remember-pw mt-20" style="color:gray"> Remember Password</p>
+                  </div>
+                  <div class="col-sm-6">                 
+                    <p class="pull-right small-text remember-pw"><b>Forget Password?</b></p>
+                  </div>
                 </div>
                 
                 <div class="row text-center mx-0">
                   <button type="submit" [disabled]="!loginForm.valid" 
-                  (click)="login()" class="btn btn-primary btn-lg">Login
+                  (click)="login()" class="btn btn-lg login-btn">Login
                     <div class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading">
                       <span class="sr-only">Loading...</span>
                     </div>
                   </button>
                 </div>
-                <div class="registration">
-                  <a [routerLink]="['/register']"><p>Register Your Account</p></a>
+                <div class="row d-flex flex-direction-column">
+                  <div class="col-12 text-center">
+                    <p style="color:grey">
+                      No Account Yet? 
+                      <a [routerLink]="['/register']" class="register">
+                        Register
+                      </a>
+
+                    </p>
+                  </div>
+                  <div class="col-12 mt-4" text-center>
+                   <p style="color:grey">or Login with</p>
+                   <a class="mt-2">
+                      <img src="../../../assets/google.png" height="30px" width="30px">
+                  </a>
+                  </div>
                 </div>
               </form>
             </div>
-          </div>
+          <!-- </div> -->
         </div>   
       </div>
     </div>
