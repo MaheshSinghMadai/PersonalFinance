@@ -22,12 +22,16 @@
                     <input type="checkbox"><p class="remember-pw mt-20" style="color:gray"> Remember Password</p>
                   </div>
                   <div class="col-sm-6">                 
-                    <p class="pull-right small-text remember-pw"><b>Forget Password?</b></p>
+                    <p class="pull-right small-text remember-pw" style="text-decoration: underline;font-weight: 700;">
+                      <a>
+                        <b>Forget Password?</b>
+                      </a>
+                    </p>
                   </div>
                 </div>
                 
                 <div class="row text-center mx-0">
-                  <button type="submit" [disabled]="!loginForm.valid" 
+                  <button type="submit" 
                   (click)="login()" class="btn btn-lg login-btn">Login
                     <div class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading">
                       <span class="sr-only">Loading...</span>

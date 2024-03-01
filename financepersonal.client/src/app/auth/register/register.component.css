@@ -1,7 +1,29 @@
 .main-component{
     height: 100vh;
-    background-image: url('../../../assets/login-bg.png');
+    background-image: linear-gradient(to right top, #fcfcfc, #ddeaf9, #abdded, #7ed1ca, #76bf92);
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
+}
+
+.form-control{
+    height:50px;
+    border-radius: 10px;
+    outline: .5px solid rgb(102, 210, 214);
+}
+.register-text{
+    color: #0a4c81;
+    font-size:30px;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+
+.reg-btn{
+    background-color:#020508 !important;
+    color: white;
+    border-radius: 10px;
+    outline:none;
+    height:50px;
+    margin-top:40px;
+    margin-bottom: 20px;
 }

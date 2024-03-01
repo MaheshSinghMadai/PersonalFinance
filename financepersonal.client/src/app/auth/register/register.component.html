@@ -1,73 +1,64 @@
 <div class="main-component">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5 login-div">
+        <div class="col-md-7 pull-left">
+          <div class="img pull-left">
+            <img src="../../../assets/sign-up-form.png" style="margin-top:30%;">
+          </div>
+        </div>
+        <div class="col-md-5 login-div">
           <div class="card shadow-2-strong outer-login-card" style="border-radius: 1rem">
             <div class="card-body p-5 text-center login-card">
-              <h3 class="mb-3 mt-3 attendance-text">Welcome to Finance Manager</h3>
+              <p class="register-text"><b>Register</b></p>
               
               <h4 class="my-4"></h4>
               <form [formGroup]="registrationForm" >
                 <div class="row">
-                    <mat-form-field appearance="outline">
-                      <mat-label>First Name</mat-label>
-                      <input formControlName="firstname" matInput placeholder="Enter First Name" />
-                      <mat-icon matSuffix>perm_identity</mat-icon>
-                    </mat-form-field>
+                  <div class="row input-row">
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control" formControlName="firstname" placeholder="First Name" aria-label="firstname" aria-describedby="basic-addon1">
+                    </div>
                   </div>
-                  <div class="row">
-                    <mat-form-field appearance="outline">
-                      <mat-label>Last Name</mat-label>
-                      <input formControlName="lastname" matInput placeholder="Enter Last Name" />
-                      <mat-icon matSuffix>perm_identity</mat-icon>
-                    </mat-form-field>
+                  <div class="row input-row">
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control" formControlName="lastname" placeholder="Last Name" aria-label="lastname" aria-describedby="basic-addon1">
+                    </div>
                   </div>
-                  <div class="row">
-                    <mat-form-field appearance="outline">
-                      <mat-label>Username</mat-label>
-                      <input formControlName="username" matInput placeholder="Enter Username" />
-                      <mat-icon matSuffix>perm_identity</mat-icon>
-                    </mat-form-field>
+                  <div class="row input-row">
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control" formControlName="username" placeholder="Enter Username" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
                   </div>
-                <div class="row">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input formControlName="email" matInput placeholder="Enter Email" />
-                    <mat-icon matSuffix>perm_identity</mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="row">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input
-                      formControlName="password"
-                      matInput
-                      [type]="hide ? 'password' : 'text'"
-                      placeholder="Enter Password"
-                    />
-                    <button
-                      type="button"
-                      mat-icon-button
-                      matSuffix
-                      (click)="hide = !hide"
-                      [attr.aria-label]="'Hide password'"
-                      [attr.aria-pressed]="hide"
-                    >
-                      <mat-icon>{{
-                        hide ? "visibility_off" : "visibility"
-                      }}
-                    </mat-icon>
-                    </button>
-                  </mat-form-field>
+                  <div class="row input-row">
+                    <div class="input-group mb-4">
+                      <input type="text" class="form-control" formControlName="email" placeholder="Enter Email" aria-label="email" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
+                  <div class="row input-row">
+                    <div class="input-group mb-4">
+                      <input type="password" class="form-control" formControlName="password" placeholder="Enter Password" aria-label="password" aria-describedby="basic-addon1">
+                    </div>
+                  </div>
                 </div>
                 
                 <div class="row text-center mx-0">
-                  <button type="submit" [disabled]="!registrationForm.valid" 
-                  (click)="register()" class="btn btn-primary btn-lg">Sign Up
+                  <button type="submit" 
+                  (click)="register()" class="btn btn-lg reg-btn">Sign Up
                     <div class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading">
                       <span class="sr-only">Loading...</span>
                     </div>
                   </button>
+                </div>
+
+                <div class="row">        
+                  <div class="col-sm-12">                 
+                    <p class="text-center small-text remember-pw" style="color:gray">
+                      Already have an account?
+                      <a routerLink="['/login']">
+                        <b style="font-weight: 700;color: #0a4c81;"> Login</b>
+                      </a>
+                    </p>
+                  </div>
                 </div>
               </form>
             </div>

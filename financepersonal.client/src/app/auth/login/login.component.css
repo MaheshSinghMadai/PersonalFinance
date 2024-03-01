@@ -1,6 +1,6 @@
 .main-component{
     height: 100vh;
-    background-image: linear-gradient(to right top, #ddfce9, #ddfdfa, #e8fcff, #f6fbff, #fcfcfc);
+    background-image: linear-gradient(to left bottom, #fcfcfc, #ddeaf9, #abdded, #7ed1ca, #76bf92);
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
@@ -31,6 +31,7 @@
     margin-left:10px;
     margin-top:15px;
 }
+
 .register{
     color: #0a4c81 !important;
     font-weight: 700;
