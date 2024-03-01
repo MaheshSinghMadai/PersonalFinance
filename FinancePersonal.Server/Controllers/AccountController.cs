@@ -93,36 +93,36 @@ namespace FinancePersonal.Server.Controllers
         }
 
 
-        //[HttpPost("refresh-token")]
-        //public IActionResult RefreshToken([FromBody] UserDto user)
-        //{
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Email, user.Email),
-        //        new Claim(ClaimTypes.GivenName, user.Username)
-        //    };
+        [HttpPost("refresh-token")]
+        public IActionResult RefreshToken([FromBody] UserDto user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.GivenName, user.Username)
+            };
 
-        //    try
-        //    {
-        //        var identity = HttpContext.User.Identity as ClaimsIdentity;
-        //        var tokenHandler = new JwtSecurityTokenHandler();
-        //        var tokenDescriptor = new SecurityTokenDescriptor
-        //        {
-        //            Subject = new ClaimsIdentity(claims),
-        //            Expires = DateTime.Now.AddMinutes(15),
-        //            SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature)
-        //        };
-        //        var token = tokenHandler.CreateToken(tokenDescriptor);
-        //        user.Token = tokenHandler.WriteToken(token);
-        //        //user.DisplayName = identity.FindFirst("GivenName").Value;
-        //        user.ExpiresAt = tokenDescriptor.Expires;
+            try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddMinutes(15),
+                    SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                user.Token = tokenHandler.WriteToken(token);
+                //user.DisplayName = identity.FindFirst("GivenName").Value;
+                user.ExpiresAt = tokenDescriptor.Expires;
 
-        //        return Ok(user);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new { error = new { code = "Internal Server Error", message = ex.GetBaseException().Message } });
-        //    }
-        //}
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = new { code = "Internal Server Error", message = ex.GetBaseException().Message } });
+            }
+        }
     }
 }
