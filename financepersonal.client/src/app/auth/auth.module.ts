@@ -22,7 +22,7 @@ import { RegisterComponent } from './register/register.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ]
 })
 export class AuthModule { }

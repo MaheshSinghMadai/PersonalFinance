@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { User } from './model/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,10 @@ export class AuthService {
         return user;
       })
     );
+  }
+
+  loginWithGoogle(credentials: string): Observable<any>{
+    return this.http.post(`${this.baseUrl}/Account/LoginWithGoogle`, JSON.stringify(credentials));
   }
 
   register(body: any) {

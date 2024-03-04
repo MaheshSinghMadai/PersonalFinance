@@ -3,6 +3,10 @@ using FinancePersonal.Core.Entities.Identity;
 using FinancePersonal.Core.Interface;
 using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -40,7 +44,7 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto, string returnUrl)
         {
             var user = await _userManager.FindByNameAsync(loginDto.Username);
             if(user == null)
@@ -60,10 +64,34 @@ namespace FinancePersonal.Server.Controllers
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
                 Email = user.Email,
-                ExpiresAt = DateTime.Now.AddMinutes(15)
+                ExpiresAt = DateTime.Now.AddMinutes(15),
+                //ReturnUrl = returnUrl,
+                //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
             };
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult GoogleSignIn(string provider,string returnUrl)
+        {
+            var redirectUrl = "/signin-google-callback";
+            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet("signin-google-callback")]
+        public async Task<IActionResult> GoogleSignInCallback()
+        {
+            var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (authenticateResult.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
 
         [HttpPost]
         [Route("[action]")]

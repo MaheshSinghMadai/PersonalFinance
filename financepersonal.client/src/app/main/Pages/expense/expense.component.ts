@@ -22,7 +22,7 @@ export class ExpenseComponent implements OnInit {
   editedExpense: any = {};
   expenditureDate: any;
 
-  Categories :any;
+  Categories: any;
 
   // Categories = [
   //   {categoryId: 1, categoryName: 'Food'},
@@ -35,24 +35,23 @@ export class ExpenseComponent implements OnInit {
   addExpenseForm: FormGroup;
   isAdding: boolean = false;
   isEditDelete: boolean = false;
-  editModal : boolean = false;
+  editModal: boolean = false;
 
-  userId : any = this.authService.currentUserSource.value.userId;
-  username : any = this.authService.currentUserSource.value.username;
+  userId: any = this.authService.currentUserSource.value.userId;
+  username: any = this.authService.currentUserSource.value.username;
 
   constructor(
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
     private expenseService: ExpenseService,
     private toastr: ToastrService,
     private datePipe: DatePipe,
     private authService: AuthService,
-    private categoryService: CategoryService) 
-    {
-      this.addExpenseForm = this.formBuilder.group({
-          amount: ['', Validators.required],
-          date: ['', Validators.required],
-          description: ['', Validators.required],
-          category: ['', Validators.required],
+    private categoryService: CategoryService) {
+    this.addExpenseForm = this.formBuilder.group({
+      amount: ['', Validators.required],
+      date: ['', Validators.required],
+      description: ['', Validators.required],
+      category: ['', Validators.required],
     })
   }
 
@@ -94,7 +93,7 @@ export class ExpenseComponent implements OnInit {
       categoryId: this.selectedCategory.categoryId,
     }
     // console.log(body);
-    this.expenseService.AddExpense( body).subscribe(
+    this.expenseService.AddExpense(body).subscribe(
       (response) => {
         this.toastr.success('Expense Added Successfully!!');
         this.clearForm();
@@ -136,7 +135,7 @@ export class ExpenseComponent implements OnInit {
     // console.log(body);
     this.expenseService.EditExpense(id, body).subscribe(
       (response) => {
-        // console.log(response);
+        console.log(response);
         this.getUserExpenses();
         this.editModal = false;
         this.toastr.success('Edited Successfully')
@@ -147,7 +146,7 @@ export class ExpenseComponent implements OnInit {
     )
   }
 
-  deleteExpense(item : UserExpense) {
+  deleteExpense(item: UserExpense) {
     var id = item.expenseId;
     this.expenseService.DeleteExpense(id).subscribe(
       (response) => {
@@ -155,7 +154,7 @@ export class ExpenseComponent implements OnInit {
         this.getUserExpenses();
         this.toastr.success('Deleted Successfuly')
       },
-      error =>{
+      error => {
         console.log(error);
       }
     )
@@ -170,16 +169,16 @@ export class ExpenseComponent implements OnInit {
   }
 
   //for edit and delete buttons inside table
-  toggleActions(){
+  toggleActions() {
     this.isEditDelete = !this.isEditDelete;
   }
 
-  editModalToggle(item: Expense){
+  editModalToggle(item: Expense) {
     this.selectedExpense = { ...item };
-    this.selectedExpense['date'] = this.datePipe.transform(this.selectedExpense['date'] , 'yyyy-MM-dd');
+    this.selectedExpense['date'] = this.datePipe.transform(this.selectedExpense['date'], 'yyyy-MM-dd');
   }
 
-  getCategories(){
+  getCategories() {
     this.categoryService.getCategories().subscribe(
       (result) => {
         this.Categories = result;
