@@ -12,12 +12,19 @@ export class authGuard implements CanActivate {
   canActivate(): boolean {
     var user = this.authService.currentUserSource.value;
     if (user) {
-      return true;
-    }else{
-      this.router.navigate(['/']);
-      return false;
+      if (user.expiresAt) {
+        let expiry_Date = new Date(user.expiresAt);
+        let current_Date = new Date();
+        if (expiry_Date > current_Date) {
+          return true;
+        } else {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        }
+      }
+
     }
-    
+    this.router.navigate(['/']);
+    return false;
   }
 }
-  

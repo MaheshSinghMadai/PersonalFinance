@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatNativeDateModule,
     MatDialogModule,
     MatSidenavModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule { }

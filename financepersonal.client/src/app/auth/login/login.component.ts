@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../auth.service';
@@ -9,46 +9,46 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  hide : boolean = true;
-  isLoading : boolean = false;
+  hide: boolean = true;
+  isLoading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private authService: AuthService,
-    private router : Router) 
-    {
+    private router: Router) {
     this.loginForm = this.formBuilder.group({
-      username:['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     })
-   }
-
-  ngOnInit() {
-    if(this.authService.currentUserSource.value) {
-      this.router.navigate(['main/dashboard']);
-    }
   }
 
-  login(){
+  ngOnInit() {
+    if (this.authService.currentUserSource.value) {
+      this.router.navigate(['main/dashboard']);
+    };
+  }
+
+  login() {
     const body = {
       username: this.loginForm.value['username'],
       password: this.loginForm.value['password']
     }
-     this.authService.login(body).subscribe(
+    this.authService.login(body).subscribe(
       (result) => {
         this.isLoading = false;
         // console.log(result);
-        this.router.navigate(["main/dashboard"]);
+        this.router.navigate(['main/dashboard']);
       },
       error => {
         this.isLoading = false;
         this.toastr.error('Invalid username or password, Please try again')
       }
-      )
-
+    )
   }
 }
+
+

@@ -3,6 +3,10 @@ using FinancePersonal.Core.Entities.Identity;
 using FinancePersonal.Core.Interface;
 using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -40,7 +44,7 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto, string returnUrl)
         {
             var user = await _userManager.FindByNameAsync(loginDto.Username);
             if(user == null)
@@ -60,10 +64,10 @@ namespace FinancePersonal.Server.Controllers
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
                 Email = user.Email,
-                ExpiresAt = DateTime.Now.AddMinutes(15)
+                ExpiresAt = DateTime.Now.AddMinutes(15),
             };
         }
-
+     
 
         [HttpPost]
         [Route("[action]")]
@@ -93,36 +97,36 @@ namespace FinancePersonal.Server.Controllers
         }
 
 
-        //[HttpPost("refresh-token")]
-        //public IActionResult RefreshToken([FromBody] UserDto user)
-        //{
-        //    var claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.Email, user.Email),
-        //        new Claim(ClaimTypes.GivenName, user.Username)
-        //    };
+        [HttpPost("refresh-token")]
+        public IActionResult RefreshToken([FromBody] UserDto user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.GivenName, user.Username)
+            };
 
-        //    try
-        //    {
-        //        var identity = HttpContext.User.Identity as ClaimsIdentity;
-        //        var tokenHandler = new JwtSecurityTokenHandler();
-        //        var tokenDescriptor = new SecurityTokenDescriptor
-        //        {
-        //            Subject = new ClaimsIdentity(claims),
-        //            Expires = DateTime.Now.AddMinutes(15),
-        //            SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature)
-        //        };
-        //        var token = tokenHandler.CreateToken(tokenDescriptor);
-        //        user.Token = tokenHandler.WriteToken(token);
-        //        //user.DisplayName = identity.FindFirst("GivenName").Value;
-        //        user.ExpiresAt = tokenDescriptor.Expires;
+            try
+            {
+                var identity = HttpContext.User.Identity as ClaimsIdentity;
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddMinutes(15),
+                    SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature)
+                };
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+                user.Token = tokenHandler.WriteToken(token);
+                //user.DisplayName = identity.FindFirst("GivenName").Value;
+                user.ExpiresAt = tokenDescriptor.Expires;
 
-        //        return Ok(user);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new { error = new { code = "Internal Server Error", message = ex.GetBaseException().Message } });
-        //    }
-        //}
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = new { code = "Internal Server Error", message = ex.GetBaseException().Message } });
+            }
+        }
     }
 }

@@ -1,10 +1,13 @@
 <div class="row">
-    <div class="col-6" *ngFor="let items of foodExpenseCount">
+    <div class="col-3" *ngFor="let items of foodExpenseCount">
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title text-center">Rs. {{items.totalAmount}}</h1>
                 <p class="text-center">{{items.categoryName}}</p>
+                <h1 class="card-title text-center">Rs. {{items.totalAmount}}</h1>
             </div>
         </div>
+        
     </div>
+    
 </div>
+

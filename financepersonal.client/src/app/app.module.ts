@@ -31,8 +31,6 @@ import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
     NgxDocViewerModule,
     ToastrModule.forRoot(),
     FormsModule,
-    
-  
   ],
   providers: [
     DatePipe,
@@ -46,6 +44,20 @@ import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
       useClass: JwtInterceptor,
       multi: true
     },
+    // {
+    //   provide: 'SocialAuthServiceConfig',
+    //   useValue: {
+    //     autoLogin: false,
+    //     providers: [
+    //       {
+    //         id: GoogleLoginProvider.PROVIDER_ID,
+    //         provider: new GoogleLoginProvider(		
+    //           '708313847097-qqhkk449k8ut39q0uf0290rhvgm4cthh.apps.googleusercontent.com'
+    //         )
+    //       }
+    //     ]
+    //   } as SocialAuthServiceConfig,
+    // },
   ],
   bootstrap: [AppComponent]
 })

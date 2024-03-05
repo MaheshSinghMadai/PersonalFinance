@@ -1,4 +1,5 @@
 ﻿using FinancePersonal.Core.Entities;
+using Microsoft.AspNetCore.Authentication;
 
 namespace FinancePersonal.Server.DTO
 {
@@ -9,5 +10,7 @@ namespace FinancePersonal.Server.DTO
         public string Username { get; set; }
         public string Email { get; set; }
         public DateTime? ExpiresAt { get; set; }
+        //public string ReturnUrl { get; set; }
+        //public IList<AuthenticationScheme> ExternalLogins { get; set; }
     }
 }
