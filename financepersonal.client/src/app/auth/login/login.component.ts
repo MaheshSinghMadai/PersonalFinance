@@ -33,26 +33,23 @@ export class LoginComponent implements OnInit {
     if (this.authService.currentUserSource.value) {
       this.router.navigate(['main/dashboard']);
     };
-    // Cast window to the custom window type
-    const customWindow = window as CustomWindow;
 
-    customWindow.onGoogleLibraryLoad = () => {
-      if (google.accounts && google.accounts.id) {
+    window.onload  = () => {
+      console.log('Google\'s One-tap sign in script loaded!');
         google.accounts.id.initialize({
           client_id: "201032301966-bko3u9e1250n934fclh6rjqfefhc11l4.apps.googleusercontent.com",
           callback: this.handleCredentialResponse.bind(this),
           auto_select: false,
           cancel_on_tap_outside: true,
         });
-        google.accounts.id.renderButton(
-          document.getElementById("buttonDiv"), {
-          theme: "outline", size: "large"
-        }
-        );
+        // google.accounts.id.renderButton(
+        //   document.getElementById("buttonDiv"), {
+        //   theme: "outline", size: "large"
+        // }
+        // );
         google.accounts.id.prompt((Notification: PromptMomentNotification) => { });
-      };
+      }
     }
-  }
 
   async handleCredentialResponse(response: CredentialResponse) {
     await this.authService.loginWithGoogle(response.credential).subscribe(
@@ -87,7 +84,4 @@ export class LoginComponent implements OnInit {
   }
 }
 
-interface CustomWindow extends Window {
-  onGoogleLibraryLoad?: () => void;
-}
 
