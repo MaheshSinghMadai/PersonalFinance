@@ -65,33 +65,9 @@ namespace FinancePersonal.Server.Controllers
                 Username = user.UserName,
                 Email = user.Email,
                 ExpiresAt = DateTime.Now.AddMinutes(15),
-                //ReturnUrl = returnUrl,
-                //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
             };
         }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult GoogleSignIn(string provider,string returnUrl)
-        {
-            var redirectUrl = "/signin-google-callback";
-            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
-            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
-        }
-
-        [HttpGet("signin-google-callback")]
-        public async Task<IActionResult> GoogleSignInCallback()
-        {
-            var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            if (authenticateResult.Succeeded)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("Error", "Home");
-            }
-        }
+     
 
         [HttpPost]
         [Route("[action]")]
