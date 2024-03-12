@@ -32,27 +32,28 @@
         </ul>
 
         <div class="sidebar-footer">
-            <ul class="nav-item active">
-                <a class="nav-link"  routerLinkActive="active"  (click)="logout()" style="cursor: pointer;">
-                    <p class="sidebar-header">
-                        <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-                            fontIcon="logout"></mat-icon>
-                        Logout
-                    </p>
-                </a>
-            </ul>
+            
         </div>
     </mat-drawer>
 
     <div class="example-sidenav-content">
         <div class="row nav-row">
-            <div class="col-sm-2" style="margin:10px;padding:0">
+            <div class="col-sm-9" style="margin:10px;padding:0">
                 <button type="button pull-left" mat-button (click)="drawer.toggle()">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="more_vert"
                         style="color:white"></mat-icon>
                 </button>
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-2">
+                <ul class="nav-item active pull-right">
+                    <a class="nav-link" routerLinkActive="active"  (click)="logout()" style="cursor: pointer;color:white">
+                        <p class="sidebar-header">
+                            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                                fontIcon="logout"></mat-icon>
+                            Logout
+                        </p>
+                    </a>
+                </ul>
             </div>
         </div>
         <div class="row pages-row">

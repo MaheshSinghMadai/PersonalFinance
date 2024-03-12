@@ -4,6 +4,19 @@
   }
 
   .card-title{
-    color:cadetblue;
-    font-size:20px;
+    color:rgb(37, 79, 108);;
+    font-size:30px;
+    font-family: cursive;
+  }
+
+  .card-header{
+   background-color: teal;
+   color: white;
+  }
+
+  .card-body{
+    color:aqua
+  } 
+  .table-responsive{
+    line-height: 40px;
   }

@@ -95,7 +95,7 @@ export class AuthService {
     if (localStorage.getItem("token") == null) {
       this.router.navigateByUrl("/");
     }
-    console.log('expired');
+    // console.log('expired');
   }
 
 }

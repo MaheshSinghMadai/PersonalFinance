@@ -10,8 +10,12 @@ export class CategoryService {
   
   constructor(private http: HttpClient) { }
 
-  getCategoricalExpense(userId: number){
-    return this.http.get(`${this.baseUrl}/Category/GetCategorywiseExpense?userId=${userId}`);
+  getCategoricalExpense(userId: number, category: string){
+    return this.http.get(`${this.baseUrl}/Category/GetCategorywiseExpense?userId=${userId}&category=${category}`);
+  }
+
+  getCategoricalExpenseCount(userId: number){
+    return this.http.get(`${this.baseUrl}/Category/GetCategorywiseExpenseCount?userId=${userId}`);
   }
 
   getCategories(){

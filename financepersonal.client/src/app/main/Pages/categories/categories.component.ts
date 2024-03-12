@@ -9,21 +9,43 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class CategoriesComponent implements OnInit{
 
+  categoricalExpense : any = [];
   foodExpenseCount : any = [];
+  category: string;
   userId : any = this.authService.currentUserSource.value?.userId;
+  viewTable : boolean = false;
 
   constructor(private categoryService: CategoryService, private authService: AuthService){}
   
   ngOnInit() {
-    this.getCategoricalExpense();
+    this.getCategoricalExpense(this.category);
+    this.getCategoricalExpenseCount();
   }
-  
-  getCategoricalExpense(){
-    this.categoryService.getCategoricalExpense(this.userId).subscribe(
+
+  getCategoricalExpense(category: string){
+    this.categoryService.getCategoricalExpense(this.userId, category).subscribe(
       (result) => {
         // console.log(result);
-        this.foodExpenseCount = result;
+        this.categoricalExpense = result;
+      },
+      error => {
+        // console.log(error);
       }
     ); 
+  }
+  
+  getCategoricalExpenseCount(){
+    this.categoryService.getCategoricalExpenseCount(this.userId).subscribe(
+      (result) => {
+        this.foodExpenseCount = result;
+      },
+      error => {
+        // console.log(error);
+      }
+    ); 
+  }
+
+  toggleTable(){
+    this.viewTable = !this.viewTable;
   }
 }

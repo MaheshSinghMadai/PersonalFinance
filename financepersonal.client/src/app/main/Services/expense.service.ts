@@ -35,4 +35,12 @@ export class ExpenseService {
     return this.http.delete<Expense[]>(`${this.baseUrl}/Expense/DeleteExpense?id=${id}`)
   }
 
+  getMonthlyExpense(userId: string){
+    return this.http.get<Expense[]>(`${this.baseUrl}/Expense/GetMonthlyExpense?userId=${userId}`)
+  }
+
+  getMonthlyCategoricalExpense(userId: string){
+    return this.http.get<Expense[]>(`${this.baseUrl}/Expense/GetMonthwiseCategoricalExpense?userId=${userId}`)
+  }
+
 }

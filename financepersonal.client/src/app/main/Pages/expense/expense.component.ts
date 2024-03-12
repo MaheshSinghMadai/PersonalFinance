@@ -95,6 +95,7 @@ export class ExpenseComponent implements OnInit {
     // console.log(body);
     this.expenseService.AddExpense(body).subscribe(
       (response) => {
+        // console.log(response); 
         this.toastr.success('Expense Added Successfully!!');
         this.clearForm();
         this.selectedCategory = '';
@@ -135,7 +136,7 @@ export class ExpenseComponent implements OnInit {
     // console.log(body);
     this.expenseService.EditExpense(id, body).subscribe(
       (response) => {
-        console.log(response);
+        // console.log(response);
         this.getUserExpenses();
         this.editModal = false;
         this.toastr.success('Edited Successfully')

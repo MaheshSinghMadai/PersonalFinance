@@ -1,13 +1,47 @@
 <div class="row">
     <div class="col-3" *ngFor="let items of foodExpenseCount">
         <div class="card">
+            <div class="card-header">
+                <p class="text-center" style="margin-top:10px">{{items.categoryName}}</p>
+            </div>
             <div class="card-body">
-                <p class="text-center">{{items.categoryName}}</p>
-                <h1 class="card-title text-center">Rs. {{items.totalAmount}}</h1>
+                <h1 class="card-title text-center">{{items.totalAmount}}</h1>
+                <p class="text-center">
+                    <button class="btn btn-sm" (click)="toggleTable()" (click)="getCategoricalExpense(items.categoryName)">
+                        <mat-icon *ngIf="!viewTable" class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="expand_more"></mat-icon>
+                        <mat-icon *ngIf="viewTable" class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="expand_less"></mat-icon>
+                    </button> 
+                </p>
             </div>
         </div>
-        
-    </div>
-    
+    </div>   
+</div>
+
+<div class="row px-10" *ngIf="viewTable">
+  <div class="col-sm-12">
+    <table class="table table-responsive table-bordered align-items-center">
+      <thead>
+        <tr>
+          <th scope="col">S.N.</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Date</th>
+          <th scope="col">Category</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let expense of categoricalExpense;let i = index">
+        <tr>
+          <td>{{i+1}}</td>
+          <td>{{ expense.amount }}</td>
+          <td>{{ expense.date | date }}</td>
+          <td>{{ expense.categoryName }}</td>
+          <td>{{ expense.description }} </td>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 

@@ -50,7 +50,6 @@ namespace FinancePersonal.Server.Controllers
             return Ok(await query);
         }
 
-
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> AddNewExpense(Expense exp)
@@ -162,6 +161,44 @@ namespace FinancePersonal.Server.Controllers
             var pagedResponse = PaginationHelper.CreatePagedReponse<UserExpenseWithCategory>(pagedData, validFilter, totalRecords);
             return Ok(pagedResponse);
 
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetMonthlyExpense([FromQuery] string userId)
+        {
+            var monthlyExp = (from e in _db.Expenses
+                              where e.UserId == userId
+                              group e by e.Date.Month into g
+                              select new 
+                              { 
+                                Date = g.Key,
+                                TotalAmount = g.Sum(x => x.Amount)
+                              });
+
+            var monthlyExpenseList = monthlyExp.ToListAsync();
+
+            return Ok(await monthlyExpenseList);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetMonthwiseCategoricalExpense([FromQuery] string userId)
+        {
+            var monthlyCategoricalExp = (from e in _db.Expenses
+                              join c in _db.Categories on e.CategoryId equals c.CategoryId
+                              where e.UserId == userId
+                              group new {e,c} by new {e.Date.Month, c.CategoryName} into g
+                              select new
+                              {
+                                  Date = g.Key.Month,
+                                  TotalAmount = g.Sum(x => x.e.Amount),
+                                  CategoryName = g.Key.CategoryName
+                              }).OrderBy(x => x.Date);
+
+            var monthlyCategoricalExpList = monthlyCategoricalExp.ToListAsync();
+
+            return Ok(await monthlyCategoricalExpList);
         }
     }
 }

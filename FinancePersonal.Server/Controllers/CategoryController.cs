@@ -1,4 +1,5 @@
 ﻿using FinancePersonal.Infrastructure.Data;
+using FinancePersonal.Server.ReturnDTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,27 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetCategorywiseExpense([FromQuery] string userId)
+        public async Task<IActionResult> GetCategorywiseExpense([FromQuery] string userId, [FromQuery] string category)
+        {
+            var results = (from e in _db.Expenses
+                           join c in _db.Categories on e.CategoryId equals c.CategoryId
+                           where e.UserId == userId && c.CategoryName == category
+                           select new UserExpenseWithCategory
+                           {
+                               Amount = e.Amount,
+                               Date = e.Date,
+                               Description = e.Description,
+                               Username = e.Username,
+                               CategoryName = c.CategoryName,
+                               CategoryId = c.CategoryId
+                           }).ToList();
+
+            return Ok(results);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetCategorywiseExpenseCount([FromQuery] string userId)
         {
             var expenseSummary = (from e in _db.Expenses
                                   join c in _db.Categories on e.CategoryId equals c.CategoryId
@@ -38,7 +59,6 @@ namespace FinancePersonal.Server.Controllers
                                   });
             var categoricalExpneseList = await expenseSummary.ToListAsync();
        
-
             return Ok(categoricalExpneseList);
         }
     }
