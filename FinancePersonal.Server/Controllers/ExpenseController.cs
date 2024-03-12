@@ -3,7 +3,6 @@ using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.Helper;
 using FinancePersonal.Server.Pagination;
 using FinancePersonal.Server.ReturnDTOs;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

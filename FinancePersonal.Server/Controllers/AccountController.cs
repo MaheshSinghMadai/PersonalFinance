@@ -1,15 +1,9 @@
-﻿using FinancePersonal.Core.Entities;
-using FinancePersonal.Core.Entities.Identity;
+﻿using FinancePersonal.Core.Entities.Identity;
 using FinancePersonal.Core.Interface;
 using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
