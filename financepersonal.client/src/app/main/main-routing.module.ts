@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExpenseComponent } from './Pages/expense/expense.component';
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';
 import { CategoriesComponent } from './Pages/categories/categories.component';
+import { IncomeComponent } from './Pages/income/income.component';
+import { InvestmentComponent } from './Pages/investment/investment.component';
 
 const routes: Routes = [
   {
@@ -18,7 +20,14 @@ const routes: Routes = [
     path: 'categories',  
     component: CategoriesComponent,
   },
-
+  {
+    path: 'income',  
+    component: IncomeComponent,
+  },
+  {
+    path: 'investment',  
+    component: InvestmentComponent,
+  },
 ];
 
 @NgModule({

@@ -7,15 +7,16 @@ import { CategoriesComponent } from './Pages/categories/categories.component';
 import { MaterialModule } from '../shared/material.module';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
-
-
+import { IncomeComponent } from './Pages/income/income.component';
+import { InvestmentComponent } from './Pages/investment/investment.component';
 
 @NgModule({
   declarations: [
     ExpenseComponent,
     DashboardComponent,
     CategoriesComponent,
-    
+    IncomeComponent,
+    InvestmentComponent
   ],
   imports: [
     CommonModule,

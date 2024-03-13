@@ -43,12 +43,6 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AppIdentityServices(builder.Configuration);
 
-builder.Services.AddAuthentication().AddGoogle(options =>
-{
-    options.ClientId = "201032301966 - bko3u9e1250n934fclh6rjqfefhc11l4.apps.googleusercontent.com";
-    options.ClientSecret = "GOCSPX - FQbvJySfU70fQrWkD8UKxcd7YcVK";
-});
-
 var app = builder.Build();
 
 app.UseDefaultFiles();
