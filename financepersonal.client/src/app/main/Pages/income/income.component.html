@@ -1,1 +1,90 @@
-<p>income works!</p>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-1 my-2">
+            <button class="btn btn-sm btn-outline-secondary pull-left px-2 py-1" (click)="toggleAdd()">
+                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="add"></mat-icon>
+            </button>
+        </div>
+    </div>
+    @if(isAdding){
+    <div class="col-lg-12 my-2" [formGroup]="incomeForm">
+        <div class="card">
+            <div class="card-body">
+                <div class="row d-flex justify-content-around">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="form-label">Amount</label>
+                            <input type="number" placeholder="Enter Amount" class="form-control"
+                                formControlName="amount" name="amount">
+                        </div>
+                    </div>
+                    <div class="col-md-2 ">
+                        <div class="form-group">
+                            <label class="form-label">Date</label>
+                            <input type="date" class="form-control" placeholder="Choose Date" formControlName="date"
+                                name="date">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="form-label">Source</label>
+                            <input type="text" class="form-control" placeholder="Source of Income"
+                                formControlName="source" name="source">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-1">
+                        <div class="form-group mt-4">
+                            <button (click)="addIncome()" title="Submit" class="btn btn-sm btn-info">
+                                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
+                                    fontIcon="done"></mat-icon>
+                            </button>
+                            <button (click)="clearForm()" title="Cancel" class="btn btn-sm btn-danger ms-1">
+                                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
+                                    fontIcon="close"></mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+
+    <table class="table table-responsive table-bordered align-items-center">
+        <thead>
+            <tr>
+                <th scope="col">S.N.</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Date</th>
+                <th scope="col">Source</th>
+                <!-- <th scope="col align-items-center">
+                    <button class="btn btn-sm" (click)="toggleActions()">
+                        <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                            fontIcon="arrow_drop_down"></mat-icon>
+                    </button>
+                </th> -->
+            </tr>
+        </thead>
+        <tbody *ngFor="let income of incomesList;let i = index">
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{ income.amount }}</td>
+                <td>{{ income.date | date }}</td>
+                <td>{{ income.source }} </td>
+                <!-- <td>
+                    <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        *ngIf="isEditDelete" >
+                        <mat-icon class="mat-icon edit-btn" aria-hidden="false" aria-label="Example home icon"
+                            fontIcon="edit"></mat-icon>
+                    </button>
+                    <button class="btn btn-sm" *ngIf="isEditDelete" >
+                        <mat-icon class="mat-icon delete-btn" aria-hidden="false" aria-label="Example home icon"
+                            fontIcon="delete"></mat-icon>
+                    </button>
+                </td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>

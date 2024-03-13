@@ -195,7 +195,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.foodData.push(element.totalAmount);
           }
         })
-        console.log(this.foodData);
+        // console.log(this.foodData);
 
         //separating out travel expense
         this.categoricalMonthlyExpenseList.forEach(element => {
@@ -203,7 +203,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.travelData.push(element.totalAmount);
           }
         })
-        console.log(this.travelData);
+        // console.log(this.travelData);
 
         //separating out misc expense
         this.categoricalMonthlyExpenseList.forEach(element => {
@@ -211,7 +211,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.othersData.push(element.totalAmount);
           }
         })
-        console.log(this.othersData);
+        // console.log(this.othersData);
 
         //separating out others expense
         this.categoricalMonthlyExpenseList.forEach(element => {
@@ -219,7 +219,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.miscData.push(element.totalAmount);
           }
         })
-        console.log(this.miscData);
+        // console.log(this.miscData);
         
       },
       error => {
