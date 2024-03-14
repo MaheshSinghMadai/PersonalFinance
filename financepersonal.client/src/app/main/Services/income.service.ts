@@ -17,4 +17,8 @@ export class IncomeService {
   AddIncome(body: UserIncome){
     return this.http.post<any>(`${this.baseUrl}/Income/AddNewIncome`, body)
   }
+
+  GetTotalIncomePerUser(userId: string){
+    return this.http.get<any>(`${this.baseUrl}/Income/GetTotalIncomePerUser?userId=${userId}`)
+  }
 }

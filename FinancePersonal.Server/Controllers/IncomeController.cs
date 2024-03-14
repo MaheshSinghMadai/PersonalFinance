@@ -26,6 +26,21 @@ namespace FinancePersonal.Server.Controllers
             return Ok(incomesList);
         }
 
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetTotalIncomePerUser([FromQuery] string userId)
+        {
+            var totalAmount = await (from i in _db.Incomes
+                                     where i.UserId == userId
+                                     group i by i.UserId into g
+                                     select g.Sum(x => x.Amount)
+                                     ).FirstOrDefaultAsync();
+                                  
+            return Ok(totalAmount);
+        }
+
+
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> AddNewIncome(Income income)
@@ -36,6 +51,7 @@ namespace FinancePersonal.Server.Controllers
                 Date = income.Date,
                 Source = income.Source,
                 UserId = income.UserId,
+                Username = income.Username,
             };
 
             _db.Add(incomes);

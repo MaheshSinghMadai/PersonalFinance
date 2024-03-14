@@ -68,7 +68,7 @@ export class ExpenseComponent implements OnInit {
     this.expenseService.getUserExpenses(this.userId).subscribe(
       (response) => {
         this.userExpenseList = response;
-        console.log(this.userExpenseList);
+        // console.log(this.userExpenseList);
       },
       error => {
         console.log(error);
@@ -85,7 +85,7 @@ export class ExpenseComponent implements OnInit {
       username: this.username,
       categoryId: this.addExpenseForm.value['category'] as number,
     }
-    console.log(body);
+    // console.log(body);
     this.expenseService.AddExpense(body).subscribe(
       (response) => {
         // console.log(response); 

@@ -39,7 +39,7 @@ export class IncomeComponent implements OnInit{
     this.incomeService.getUserIncomes(this.userId).subscribe(
       (response) => {
         this.incomesList = response;
-        console.log(this.incomesList);
+        // console.log(this.incomesList);
       },
       error => {
         console.log(error);
@@ -55,11 +55,12 @@ export class IncomeComponent implements OnInit{
       date: this.incomeForm.value['date'],
       source: this.incomeForm.value['source'],
       userId: this.userId,
+      userName: this.username
     }
 
     this.incomeService.AddIncome(body).subscribe(
       (response) => {
-        console.log(response); 
+        // console.log(response); 
         this.toastr.success('Income Added Successfully!!');
         this.clearForm();
         this.toggleAdd();

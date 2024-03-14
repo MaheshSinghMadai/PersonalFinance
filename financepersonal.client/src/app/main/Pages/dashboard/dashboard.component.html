@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-6">
+    <div class="col-3">
         <div class="card" >
             <div class="card-body">
               <h1 class="card-title text-center">{{totalExpense | number}}</h1>
@@ -7,11 +7,27 @@
             </div>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-3">
         <div class="card">
             <div class="card-body px-100">
               <h1 class="card-title text-center">{{averageExpense | number}}</h1>
               <p class="text-center">Average Expense</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body px-100">
+              <h1 class="card-title text-center">{{totalIncomePerUser | number}}</h1>
+              <p class="text-center">Total Earned</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="card">
+            <div class="card-body px-100">
+              <h1 class="card-title text-center">{{totalInvestmentPerUser | number}}</h1>
+              <p class="text-center">Total Investment</p>
             </div>
         </div>
     </div>

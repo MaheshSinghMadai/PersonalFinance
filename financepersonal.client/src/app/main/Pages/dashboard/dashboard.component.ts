@@ -3,6 +3,8 @@ import Chart from 'chart.js/auto';
 import { CategoryService } from '../../Services/category.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ExpenseService } from '../../Services/expense.service';
+import { IncomeService } from '../../Services/income.service';
+import { InvestmentService } from '../../Services/investment.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +24,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   monthlyTotalAmount : any = [];
   totalExpense : number = 0;
   averageExpense : number = 0;
-  janFoodExpense : any ;
+  totalIncomePerUser: any ;
+  totalInvestmentPerUser: any ;
 
   //categorical monthly expense array
   foodData : any = [];
@@ -33,11 +36,15 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   constructor(
     private expenseService: ExpenseService,
     private categoryService: CategoryService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private incomeService: IncomeService,
+    private investmentService: InvestmentService) { }
   ngOnInit() {
     this.getCategoricalExpenseCount();
     this.getMonthlyExpense();
     this.getMonthlyCategoricalExpense();
+    this.getTotalIncomePerUser();
+    this.getTotalInvestmentPerUser();
   }
 
   ngAfterViewInit() {
@@ -228,5 +235,30 @@ export class DashboardComponent implements AfterViewInit, OnInit {
       }
     )
   }
+
+  getTotalIncomePerUser() {
+    this.incomeService.GetTotalIncomePerUser(this.userId).subscribe(
+      (result) => {
+        this.totalIncomePerUser = result;
+        // console.log(this.totalIncomePerUser);
+      },
+      error => {
+        console.log(error); 
+      }
+    )
+  }
+
+  getTotalInvestmentPerUser() {
+    this.investmentService.GetTotalInvestmentPerUser(this.userId).subscribe(
+      (result) => {
+        this.totalInvestmentPerUser = result;
+        console.log(this.totalInvestmentPerUser);
+      },
+      error => {
+        console.log(error); 
+      }
+    )
+  }
+
 }
 
