@@ -15,9 +15,24 @@ table, th, td {
    border-right: none;
  }
  .form-label{
-   margin-top:10px
+   margin-top:10px;
+   font-weight: bold;
  }
 
  .modal{
    z-index: 1050 !important;
  }
+
+ .form-control, .form-select{
+   line-height:2 !important;
+    /* width:100% !important */
+ }
+
+ .buttons{
+   margin-top: 20%;
+}
+
+.card{
+   border: .5px solid rgba(0, 0, 0, 0.38);
+   box-shadow:  8px 8px 8px rgba(0, 0, 0, 0.1);
+}

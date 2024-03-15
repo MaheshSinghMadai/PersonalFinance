@@ -1,0 +1,17 @@
+.form-label{
+    font-weight: bold;
+}
+
+.form-control{
+    line-height:2 !important;
+    width:155% !important
+}
+
+.buttons{
+    margin-top: 20%;
+}
+
+.card{
+    border: .5px solid rgba(0, 0, 0, 0.38);
+    box-shadow:  8px 8px 8px rgba(0, 0, 0, 0.1);
+}

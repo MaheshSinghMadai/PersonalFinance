@@ -8,7 +8,7 @@
         </div>
     </div>
     @if(isAdding){
-    <div class="col-lg-12 my-2" [formGroup]="investmentForm">
+    <div class="col-lg-12 my-3" [formGroup]="investmentForm">
         <div class="card">
             <div class="card-body">
                 <div class="row d-flex justify-content-around">
@@ -34,25 +34,24 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-1">
-                        <div class="form-group mt-4">
-                            <button (click)="addInvestment()" title="Submit" class="btn btn-sm btn-info">
-                                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
-                                    fontIcon="done"></mat-icon>
-                            </button>
-                            <button (click)="clearForm()" title="Cancel" class="btn btn-sm btn-danger ms-1">
-                                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
-                                    fontIcon="close"></mat-icon>
-                            </button>
+                    <div class="col-md-2 ">
+                        <div class="form-group buttons">
+                          <label class="form-label"></label>
+                          <button (click)="addInvestment()" title="Submit" class="btn btn-md btn-info">
+                            <i class="fa fa-check"></i>
+                          </button>
+                          <button (click)="clearForm()" title="Cancel" class="btn btn-md btn-danger ms-1">
+                            <i class="fa fa-times"></i>
+                          </button>
                         </div>
-                    </div>
+                      </div>
                 </div>
             </div>
         </div>
     </div>
     }
 
-    <table class="table table-responsive table-bordered align-items-center">
+    <table class="table table-responsive table-bordered align-items-center" *ngIf="!isAdding">
         <thead>
             <tr>
                 <th scope="col">S.N.</th>

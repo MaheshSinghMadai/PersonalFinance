@@ -58,7 +58,7 @@ namespace FinancePersonal.Server.Controllers
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
                 Email = user.Email,
-                ExpiresAt = DateTime.Now.AddMinutes(15),
+                ExpiresAt = DateTime.Now.AddMinutes(30),
             };
         }
      
@@ -107,7 +107,7 @@ namespace FinancePersonal.Server.Controllers
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.Now.AddMinutes(15),
+                    Expires = DateTime.Now.AddMinutes(30),
                     SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256Signature)
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);

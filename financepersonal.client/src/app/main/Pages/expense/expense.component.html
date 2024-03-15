@@ -42,15 +42,14 @@
               </select>
             </div>
           </div>
-          <div class="col-md-1">
-            <div class="form-group mt-4">
-              <button (click)="addExpense()" title="Submit" class="btn btn-sm btn-info">
-                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
-                  fontIcon="done"></mat-icon>
+          <div class="col-md-2">
+            <div class="form-group buttons">
+              <label class="form-label"></label>
+              <button (click)="addExpense()" title="Submit" class="btn btn-md btn-info">
+                <i class="fa fa-check"></i>
               </button>
-              <button (click)="clearForm()" title="Cancel" class="btn btn-sm btn-danger ms-1">
-                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
-                  fontIcon="close"></mat-icon>
+              <button (click)="clearForm()" title="Cancel" class="btn btn-md btn-danger ms-1">
+                <i class="fa fa-times"></i>
               </button>
             </div>
           </div>
@@ -60,7 +59,7 @@
   </div>
   }
 
-  <table class="table table-responsive table-bordered align-items-center">
+  <table class="table table-responsive table-bordered align-items-center" *ngIf="!isAdding">
     <thead>
       <tr>
         <th scope="col">S.N.</th>
