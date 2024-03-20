@@ -27,7 +27,7 @@ export class InvestmentService {
     return this.http.post<any>(`${this.baseUrl}/Investment/ImportNepseCSV?username=${username}&userId=${userId}`, body);
   }
 
-  GetNepsePortfolio(){
-    return this.http.get<NepsePortfolio>(`${this.baseUrl}/Investment/GetNepsePortfolio`)
+  GetNepsePortfolio(userId: string){
+    return this.http.get<NepsePortfolio>(`${this.baseUrl}/Investment/GetMyNepsePortfolio?userId=${userId}`)
   }
 }

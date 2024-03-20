@@ -10,9 +10,9 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrl: './nepse-portfolio.component.css'
 })
 export class NepsePortfolioComponent implements OnInit{
-
   selectedFile: File | undefined;
   nepseData: any = [];
+  isUploadCSV: boolean = false;
 
   userId: any = this.authService.currentUserSource.value.userId;
   username: any = this.authService.currentUserSource.value.username;
@@ -29,7 +29,7 @@ export class NepsePortfolioComponent implements OnInit{
   }
  
   GetNepseData(){
-    this.investmentService.GetNepsePortfolio().subscribe(
+    this.investmentService.GetNepsePortfolio(this.userId).subscribe(
       (result) => {
         console.log(result);
         this.nepseData = result;
@@ -39,6 +39,7 @@ export class NepsePortfolioComponent implements OnInit{
       }
     )
   }
+
   onFileSelected(event: any){
     this.selectedFile = event.target.files[0];
   }
@@ -56,10 +57,16 @@ export class NepsePortfolioComponent implements OnInit{
         console.log(result);
         this.toastr.success('CSV File Uploaded Successfuly');
         this.GetNepseData();
+        this.isUploadCSV = false;
       },
       error => {
         this.toastr.error('Error Uploading CSV File')
       }
     )
+  }
+
+  toggleUpload(){
+    this.isUploadCSV = !this.isUploadCSV;
+    this.selectedFile = null;
   }
 }

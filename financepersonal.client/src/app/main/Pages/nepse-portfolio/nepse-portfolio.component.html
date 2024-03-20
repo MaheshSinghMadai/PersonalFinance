@@ -1,32 +1,46 @@
 <div class="main-content">
     <div class="row">
-        <div>
-            <input type="file" name="file" (change)="onFileSelected($event)" accept=".csv">
-            <button class="btn btn-outline-dark" (click)="uploadCSV()">Upload CSV</button>
-          </div>   
+        <div class="col-md-1 my-2">
+            <button class="btn btn-sm btn-outline-secondary pull-left px-2 py-1" (click)="toggleUpload()">
+                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="upload"></mat-icon>
+            </button>
+        </div>
     </div>
-    <div class="row mt-10">
-        <table class="table table-responsive table-bordered align-items-center" >
+    <div class="col-lg-4 my-6 " *ngIf="isUploadCSV">
+        <div class="card">
+            <div class="card-body">
+                <input type="file" name="file" (change)="onFileSelected($event)" accept=".csv">
+                <button class="btn btn-sm btn-outline-info" (click)="uploadCSV()">Upload CSV</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+
+    </div>
+
+    <div class="row mt-10" *ngIf="!isUploadCSV">
+        <table class="table table-responsive table-bordered align-items-center">
             <thead>
                 <tr>
                     <th scope="col">S.N.</th>
                     <th scope="col">Script</th>
                     <th scope="col">CurrentBalance</th>
-                    <th scope="col">Previous Closing Price</th>    
+                    <th scope="col">Previous Closing Price</th>
                     <th scope="col">Value As Of Previous Closing Price</th>
                     <th scope="col">LTP</th>
-                    <th scope="col">Value As Of LTP</th>          
+                    <th scope="col">Value As Of LTP</th>
                 </tr>
             </thead>
             <tbody *ngFor="let nepse of nepseData;let i = index">
                 <tr>
                     <td>{{i+1}}</td>
-                    <td>{{ nepse.scripName }}</td>  
+                    <td>{{ nepse.scripName }}</td>
                     <td>{{ nepse.currentBalance }}</td>
-                    <td>{{ nepse.previousClosingPrice }}</td>  
-                    <td>{{ nepse.valuesAsOfPreviousClosing }}</td> 
-                    <td>{{ nepse.ltp }}</td>  
-                    <td>{{ nepse.valueAsOfLTP }}</td> 
+                    <td>{{ nepse.previousClosingPrice }}</td>
+                    <td>{{ nepse.valuesAsOfPreviousClosing }}</td>
+                    <td>{{ nepse.ltp }}</td>
+                    <td>{{ nepse.valueAsOfLTP }}</td>
                 </tr>
             </tbody>
         </table>

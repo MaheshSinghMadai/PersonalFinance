@@ -66,7 +66,7 @@ namespace FinancePersonal.Server.Controllers
         public async Task<IActionResult> ImportNepseCSV(IFormFile file, [FromQuery] string userId, [FromQuery] string username)
         {
             //remove existing data first
-            var existingData = await _db.NepsePortfolios.ToListAsync();
+            var existingData = await _db.NepsePortfolios.Where(x=> x.UserId == userId).ToListAsync();
             _db.NepsePortfolios.RemoveRange(existingData);
             await _db.SaveChangesAsync();
 
@@ -92,9 +92,11 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetNepsePortfolio()
+        public async Task<IActionResult> GetMyNepsePortfolio([FromQuery] string userId)
         {
-            var nepseData = await _db.NepsePortfolios.ToListAsync();
+            var nepseData = await (from n in _db.NepsePortfolios
+                                   where n.UserId == userId
+                                   select n).ToListAsync();
 
             return Ok(nepseData);
         }
