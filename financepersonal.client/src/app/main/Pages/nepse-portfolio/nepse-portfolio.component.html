@@ -7,16 +7,13 @@
             </button>
         </div>
     </div>
-    <div class="col-lg-4 my-6 " *ngIf="isUploadCSV">
+    <div class="col-lg-6 my-6 " *ngIf="isUploadCSV">
         <div class="card">
             <div class="card-body">
                 <input type="file" name="file" (change)="onFileSelected($event)" accept=".csv">
                 <button class="btn btn-sm btn-outline-info" (click)="uploadCSV()">Upload CSV</button>
             </div>
         </div>
-    </div>
-    <div class="col-lg-6">
-
     </div>
 
     <div class="row mt-10" *ngIf="!isUploadCSV">

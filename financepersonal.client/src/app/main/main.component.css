@@ -53,5 +53,14 @@
     height:20px !important;
   }
 
+  .logout-btn{
+    margin-right:10px;
+  }
 
+.logout-btn:hover{
+    background-color: #22889d;
+    color:white;
+    border-radius: 15px;
+    margin-right:10px
+}
 

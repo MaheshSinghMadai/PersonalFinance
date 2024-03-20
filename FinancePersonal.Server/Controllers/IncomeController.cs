@@ -1,4 +1,5 @@
-﻿using FinancePersonal.Core.Entities;
+﻿using ClosedXML.Excel;
+using FinancePersonal.Core.Entities;
 using FinancePersonal.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,41 @@ namespace FinancePersonal.Server.Controllers
             await _db.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public IActionResult ExportToExcel()
+        {
+            var incomes = _db.Incomes.ToList();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Incomes");
+                worksheet.Cell(1, 1).Value = "S.N.";
+                worksheet.Cell(1, 2).Value = "Amount";
+                worksheet.Cell(1, 3).Value = "Date";
+                worksheet.Cell(1, 4).Value = "Source";
+
+                int row = 2;
+                foreach (var income in incomes)
+                {
+                    worksheet.Cell(row, 1).Value = row - 1;
+                    worksheet.Cell(row, 2).Value = income.Amount;
+                    worksheet.Cell(row, 3).Value = income.Date;
+                    worksheet.Cell(row, 4).Value = income.Source;
+                    row++;
+                }
+
+                var stream = new MemoryStream();
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Incomes.xlsx";
+
+                return File(stream, contentType, fileName);
+            }
         }
     }
 }
