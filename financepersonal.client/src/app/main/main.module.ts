@@ -10,6 +10,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { IncomeComponent } from './Pages/income/income.component';
 import { InvestmentComponent } from './Pages/investment/investment.component';
 import { SharedModule } from '../shared/shared.module';
+import { NepsePortfolioComponent } from './Pages/nepse-portfolio/nepse-portfolio.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { SharedModule } from '../shared/shared.module';
         CategoriesComponent,
         IncomeComponent,
         InvestmentComponent,
+        NepsePortfolioComponent
     ],
     imports: [
         CommonModule,

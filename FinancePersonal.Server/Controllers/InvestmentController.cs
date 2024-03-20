@@ -1,7 +1,10 @@
-﻿using FinancePersonal.Core.Entities;
+﻿using CsvHelper;
+using FinancePersonal.Core.Entities;
 using FinancePersonal.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
 
 namespace FinancePersonal.Server.Controllers
 {
@@ -20,8 +23,8 @@ namespace FinancePersonal.Server.Controllers
         public async Task<IActionResult> GetInvestmentList([FromQuery] string userId)
         {
             var investmentList = await (from i in _db.Investments
-                                     where i.UserId == userId
-                                     select i).ToListAsync();
+                                        where i.UserId == userId
+                                        select i).ToListAsync();
 
             return Ok(investmentList);
         }
@@ -56,6 +59,44 @@ namespace FinancePersonal.Server.Controllers
             await _db.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> ImportNepseCSV(IFormFile file, [FromQuery] string userId, [FromQuery] string username)
+        {
+            //remove existing data first
+            var existingData = await _db.NepsePortfolios.ToListAsync();
+            _db.NepsePortfolios.RemoveRange(existingData);
+            await _db.SaveChangesAsync();
+
+            //read contents of csv and add it to database
+            using (var reader = new StreamReader(file.OpenReadStream()))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<NepsePortfolio>().ToList();
+
+                // Exclude StockId-PK column from records 
+                foreach (var record in records)
+                {
+                    record.StockId = 0;
+                    record.Username = username;
+                    record.UserId = userId;
+                }
+
+                _db.NepsePortfolios.AddRange(records);
+                await _db.SaveChangesAsync();
+            }
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetNepsePortfolio()
+        {
+            var nepseData = await _db.NepsePortfolios.ToListAsync();
+
+            return Ok(nepseData);
         }
     }
 }
