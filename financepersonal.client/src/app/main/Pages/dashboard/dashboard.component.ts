@@ -48,14 +48,14 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
+   setTimeout(() => {
       this.createBarChart();
       this.createLineChart();
       this.createDoughnutChart();
     }, 0)
   }
 
-  createDoughnutChart() {
+  async createDoughnutChart() {
     var options = {
       cutoutPercentage: 40,
       radius: '60%', // Set the radius of the doughnut chart
