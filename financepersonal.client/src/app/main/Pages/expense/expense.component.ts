@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import { ExpenseService } from '../../Services/expense.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CategoryService } from '../../Services/category.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-expense',
@@ -39,7 +40,9 @@ export class ExpenseComponent implements OnInit {
     private toastr: ToastrService,
     private datePipe: DatePipe,
     private authService: AuthService,
-    private categoryService: CategoryService) {
+    private categoryService: CategoryService,
+    private http: HttpClient) 
+    {
     this.addExpenseForm = this.formBuilder.group({
       amount: ['', Validators.required],
       date: ['', Validators.required],
@@ -182,5 +185,29 @@ export class ExpenseComponent implements OnInit {
         this.toastr.warning(error);
       }
     )
+  }
+
+  exportToExcel(): void {
+    this.http.get(`https://localhost:7068/Expense/ExportToExcel?userId=${this.userId}`,{responseType:'blob'}).subscribe((blob: Blob) => {
+      // Create a blob URL for the Excel file
+      const url = window.URL.createObjectURL(blob);
+
+      // Create a temporary anchor element
+      const a = document.createElement('a');
+      a.href = url;
+
+      // Specify the file name for the download
+      a.download = 'expenses.xlsx';
+
+      // Trigger a click event on the anchor element to start the download
+      document.body.appendChild(a);
+      a.click();
+
+      // Clean up: remove the anchor element and release the blob URL
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, error => {
+      console.error('Failed to export data to Excel:', error);
+    });
   }
 }

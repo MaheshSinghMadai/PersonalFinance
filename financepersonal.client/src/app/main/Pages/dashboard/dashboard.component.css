@@ -36,4 +36,10 @@
   .card-title{
     color:purple;
   }
+
+  .card{
+    border: .5px solid rgba(0, 0, 0, 0.38);
+    box-shadow:  10px 10px 10px rgba(58, 102, 121, 0.1);
+  }
+  
   

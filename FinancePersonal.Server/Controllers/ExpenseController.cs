@@ -1,4 +1,6 @@
-﻿using FinancePersonal.Core.Entities;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using FinancePersonal.Core.Entities;
 using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.Helper;
 using FinancePersonal.Server.Pagination;
@@ -21,7 +23,7 @@ namespace FinancePersonal.Server.Controllers
         }
 
         [HttpGet]
-        [Route("expense")]
+        [Route("[action]")]
         public async Task<IActionResult> GetExpense()
         {
 
@@ -198,6 +200,55 @@ namespace FinancePersonal.Server.Controllers
             var monthlyCategoricalExpList = monthlyCategoricalExp.ToListAsync();
 
             return Ok(await monthlyCategoricalExpList);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public IActionResult ExportToExcel([FromQuery] string userId)
+        {
+            var expenses = (from e in _db.Expenses
+                         join c in _db.Categories on e.CategoryId equals c.CategoryId
+                         where e.UserId == userId
+                         select new UserExpenseWithCategory
+                         {
+                             Amount = e.Amount,
+                             Date = e.Date,
+                             Username = e.Username,
+                             Description = e.Description,
+                             CategoryName = c.CategoryName,
+                         }).AsNoTracking().ToList();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Expenses");
+                worksheet.Cell(1, 1).Value = "S.N.";
+                worksheet.Cell(1, 2).Value = "Amount";
+                worksheet.Cell(1, 3).Value = "Date";
+                worksheet.Cell(1, 4).Value = "Username";
+                worksheet.Cell(1, 5).Value = "Category";
+                worksheet.Cell(1, 6).Value = "Description";
+
+                int row = 2;
+                foreach (var expense in expenses)
+                {
+                    worksheet.Cell(row, 1).Value = row - 1;
+                    worksheet.Cell(row, 2).Value = expense.Amount;
+                    worksheet.Cell(row, 3).Value = expense.Date;
+                    worksheet.Cell(row, 4).Value = expense.Username;
+                    worksheet.Cell(row, 5).Value = expense.CategoryName;
+                    worksheet.Cell(row, 6).Value = expense.Description;
+                    row++;
+                }
+
+                var stream = new MemoryStream();
+                workbook.SaveAs(stream);
+                stream.Position = 0;
+
+                var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                var fileName = "Expenses.xlsx";
+
+                return File(stream, contentType, fileName);
+            }
         }
     }
 }

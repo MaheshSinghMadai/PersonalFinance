@@ -252,7 +252,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.investmentService.GetTotalInvestmentPerUser(this.userId).subscribe(
       (result) => {
         this.totalInvestmentPerUser = result;
-        console.log(this.totalInvestmentPerUser);
+        // console.log(this.totalInvestmentPerUser);
       },
       error => {
         console.log(error); 
