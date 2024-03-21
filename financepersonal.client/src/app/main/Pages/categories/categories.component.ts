@@ -48,6 +48,6 @@ export class CategoriesComponent implements OnInit{
   }
 
   toggleTable(){
-    this.viewTable = true;
+    this.viewTable = !this.viewTable;
   }
 }

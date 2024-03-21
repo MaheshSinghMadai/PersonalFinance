@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h1 class="card-title text-center">{{items.totalAmount | number}}</h1>
                 <p class="text-center">
-                    <button class="btn btn-sm" (click)="toggleTable()" (click)="getCategoricalExpense(items.categoryName)">
+                    <button class="btn btn-sm" (click)="toggleTable()" (click)="getCategoricalExpense(items.categoryName)" >
                         <mat-icon *ngIf="!viewTable" class="mat-icon" aria-hidden="false" aria-label="Example home icon"
                         fontIcon="expand_more"></mat-icon>
                         <mat-icon *ngIf="viewTable" class="mat-icon" aria-hidden="false" aria-label="Example home icon"

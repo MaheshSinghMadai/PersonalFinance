@@ -30,6 +30,9 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
+  .row{
+    margin-right:0px !important
+  }
   .pages-row{
     padding:10px;
   }
@@ -63,4 +66,7 @@
     border-radius: 15px;
     margin-right:10px
 }
+
+
+
 
