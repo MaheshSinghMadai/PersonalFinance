@@ -3,6 +3,7 @@ using FinancePersonal.Core.Interface;
 using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Infrastructure.Data.Identity;
 using FinancePersonal.Infrastructure.Services;
+using FinancePersonal.Server.GoogleAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +43,12 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AppIdentityServices(builder.Configuration);
+
+builder.Services.AddAuthentication().AddGoogle(options =>
+{
+    options.ClientId = "201032301966 - bko3u9e1250n934fclh6rjqfefhc11l4.apps.googleusercontent.com";
+    options.ClientSecret = "GOCSPX - FQbvJySfU70fQrWkD8UKxcd7YcVK";
+});
 
 var app = builder.Build();
 
