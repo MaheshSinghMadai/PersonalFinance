@@ -21,3 +21,8 @@
   .table-responsive {
     line-height: 40px;
   }
+  
+  .selected-card{
+    background-color: #22889d;
+    color:white
+  }

@@ -1,16 +1,16 @@
 <div class="row">
-    <div class="col-3" *ngFor="let items of categoricalExpenseCount">
-        <div class="card">
+    <div class="col-3" *ngFor="let items of categoricalExpenseCount" >
+        <div class="card" (click)="toggleSelected(items)">
             <div class="card-header">
                 <p class="text-center" style="margin-top:10px">{{items.categoryName}}</p>
             </div>
-            <div class="card-body">
+            <div class="card-body" >
                 <h1 class="card-title text-center">{{items.totalAmount | number}}</h1>
                 <p class="text-center">
                     <button class="btn btn-sm" (click)="toggleTable()" (click)="getCategoricalExpense(items.categoryName)" >
-                        <mat-icon *ngIf="!viewTable" class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        <mat-icon *ngIf="!viewTable " class="mat-icon" aria-hidden="false" aria-label="Example home icon"
                         fontIcon="expand_more"></mat-icon>
-                        <mat-icon *ngIf="viewTable" class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        <mat-icon *ngIf="viewTable && items.selected" class="mat-icon" aria-hidden="false" aria-label="Example home icon"
                         fontIcon="expand_less"></mat-icon>
                     </button> 
                 </p>
@@ -38,7 +38,6 @@
           <td>{{ expense.date | date }}</td>
           <td>{{ expense.categoryName }}</td>
           <td>{{ expense.description }} </td>
-          
         </tr>
       </tbody>
     </table>
