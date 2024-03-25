@@ -3,8 +3,8 @@
         <div class="row header-row">
             <p class="sidenav-header">FINANCE</p>
         </div>
-        <ul class="nav-item active ">
-            <a class="nav-link active" [routerLink]="['/main/dashboard']" routerLinkActive="active">
+        <ul class="nav-item active" routerLinkActive="active-link">
+            <a class="nav-link active" [routerLink]="['/main/dashboard']" routerLinkActive="active-link">
                 <p class="sidebar-header">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
                         fontIcon="bar_chart_4_bars"></mat-icon>
@@ -12,8 +12,8 @@
                 </p>
             </a>
         </ul>
-        <ul class="nav-item active ">
-            <a class="nav-link active" [routerLink]="['/main/expense']" routerLinkActive="active">
+        <ul class="nav-item active" routerLinkActive="active-link">
+            <a class="nav-link active" [routerLink]="['/main/expense']" routerLinkActive="active-link">
                 <p class="sidebar-header">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
                         fontIcon="calculate"></mat-icon>
@@ -21,8 +21,8 @@
                 </p>
             </a>
         </ul>
-        <ul class="nav-item active ">
-            <a class="nav-link " [routerLink]="['/main/categories']" routerLinkActive="active">
+        <ul class="nav-item active" routerLinkActive="active-link">
+            <a class="nav-link " [routerLink]="['/main/categories']" >
                 <p class="sidebar-header">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
                         fontIcon="category"></mat-icon>
@@ -30,8 +30,8 @@
                 </p>
             </a>
         </ul>
-        <ul class="nav-item active ">
-            <a class="nav-link " [routerLink]="['/main/income']" routerLinkActive="active">
+        <ul class="nav-item active" routerLinkActive="active-link">
+            <a class="nav-link " [routerLink]="['/main/income']" >
                 <p class="sidebar-header">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
                         fontIcon="account_balance"></mat-icon>
@@ -39,8 +39,8 @@
                 </p>
             </a>
         </ul>
-        <ul class="nav-item active ">
-            <a class="nav-link " [routerLink]="['/main/investment']" routerLinkActive="active">
+        <ul class="nav-item active" routerLinkActive="active-link">
+            <a class="nav-link " [routerLink]="['/main/investment']" routerLinkActive="active-link">
                 <p class="sidebar-header">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
                         fontIcon="monitoring"></mat-icon>
@@ -48,9 +48,6 @@
                 </p>
             </a>
         </ul>
-        <div class="sidebar-footer">
-
-        </div>
     </mat-drawer>
 
     <div class="example-sidenav-content">

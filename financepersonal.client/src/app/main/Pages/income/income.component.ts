@@ -16,6 +16,7 @@ export class IncomeComponent implements OnInit{
   isAdding: boolean = false;
   incomeForm: FormGroup;
   isEditDelete: any;
+  isLoading: boolean = false;
 
   userId: any = this.authService.currentUserSource.value.userId;
   username: any = this.authService.currentUserSource.value.username;
@@ -39,12 +40,15 @@ export class IncomeComponent implements OnInit{
   }
 
   getUserIncomes() {
+    this.isLoading = true;
     this.incomeService.getUserIncomes(this.userId).subscribe(
       (response) => {
+        this.isLoading = false
         this.incomesList = response;
         // console.log(this.incomesList);
       },
       error => {
+        this.isLoading = false;
         console.log(error);
       }
     )

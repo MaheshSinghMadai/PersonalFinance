@@ -30,6 +30,7 @@ export class ExpenseComponent implements OnInit {
   isAdding: boolean = false;
   isEditDelete: boolean = false;
   editModal: boolean = false;
+  isLoading : boolean = false;
 
   userId: any = this.authService.currentUserSource.value.userId;
   username: any = this.authService.currentUserSource.value.username;
@@ -68,12 +69,16 @@ export class ExpenseComponent implements OnInit {
   }
 
   getUserExpenses() {
+    this.isLoading = true;
+    this.isAdding = false;
     this.expenseService.getUserExpenses(this.userId).subscribe(
       (response) => {
+        this.isLoading = false;
         this.userExpenseList = response;
         // console.log(this.userExpenseList);
       },
       error => {
+        this.isLoading = false;
         console.log(error);
       }
     )
@@ -92,6 +97,7 @@ export class ExpenseComponent implements OnInit {
     this.expenseService.AddExpense(body).subscribe(
       (response) => {
         // console.log(response); 
+        this.isAdding = false;
         this.toastr.success('Expense Added Successfully!!');
         this.clearForm();
         this.selectedCategory = '';
@@ -99,6 +105,7 @@ export class ExpenseComponent implements OnInit {
         this.getUserExpenses();
       },
       error => {
+        this.isAdding = false;
         console.log(error);
       }
     )

@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.isLoading = true;
     const body = {
       username: this.loginForm.value['username'],
       password: this.loginForm.value['password']
