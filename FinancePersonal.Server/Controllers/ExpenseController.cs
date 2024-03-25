@@ -32,9 +32,13 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> GetCurrentUserExpense([FromQuery] string userId)
+        public async Task<IActionResult> GetCurrentUserExpense([FromQuery] string userId, [FromQuery] PaginationFilter pageFilter)
         {
-            var query = (from e in _db.Expenses
+            var validFilter = new PaginationFilter(pageFilter.PageNumber, pageFilter.PageSize);
+
+            try
+            {
+                var query = (from e in _db.Expenses
                          join c in _db.Categories on e.CategoryId equals c.CategoryId
                          where e.UserId == userId
                          select new UserExpenseWithCategory
@@ -46,9 +50,21 @@ namespace FinancePersonal.Server.Controllers
                              Username = e.Username,
                              CategoryName = c.CategoryName,
                              CategoryId = c.CategoryId
-                         }).AsNoTracking().ToListAsync();
+                         }).AsNoTracking().ToList();
 
-            return Ok(await query);
+                var pagedData = query
+                                    .Skip((validFilter.PageNumber - 1) * pageFilter.PageSize)
+                                    .Take(validFilter.PageSize)
+                                    .ToList();
+                var totalRecords = query.Count();
+                var pagedResponse = PaginationHelper.CreatePagedReponse<UserExpenseWithCategory>(pagedData, validFilter, totalRecords);
+                return Ok(pagedResponse);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         [HttpPost]

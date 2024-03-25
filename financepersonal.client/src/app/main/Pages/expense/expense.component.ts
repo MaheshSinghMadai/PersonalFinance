@@ -26,6 +26,10 @@ export class ExpenseComponent implements OnInit {
   Categories: any;
   selectedCategory: any;
 
+  pageNumber = 1;
+  pageSize = 20;
+  totalRecords = 0;
+
   addExpenseForm: FormGroup;
   isAdding: boolean = false;
   isEditDelete: boolean = false;
@@ -71,10 +75,11 @@ export class ExpenseComponent implements OnInit {
   getUserExpenses() {
     this.isLoading = true;
     this.isAdding = false;
-    this.expenseService.getUserExpenses(this.userId).subscribe(
-      (response) => {
+    this.expenseService.getUserExpenses(this.userId, this.pageNumber, this.pageSize).subscribe(
+      (response : any) => {
         this.isLoading = false;
-        this.userExpenseList = response;
+        this.userExpenseList = response.data;
+        this.totalRecords = response.totalRecords
         // console.log(this.userExpenseList);
       },
       error => {
@@ -216,5 +221,16 @@ export class ExpenseComponent implements OnInit {
     }, error => {
       console.error('Failed to export data to Excel:', error);
     });
+  }
+
+  onPageSizeChange(): void {
+    this.pageNumber = 1; // Reset to the first page when the page size changes.
+    this.getUserExpenses();
+  }
+
+  onPageChange(event: any): void{
+    this.pageNumber = event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.getUserExpenses();
   }
 }

@@ -12,7 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
   declarations: [
 
@@ -30,7 +30,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDialogModule,
     MatSidenavModule,
     MatSelectModule,
-    MatTabsModule
+    MatTabsModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }

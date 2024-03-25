@@ -5,5 +5,6 @@ export interface UserExpense {
   description: string
   username: string
   categoryName: string
-  categoryId: number
+  categoryId: number,
+  totalRecords: number
 }
