@@ -50,4 +50,8 @@ export class CategoriesComponent implements OnInit{
   toggleTable(){
     this.viewTable = !this.viewTable;
   }
+  
+  toggleSelected(items: any){
+    items.selected = !items.selected;
+  }
 }

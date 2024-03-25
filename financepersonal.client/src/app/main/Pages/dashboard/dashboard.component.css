@@ -39,7 +39,16 @@
 
   .card{
     border: .5px solid rgba(0, 0, 0, 0.38);
-    box-shadow:  10px 10px 10px rgba(58, 102, 121, 0.1);
+    box-shadow:  10px 10px  rgba(13, 77, 57, 0.2);
+  }
+
+  .card:hover{
+    background-color: #22889d;
+    color:white;
+    cursor: pointer;
+     & .card-title{
+      color: white;
+     }
   }
   
   
