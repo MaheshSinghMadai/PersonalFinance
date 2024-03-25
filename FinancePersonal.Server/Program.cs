@@ -3,7 +3,6 @@ using FinancePersonal.Core.Interface;
 using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Infrastructure.Data.Identity;
 using FinancePersonal.Infrastructure.Services;
-using FinancePersonal.Server.GoogleAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
