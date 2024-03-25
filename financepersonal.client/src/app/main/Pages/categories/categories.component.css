@@ -1,22 +1,23 @@
-  .card{
-    margin:20px;
-    font-size:30px ;
+  .card {
+    margin: 20px;
+    font-size: 30px;
   }
 
-  .card-title{
-    color:rgb(37, 79, 108);;
-    font-size:30px;
-    font-family: cursive;
+  .card-title {
+    color: rgb(37, 79, 108);
+    font-size: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 
-  .card-header{
-   background-color: teal;
-   color: white;
+  .card-header {
+    background-color: #22889d;
+    color: white;
   }
 
-  .card-body{
-    color:aqua
-  } 
-  .table-responsive{
+  .card-body {
+    color: aqua
+  }
+
+  .table-responsive {
     line-height: 40px;
   }

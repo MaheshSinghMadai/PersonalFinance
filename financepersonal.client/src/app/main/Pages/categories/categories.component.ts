@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class CategoriesComponent implements OnInit{
 
   categoricalExpense : any = [];
-  foodExpenseCount : any = [];
+  categoricalExpenseCount : any = [];
   category: string;
   userId : any = this.authService.currentUserSource.value?.userId;
   viewTable : boolean = false;
@@ -23,6 +23,7 @@ export class CategoriesComponent implements OnInit{
   }
 
   getCategoricalExpense(category: string){
+    console.log(category);
     this.categoryService.getCategoricalExpense(this.userId, category).subscribe(
       (result) => {
         // console.log(result);
@@ -37,7 +38,8 @@ export class CategoriesComponent implements OnInit{
   getCategoricalExpenseCount(){
     this.categoryService.getCategoricalExpenseCount(this.userId).subscribe(
       (result) => {
-        this.foodExpenseCount = result;
+        this.categoricalExpenseCount = result;
+        // console.log(this.categoricalExpenseCount);
       },
       error => {
         // console.log(error);

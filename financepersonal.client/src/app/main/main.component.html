@@ -30,34 +30,45 @@
                 </p>
             </a>
         </ul>
-
+        <ul class="nav-item active ">
+            <a class="nav-link " [routerLink]="['/main/income']" routerLinkActive="active">
+                <p class="sidebar-header">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="account_balance"></mat-icon>
+                    Income
+                </p>
+            </a>
+        </ul>
+        <ul class="nav-item active ">
+            <a class="nav-link " [routerLink]="['/main/investment']" routerLinkActive="active">
+                <p class="sidebar-header">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="monitoring"></mat-icon>
+                    Investment
+                </p>
+            </a>
+        </ul>
         <div class="sidebar-footer">
-            
+
         </div>
     </mat-drawer>
 
     <div class="example-sidenav-content">
-        <div class="row nav-row">
-            <div class="col-sm-9" style="margin:10px;padding:0">
-                <button type="button pull-left" mat-button (click)="drawer.toggle()">
+        <div class="row nav-row py-2">
+            <div class="col-md-12 d-flex justify-content-between align-items-center">
+                <button type="button" mat-button (click)="drawer.toggle()">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="more_vert"
                         style="color:white"></mat-icon>
                 </button>
-            </div>
-            <div class="col-sm-2">
-                <ul class="nav-item active pull-right">
-                    <a class="nav-link" routerLinkActive="active"  (click)="logout()" style="cursor: pointer;color:white">
-                        <p class="sidebar-header">
-                            <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-                                fontIcon="logout"></mat-icon>
-                            Logout
-                        </p>
-                    </a>
-                </ul>
+                <button class="logout-btn px-4" type="button" mat-button (click)="logout()">
+                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="logout"
+                        style="color:white"></mat-icon>
+                    <span style="color:white">Logout</span>
+                </button>
             </div>
         </div>
         <div class="row pages-row">
-                <router-outlet></router-outlet>
-            </div>
+            <router-outlet></router-outlet>
+        </div>
     </div>
 </mat-drawer-container>

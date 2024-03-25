@@ -30,6 +30,9 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
+  .row{
+    margin-right:0px !important
+  }
   .pages-row{
     padding:10px;
   }
@@ -41,7 +44,6 @@
 
   .nav-item{
     font-size:20px;
-    margin:5px;
   }
 
   .nav-item:hover{
@@ -53,6 +55,18 @@
   .mat-icon{
     height:20px !important;
   }
+
+  .logout-btn{
+    margin-right:10px;
+  }
+
+.logout-btn:hover{
+    background-color: #22889d;
+    color:white;
+    border-radius: 15px;
+    margin-right:10px
+}
+
 
 
 

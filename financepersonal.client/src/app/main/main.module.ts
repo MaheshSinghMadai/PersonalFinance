@@ -7,24 +7,29 @@ import { CategoriesComponent } from './Pages/categories/categories.component';
 import { MaterialModule } from '../shared/material.module';
 import { FormsModule ,ReactiveFormsModule } from '@angular/forms';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
-
-
+import { IncomeComponent } from './Pages/income/income.component';
+import { InvestmentComponent } from './Pages/investment/investment.component';
+import { SharedModule } from '../shared/shared.module';
+import { NepsePortfolioComponent } from './Pages/nepse-portfolio/nepse-portfolio.component';
 
 @NgModule({
-  declarations: [
-    ExpenseComponent,
-    DashboardComponent,
-    CategoriesComponent,
-    
-  ],
-  imports: [
-    CommonModule,
-    MainRoutingModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    NgxDocViewerModule,
-    FormsModule,
-    DatePipe,
-  ]
+    declarations: [
+        ExpenseComponent,
+        DashboardComponent,
+        CategoriesComponent,
+        IncomeComponent,
+        InvestmentComponent,
+        NepsePortfolioComponent
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        MainRoutingModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        NgxDocViewerModule,
+        FormsModule,
+        DatePipe
+    ]
 })
 export class MainModule { }
