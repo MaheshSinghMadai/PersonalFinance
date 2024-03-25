@@ -14,5 +14,6 @@ namespace FinancePersonal.Core.Entities.Identity
         public string DisplayName { get; set; }
         public string Token { get; set; }
         public DateTime expiresAt { get; set; }
+        public string Provider { get; set; } = null!;
     }
 }

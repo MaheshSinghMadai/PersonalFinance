@@ -1,13 +1,15 @@
 ﻿using FinancePersonal.Core.Entities.Identity;
 using FinancePersonal.Core.Interface;
-using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Reflection.Metadata;
 
 namespace FinancePersonal.Server.Controllers
 {
@@ -20,20 +22,17 @@ namespace FinancePersonal.Server.Controllers
         private readonly ITokenService _tokenService;
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
-        private readonly ApplicationDbContext _db;
         public AccountController(
             UserManager<AppUser> userManager, 
             IConfiguration config,
             SignInManager<AppUser> signInManager,
-            ITokenService tokenService,
-            ApplicationDbContext db)
+            ITokenService tokenService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
-            _db = db;
         }
 
         [HttpPost]
@@ -122,5 +121,29 @@ namespace FinancePersonal.Server.Controllers
                 return BadRequest(new { error = new { code = "Internal Server Error", message = ex.GetBaseException().Message } });
             }
         }
+
+        [HttpPost("google-signin")]
+        public async Task<IActionResult> AuthenticateWithGoogle([FromBody] GoogleAuthTokenModel model)
+        {
+            if (model == null || string.IsNullOrEmpty(model.AccessToken))
+            {
+                return BadRequest("Missing access token");
+            }
+
+            // Validate the access token with Google (optional)
+            // You can use Google's token validation API to verify the token's authenticity
+
+            // Based on the validation and your logic, generate a JWT or other authentication token
+            var user = new AppUser { DisplayName = "mahesh", Email = "mahesh@test.com" }; // Replace with actual user data
+            var token = GenerateJwtToken(user); // Implement JWT generation logic
+
+            return Ok(new { token = token });
+        }
+
+        private class GoogleAuthTokenModel
+        {
+            public string AccessToken { get; set; }
+        }
     }
+
 }
