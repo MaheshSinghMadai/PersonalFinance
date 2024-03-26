@@ -14,6 +14,7 @@ export class CategoriesComponent implements OnInit{
   category: string;
   userId : any = this.authService.currentUserSource.value?.userId;
   viewTable : boolean = false;
+  isLoading: boolean = false;
 
   constructor(private categoryService: CategoryService, private authService: AuthService){}
   
@@ -23,13 +24,15 @@ export class CategoriesComponent implements OnInit{
   }
 
   getCategoricalExpense(category: string){
-    console.log(category);
+    this.isLoading = true;
     this.categoryService.getCategoricalExpense(this.userId, category).subscribe(
       (result) => {
         // console.log(result);
+        this.isLoading = false;
         this.categoricalExpense = result;
       },
       error => {
+        this.isLoading = false;
         // console.log(error);
       }
     ); 

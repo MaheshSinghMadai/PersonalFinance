@@ -1,5 +1,5 @@
 <div class="row d-flex flex-direction-row">
-    <div class="col-md-3">
+    <div class="col-md-3" [routerLink]="['/main/expense']">
         <div class="card" >
             <div class="card-body">
               <h1 class="card-title text-center">{{totalExpense | number}}</h1>
@@ -7,7 +7,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" [routerLink]="['/main/expense']">
         <div class="card">
             <div class="card-body px-100">
               <h1 class="card-title text-center">{{averageExpense | number}}</h1>
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" [routerLink]="['/main/income']">
         <div class="card">
             <div class="card-body px-100">
               <h1 class="card-title text-center">{{totalIncomePerUser | number}}</h1>
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" [routerLink]="['/main/investment']">
         <div class="card">
             <div class="card-body px-100">
               <h1 class="card-title text-center">{{totalInvestmentPerUser | number}}</h1>

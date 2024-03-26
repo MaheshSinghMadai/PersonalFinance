@@ -67,6 +67,13 @@
     margin-right:10px
 }
 
+.active-link {
+    background-color: rgb(37, 79, 108);
+    color:white;
+    /* border-radius: 20px; */
+    padding-left:20px;
+}
+
 
 
 

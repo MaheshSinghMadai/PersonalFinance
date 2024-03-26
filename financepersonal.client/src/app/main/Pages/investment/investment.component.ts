@@ -15,6 +15,7 @@ export class InvestmentComponent implements OnInit{
   isAdding: boolean = false;
   investmentForm: FormGroup;
   isEditDelete: any;
+  isLoading: boolean = false;
 
   userId: any = this.authService.currentUserSource.value.userId;
   username: any = this.authService.currentUserSource.value.username;
@@ -36,12 +37,15 @@ export class InvestmentComponent implements OnInit{
   }
 
   getUserInvestments() {
+    this.isLoading = true;
     this.investmentService.getUserInvestments(this.userId).subscribe(
       (response) => {
+        this.isLoading = false;
         this.investmentList = response;
         // console.log(this.investmentList);
       },
       error => {
+        this.isLoading = false;
         console.log(error);
       }
     )

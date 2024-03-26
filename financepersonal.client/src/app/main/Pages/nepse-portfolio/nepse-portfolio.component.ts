@@ -10,9 +10,11 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrl: './nepse-portfolio.component.css'
 })
 export class NepsePortfolioComponent implements OnInit{
+
   selectedFile: File | undefined;
   nepseData: any = [];
   isUploadCSV: boolean = false;
+  isLoading: boolean = false;
 
   userId: any = this.authService.currentUserSource.value.userId;
   username: any = this.authService.currentUserSource.value.username;
@@ -29,12 +31,15 @@ export class NepsePortfolioComponent implements OnInit{
   }
  
   GetNepseData(){
+    this.isLoading = true;
     this.investmentService.GetNepsePortfolio(this.userId).subscribe(
       (result) => {
         console.log(result);
+        this.isLoading = false;
         this.nepseData = result;
       },
       error => {
+        this.isLoading = false;
         console.log(error);
       }
     )
