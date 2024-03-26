@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserExpense } from '../Models/UserExpense';
 import { Expense } from '../Models/expense';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,8 +16,11 @@ export class ExpenseService {
     return this.http.get<Expense[]>(`${this.baseUrl}/Expense/expense`);
   }
 
-  getUserExpenses(userId: string){
-    return this.http.get<UserExpense[]>(`${this.baseUrl}/Expense/GetCurrentUserExpense?userId=${userId}`);
+  getUserExpenses(userId: string, pageNumber:number, pageSize:number) : Observable<any>{
+    const params = new HttpParams()
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString())
+    return this.http.get<UserExpense[]>(`${this.baseUrl}/Expense/GetCurrentUserExpense?userId=${userId}`, {params});
   }
 
   toggleAdd(){
