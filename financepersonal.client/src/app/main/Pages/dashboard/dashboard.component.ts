@@ -52,10 +52,10 @@ export class DashboardComponent implements AfterViewInit, OnInit {
       this.createBarChart();
       this.createLineChart();
       this.createDoughnutChart();
-    }, 0)
+    }, 1000)
   }
 
-  async createDoughnutChart() {
+ createDoughnutChart() {
     var options = {
       cutoutPercentage: 40,
       radius: '60%', // Set the radius of the doughnut chart
@@ -91,7 +91,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
       type: 'bar', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: ['January', 'February', 'March'],
+        labels: ['January', 'February', 'March','April'],
         datasets: [
           {
             label: "Food",
@@ -126,7 +126,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
       type: 'line', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        labels: ['January', 'February', 'March'],
+        labels: ['January', 'February', 'March','April'],
         datasets: [
           {
             label: "Monthly Expense",
@@ -151,11 +151,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.chartData.push(element.totalAmount);
           }
         });
-        // console.log(this.chartData);
-        // console.log(this.foodExpenseCount);
       },
       error => {
-        // console.log(error);
+        console.log(error);
       }
     );
   }
@@ -164,13 +162,11 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.expenseService.getMonthlyExpense(this.userId).subscribe(
       (result) => {
         this.monthlyExpenseList = result;
-        // console.log(this.monthlyExpenseList);
 
         //separating out totalAmounts
         this.monthlyExpenseList.forEach(element => {
           if(element.totalAmount){
             this.monthlyTotalAmount.push(element.totalAmount);
-            // console.log(this.monthlyTotalAmount);
           }
         })
 
@@ -182,7 +178,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         //for getting monthly average
         let n = this.monthlyExpenseList.length;
         this.averageExpense = this.totalExpense / n;
-        // console.log(this.totalExpense);
       },
       error => {
         console.log(error); 
@@ -202,7 +197,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.foodData.push(element.totalAmount);
           }
         })
-        // console.log(this.foodData);
 
         //separating out travel expense
         this.categoricalMonthlyExpenseList.forEach(element => {
@@ -210,7 +204,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.travelData.push(element.totalAmount);
           }
         })
-        // console.log(this.travelData);
 
         //separating out misc expense
         this.categoricalMonthlyExpenseList.forEach(element => {
@@ -218,7 +211,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.othersData.push(element.totalAmount);
           }
         })
-        // console.log(this.othersData);
 
         //separating out others expense
         this.categoricalMonthlyExpenseList.forEach(element => {
@@ -226,12 +218,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.miscData.push(element.totalAmount);
           }
         })
-        // console.log(this.miscData);
-        
       },
       error => {
-        console.log(error);
-        
+        console.log(error);  
       }
     )
   }
@@ -240,7 +229,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.incomeService.GetTotalIncomePerUser(this.userId).subscribe(
       (result) => {
         this.totalIncomePerUser = result;
-        // console.log(this.totalIncomePerUser);
       },
       error => {
         console.log(error); 
@@ -252,7 +240,6 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.investmentService.GetTotalInvestmentPerUser(this.userId).subscribe(
       (result) => {
         this.totalInvestmentPerUser = result;
-        // console.log(this.totalInvestmentPerUser);
       },
       error => {
         console.log(error); 
