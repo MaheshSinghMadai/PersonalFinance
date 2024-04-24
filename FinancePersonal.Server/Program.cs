@@ -43,6 +43,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AppIdentityServices(builder.Configuration);
 
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
