@@ -20,6 +20,7 @@ namespace FinancePersonal.Server.Controllers
         private readonly ApplicationDbContext _db;
         private ILogger<ExpenseController> _logger;
         private IMemoryCache _cache;
+        private static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1, 1);
         public ExpenseController(
             ApplicationDbContext db,
             IMemoryCache cache,
@@ -59,29 +60,40 @@ namespace FinancePersonal.Server.Controllers
                 }
                 else
                 {
-                    _logger.LogInformation("Expenses not found in cache. Fetching from database");
+                    try
+                    {
+                        await semaphore.WaitAsync();
 
-                    query = (from e in _db.Expenses
-                             join c in _db.Categories on e.CategoryId equals c.CategoryId
-                             where e.UserId == userId
-                             select new UserExpenseWithCategory
-                             {
-                                 ExpenseId = e.ExpenseId,
-                                 Amount = e.Amount,
-                                 Date = e.Date,
-                                 Description = e.Description,
-                                 Username = e.Username,
-                                 CategoryName = c.CategoryName,
-                                 CategoryId = c.CategoryId
-                             }).AsNoTracking().ToList();
+                        if (_cache.TryGetValue(ExpenseCacheKey, out result))
+                        {
+                            _logger.LogInformation("Expenses found in cache");
+                        }
+                        else
+                        {
+                            _logger.LogInformation("Expenses not found in cache. Fetching from database");
+                            query = (from e in _db.Expenses
+                                     join c in _db.Categories on e.CategoryId equals c.CategoryId
+                                     where e.UserId == userId
+                                     select new UserExpenseWithCategory
+                                     {
+                                         ExpenseId = e.ExpenseId,
+                                         Amount = e.Amount,
+                                         Date = e.Date,
+                                         Description = e.Description,
+                                         Username = e.Username,
+                                         CategoryName = c.CategoryName,
+                                         CategoryId = c.CategoryId
+                                     }).AsNoTracking().ToList();
 
-                    var cacheEntryOptions = new MemoryCacheEntryOptions()
-                                                .SetSlidingExpiration(TimeSpan.FromSeconds(60))
-                                                .SetAbsoluteExpiration(TimeSpan.FromHours(1))
-                                                .SetPriority(CacheItemPriority.Normal)
-                                                .SetSize(1);
-
-                    _cache.Set(ExpenseCacheKey, query, cacheEntryOptions);
+                            //For caching the data
+                            var cacheEntryOptions = CacheHelper.GetDefaultCacheOptions();
+                            _cache.Set(ExpenseCacheKey, query, cacheEntryOptions);
+                        }
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
                 }
 
                 var pagedData = query
@@ -96,7 +108,7 @@ namespace FinancePersonal.Server.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex}");
-            }          
+            }
         }
 
         [HttpPost]
