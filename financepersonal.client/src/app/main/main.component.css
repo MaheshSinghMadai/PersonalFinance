@@ -13,44 +13,43 @@
   }
 
   .example-sidenav {
-    color:black
+    color:black;
   }
 
   .nav-row{
     padding: 0px;
-    height:60px;
+    height:70px;
     background-color: #0a4c81;
   }
 
   .sidenav-header{
     text-transform: capitalize;
-    font-size:30px;
+    font-size:20px;
     line-height: 45px;
     padding:30px 30px 0 40px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: purple;
+    text-align: center;
   }
   
   .row{
     margin-right:0px !important
   }
   .pages-row{
-    /* padding:10px; */
     overflow: auto
   }
   
   ul{
-    border-radius:0 20 0 20 solid #d2d2d2;
-    line-height: 55px;
+    line-height: 60px;
   } 
 
   .nav-item{
-    font-size:20px;
+    font-size:18px;
   }
 
   .nav-item:hover{
-    background-color: rgb(37, 79, 108);
+    background-color: #1B8C86;
+    opacity: 0.8;
     color:white;
-    border-radius: 20px;
   }
 
   .mat-icon{
@@ -69,10 +68,9 @@
 }
 
 .active-link {
-    background-color: rgb(37, 79, 108);
+    background-color: #1B8C86;
     color:white;
-    border-radius: 20px;
-    padding-left:20px;
+    /* padding-left:20px; */
 }
 
 

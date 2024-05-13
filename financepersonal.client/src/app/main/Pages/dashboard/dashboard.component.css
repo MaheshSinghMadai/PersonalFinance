@@ -1,11 +1,22 @@
 
 .main-content{
-  background-image: linear-gradient(to right bottom, #f8f8f8, #dae7f6, #a9dbeb, #7dd0c9, #76bf92);
+  background-image: linear-gradient(to right bottom, #f8f8f8, #dae7f6, #a9dbeb);
   margin:0 !important;
+}
+
+.info-column{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
   .card-title{
     /* color:purple; */
-    font-size:30px
+    font-size:15px
+  }
+  .number-value{
+    font-size:30px;
+    margin-top:10px;
+    font-weight: 600;
   }
 
   .card{
@@ -20,16 +31,20 @@
   }
   
   .section-1{
-    width: auto;
+    width: 50%;
     margin: 10px;
-    padding: 10px;
+    padding: 10px ;
     border-right: 2px solid #d2d2d2 ;
   }
 
 .chart-container{
-  /* margin: 10px; */
+  /* margin-right: 20px; */
   display: flex;
   flex-direction: row;
+}
+
+.bar-chart, .line-chart, .doughnut-chart, .pie-chart{
+  margin:40px;
 }
 
   /* .card:hover{

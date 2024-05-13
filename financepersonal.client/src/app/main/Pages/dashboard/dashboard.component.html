@@ -1,14 +1,14 @@
 <div class="main-content">
     <div class="row d-flex flex-direction-column">
-        <div class="col-md-6 d-flex flex-direction-row">
+        <div class="col-md-6 info-column d-flex flex-direction-row">
             <div class="card">
                 <div class="section-1">
-                    <div class="card-title"> Total Expense</div>
-                    <div class="number-value">Rs.34,33,444</div>
+                    <div class="card-title"> Monthly Income</div>
+                    <div class="number-value">$5,553</div>
                 </div>
                 <div class="section-1" style="border:none">
-                    <div class="card-title"> Total Expense</div>
-                    <div class="number-value">Rs.34,33,444</div>
+                    <div class="card-title"> Monthly Expense</div>
+                    <div class="number-value">$3,443</div>
                 </div>
             </div>
         </div>
@@ -16,11 +16,11 @@
             <div class="card">
                 <div class="section-1">
                     <div class="card-title"> Total Expense</div>
-                    <div class="number-value">Rs.34,33,444</div>
+                    <div class="number-value">$56,565</div>
                 </div>
                 <div class="section-1" style="border:none">
                     <div class="card-title"> Total Expense</div>
-                    <div class="number-value">Rs.34,33,444</div>
+                    <div class="number-value">$45,4555</div>
                 </div>
             </div>
 
@@ -28,14 +28,17 @@
 
     </div>
     <div class="row chart-container">
-        <div class="col-md-6 chart-container text-center">
+        <div class="col-md-5 bar-chart text-center">
             <canvas id="BarChart">{{ chart }}</canvas>
         </div>
-        <div class="col-md-6 chart-container text-center">
+        <div class="col-md-5 line-chart text-center">
             <canvas id="LineChart">{{ chart }}</canvas>
         </div>
-        <div class="col-md-6 chart-container text-center">
+        <div class="col-md-5 doughnut-chart text-center">
             <canvas id="DoughnutChart">{{ chart }}</canvas>
+        </div>
+        <div class="col-md-5 pie-chart text-center">
+            <canvas id="PieChart">{{ chart }}</canvas>
         </div>
     </div>
 </div>

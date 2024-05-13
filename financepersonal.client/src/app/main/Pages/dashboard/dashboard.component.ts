@@ -9,36 +9,36 @@ import { InvestmentService } from '../../Services/investment.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements AfterViewInit, OnInit {
-
   public chart: any;
   showFiller = false;
   userId: any = this.authService.currentUserSource.value.userId;
   foodExpenseCount: any = [];
   foodAmount: number;
-  chartData: any =[];
-  monthlyExpenseList : any = [];
-  categoricalMonthlyExpenseList : any = [];
-  monthlyTotalAmount : any = [];
-  totalExpense : number = 0;
-  averageExpense : number = 0;
-  totalIncomePerUser: any ;
-  totalInvestmentPerUser: any ;
+  chartData: any = [];
+  monthlyExpenseList: any = [];
+  categoricalMonthlyExpenseList: any = [];
+  monthlyTotalAmount: any = [];
+  totalExpense: number = 0;
+  averageExpense: number = 0;
+  totalIncomePerUser: any;
+  totalInvestmentPerUser: any;
 
   //categorical monthly expense array
-  foodData : any = [];
-  travelData : any = [];
-  othersData : any = [];
-  miscData : any = [];
+  foodData: any = [];
+  travelData: any = [];
+  othersData: any = [];
+  miscData: any = [];
 
   constructor(
     private expenseService: ExpenseService,
     private categoryService: CategoryService,
     private authService: AuthService,
     private incomeService: IncomeService,
-    private investmentService: InvestmentService) { }
+    private investmentService: InvestmentService
+  ) {}
   ngOnInit() {
     this.getCategoricalExpenseCount();
     this.getMonthlyExpense();
@@ -48,97 +48,119 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-   setTimeout(() => {
+    setTimeout(() => {
       this.createBarChart();
       this.createLineChart();
       this.createDoughnutChart();
-    }, 1000)
+      this.createPieChart();
+    }, 1000);
   }
 
- createDoughnutChart() {
+  createPieChart() {
     var options = {
       cutoutPercentage: 40,
       radius: '60%', // Set the radius of the doughnut chart
     };
-    this.chart = new Chart("DoughnutChart", {
+    this.chart = new Chart('PieChart', {
+      type: 'pie', //this denotes tha type of chart
+
+      data : {
+        labels: [
+          'Income',
+          'Expense',
+          'Invested'
+        ],
+        datasets: [{
+          data: [300, 50, 100],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 4
+        }],  
+      },
+      options : options,
+    });
+  }
+
+  createDoughnutChart() {
+    var options = {
+      cutoutPercentage: 40,
+      radius: '60%', // Set the radius of the doughnut chart
+    };
+    this.chart = new Chart('DoughnutChart', {
       type: 'doughnut',
 
       data: {
-        labels: [
-          'Food',
-          'Travel',
-          'Misc',
-          'Others'
+        labels: ['Food', 'Travel', 'Misc', 'Others'],
+        datasets: [
+          {
+            label: '',
+            data: this.chartData,
+            backgroundColor: ['red', 'blue', 'yellow', 'green'],
+            hoverOffset: 4,
+          },
         ],
-        datasets: [{
-          label: '',
-          data: this.chartData,
-          backgroundColor: [
-            'red',
-            'blue',
-            'yellow',
-            'green'
-          ],
-          hoverOffset: 4
-        }]
       },
-      options: options
+      options: options,
     });
   }
 
   createBarChart() {
-    this.chart = new Chart("BarChart", {
+    this.chart = new Chart('BarChart', {
       type: 'bar', //this denotes tha type of chart
 
-      data: {// values on X-Axis
-        labels: ['January', 'February', 'March','April'],
+      data: {
+        // values on X-Axis
+        labels: ['January', 'February', 'March', 'April'],
         datasets: [
           {
-            label: "Food",
+            label: 'Food',
             data: this.foodData,
-            backgroundColor: 'blue'
+            backgroundColor: 'blue',
           },
           {
-            label: "Travel",
+            label: 'Travel',
             data: this.travelData,
-            backgroundColor: 'purple'
+            backgroundColor: 'purple',
           },
           {
-            label: "Misc",
+            label: 'Misc',
             data: this.miscData,
-            backgroundColor: 'limegreen'
+            backgroundColor: 'limegreen',
           },
           {
-            label: "Others",
+            label: 'Others',
             data: this.othersData,
-            backgroundColor: 'orange'
-          }
-        ]
+            backgroundColor: 'orange',
+          },
+        ],
       },
       options: {
-        aspectRatio: 2.5
-      }
+        aspectRatio: 2.5,
+      },
     });
   }
 
   createLineChart() {
-    this.chart = new Chart("LineChart", {
+    this.chart = new Chart('LineChart', {
       type: 'line', //this denotes tha type of chart
 
-      data: {// values on X-Axis
-        labels: ['January', 'February', 'March','April'],
+      data: {
+        // values on X-Axis
+        labels: ['January', 'February', 'March', 'April'],
         datasets: [
           {
-            label: "Monthly Expense",
+            label: 'Expense Activity',
             data: this.monthlyTotalAmount,
-            backgroundColor: 'blue'
+            backgroundColor: 'blue',
           },
-        ]
+        ],
       },
       options: {
-        aspectRatio: 2.5
-      }
-
+        aspectRatio: 2.5,
+      },
     });
   }
 
@@ -146,13 +168,13 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.categoryService.getCategoricalExpenseCount(this.userId).subscribe(
       (result) => {
         this.foodExpenseCount = result;
-        this.foodExpenseCount.forEach(element => {
-          if(element.totalAmount){
+        this.foodExpenseCount.forEach((element) => {
+          if (element.totalAmount) {
             this.chartData.push(element.totalAmount);
           }
         });
       },
-      error => {
+      (error) => {
         console.log(error);
       }
     );
@@ -164,14 +186,14 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         this.monthlyExpenseList = result;
 
         //separating out totalAmounts
-        this.monthlyExpenseList.forEach(element => {
-          if(element.totalAmount){
+        this.monthlyExpenseList.forEach((element) => {
+          if (element.totalAmount) {
             this.monthlyTotalAmount.push(element.totalAmount);
           }
-        })
+        });
 
         //for total expense
-        this.monthlyTotalAmount.forEach(element => {
+        this.monthlyTotalAmount.forEach((element) => {
           this.totalExpense += element;
         });
 
@@ -179,50 +201,50 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         let n = this.monthlyExpenseList.length;
         this.averageExpense = this.totalExpense / n;
       },
-      error => {
-        console.log(error); 
+      (error) => {
+        console.log(error);
       }
-    )
+    );
   }
 
-  getMonthlyCategoricalExpense(){
+  getMonthlyCategoricalExpense() {
     this.expenseService.getMonthlyCategoricalExpense(this.userId).subscribe(
       (result) => {
-        // console.log(result); 
+        // console.log(result);
         this.categoricalMonthlyExpenseList = result;
 
         //separating out food expense
-        this.categoricalMonthlyExpenseList.forEach(element => {
-          if(element.categoryName == 'Food'){
+        this.categoricalMonthlyExpenseList.forEach((element) => {
+          if (element.categoryName == 'Food') {
             this.foodData.push(element.totalAmount);
           }
-        })
+        });
 
         //separating out travel expense
-        this.categoricalMonthlyExpenseList.forEach(element => {
-          if(element.categoryName == 'Travel'){
+        this.categoricalMonthlyExpenseList.forEach((element) => {
+          if (element.categoryName == 'Travel') {
             this.travelData.push(element.totalAmount);
           }
-        })
+        });
 
         //separating out misc expense
-        this.categoricalMonthlyExpenseList.forEach(element => {
-          if(element.categoryName == 'Others'){
+        this.categoricalMonthlyExpenseList.forEach((element) => {
+          if (element.categoryName == 'Others') {
             this.othersData.push(element.totalAmount);
           }
-        })
+        });
 
         //separating out others expense
-        this.categoricalMonthlyExpenseList.forEach(element => {
-          if(element.categoryName == 'Misc'){
+        this.categoricalMonthlyExpenseList.forEach((element) => {
+          if (element.categoryName == 'Misc') {
             this.miscData.push(element.totalAmount);
           }
-        })
+        });
       },
-      error => {
-        console.log(error);  
+      (error) => {
+        console.log(error);
       }
-    )
+    );
   }
 
   getTotalIncomePerUser() {
@@ -230,10 +252,10 @@ export class DashboardComponent implements AfterViewInit, OnInit {
       (result) => {
         this.totalIncomePerUser = result;
       },
-      error => {
-        console.log(error); 
+      (error) => {
+        console.log(error);
       }
-    )
+    );
   }
 
   getTotalInvestmentPerUser() {
@@ -241,11 +263,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
       (result) => {
         this.totalInvestmentPerUser = result;
       },
-      error => {
-        console.log(error); 
+      (error) => {
+        console.log(error);
       }
-    )
+    );
   }
-
 }
-
