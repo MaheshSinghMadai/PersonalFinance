@@ -1,54 +1,44 @@
-.example-container {
-    width: 100%;
-    height: 100vh;
-    border: none;
-    padding: none;
-  }
-  
-  .example-sidenav-content {
-    display: flex;
-    height: 100%;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 0;
-  }
-  
-  .example-sidenav {
-    padding: 20px;
-  }
 
-  .nav-row{
-    width:100%;
-    padding: 0px;
-    background-color: #0a4c81;
-    color:white;
-  }
-
-  .card{
-    margin:70px 20px 70px 20px;
-    font-size:20px ;
-  }
-
-  .chart-container{
-    margin-bottom:20px
-  }
-
+.main-content{
+  background-image: linear-gradient(to right bottom, #f8f8f8, #dae7f6, #a9dbeb, #7dd0c9, #76bf92);
+  margin:0 !important;
+}
   .card-title{
-    color:purple;
+    /* color:purple; */
+    font-size:30px
   }
 
   .card{
-    border: .5px solid rgba(0, 0, 0, 0.38);
-    box-shadow:  10px 10px  rgba(13, 77, 57, 0.2);
+    width:100%;
+    height: 150px;
+    /* border: .5px solid rgba(0, 0, 0, 0.38); */
+    margin:20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+  }
+  
+  .section-1{
+    width: auto;
+    margin: 10px;
+    padding: 10px;
+    border-right: 2px solid #d2d2d2 ;
   }
 
-  .card:hover{
+.chart-container{
+  /* margin: 10px; */
+  display: flex;
+  flex-direction: row;
+}
+
+  /* .card:hover{
     background-color: #22889d;
     color:white;
     cursor: pointer;
      & .card-title{
       color: white;
      }
-  }
+  } */
   
   

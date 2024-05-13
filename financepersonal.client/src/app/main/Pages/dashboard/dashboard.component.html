@@ -1,45 +1,41 @@
-<div class="row d-flex flex-direction-row">
-    <div class="col-md-3" [routerLink]="['/main/expense']">
-        <div class="card" >
-            <div class="card-body">
-              <h1 class="card-title text-center">{{totalExpense | number}}</h1>
-              <p class="text-center">Total Spent</p>
+<div class="main-content">
+    <div class="row d-flex flex-direction-column">
+        <div class="col-md-6 d-flex flex-direction-row">
+            <div class="card">
+                <div class="section-1">
+                    <div class="card-title"> Total Expense</div>
+                    <div class="number-value">Rs.34,33,444</div>
+                </div>
+                <div class="section-1" style="border:none">
+                    <div class="card-title"> Total Expense</div>
+                    <div class="number-value">Rs.34,33,444</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3" [routerLink]="['/main/expense']">
-        <div class="card">
-            <div class="card-body px-100">
-              <h1 class="card-title text-center">{{averageExpense | number}}</h1>
-              <p class="text-center">Average Expense</p>
+        <div class="col-md-6 d-flex flex-direction-row">
+            <div class="card">
+                <div class="section-1">
+                    <div class="card-title"> Total Expense</div>
+                    <div class="number-value">Rs.34,33,444</div>
+                </div>
+                <div class="section-1" style="border:none">
+                    <div class="card-title"> Total Expense</div>
+                    <div class="number-value">Rs.34,33,444</div>
+                </div>
             </div>
+
         </div>
+
     </div>
-    <div class="col-md-3" [routerLink]="['/main/income']">
-        <div class="card">
-            <div class="card-body px-100">
-              <h1 class="card-title text-center">{{totalIncomePerUser | number}}</h1>
-              <p class="text-center">Total Earned</p>
-            </div>
+    <div class="row chart-container">
+        <div class="col-md-6 chart-container text-center">
+            <canvas id="BarChart">{{ chart }}</canvas>
         </div>
-    </div>
-    <div class="col-md-3" [routerLink]="['/main/investment']">
-        <div class="card">
-            <div class="card-body px-100">
-              <h1 class="card-title text-center">{{totalInvestmentPerUser | number}}</h1>
-              <p class="text-center">Total Investment</p>
-            </div>
+        <div class="col-md-6 chart-container text-center">
+            <canvas id="LineChart">{{ chart }}</canvas>
         </div>
-    </div>
-</div>
-<div class="row d-flex flex-direction-row">
-    <div class="col-md-6 chart-container text-center">
-        <canvas id="BarChart">{{ chart }}</canvas>
-    </div>
-    <div class="col-md-6 chart-container text-center">
-        <canvas id="LineChart">{{ chart }}</canvas>
-    </div>
-    <div class="col-md-6 chart-container text-center">
-        <canvas id="DoughnutChart">{{ chart }}</canvas>
+        <div class="col-md-6 chart-container text-center">
+            <canvas id="DoughnutChart">{{ chart }}</canvas>
+        </div>
     </div>
 </div>
