@@ -1,5 +1,4 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Drawing.Charts;
 using FinancePersonal.Core.Entities;
 using FinancePersonal.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -140,6 +139,14 @@ namespace FinancePersonal.Server.Controllers
             var monthlyIncomesList = await query.ToListAsync();
 
             return Ok(monthlyIncomesList);
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> MonthlyInOut([FromQuery] string userId)
+        {
+            var 
+            return Ok();
         }
     }
 }

@@ -59,6 +59,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
+    this.chart.destroy();
     setTimeout(() => {
       this.createBarChart();
       // this.createLineChart();
