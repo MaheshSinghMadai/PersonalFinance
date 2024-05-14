@@ -18,18 +18,28 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   foodExpenseCount: any = [];
   foodAmount: number;
   chartData: any = [];
+
   monthlyExpenseList: any = [];
   monthlyIncomeList: any = [];
   categoricalMonthlyExpenseList: any = [];
+  monthlyInvestmentList: any = [];
+  monthlyCategoricalIncomeList: any = [];
+
   monthlyTotalAmount: any = [];
   totalExpense: number = 0;
   averageExpense: number = 0;
   totalIncomePerUser: any;
   totalInvestmentPerUser: any;
+
   latestMonthIncome: number = 0;
   penultimateMonthIncome: number = 0;
   latestMonthExpense: number = 0;
   penultimateMonthExpense: number = 0;
+  lastMonthInvestment: number = 0;
+  penultimateMonthInvestment: number = 0;
+  lastMonthSalaryIncome: number = 0;
+  lastMonthRentalIncome: number = 0;
+
   incomeChange: number = 0;
   expenseChange: number = 0;
   increaseIncomeBoolean: boolean = false;
@@ -56,6 +66,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.getTotalInvestmentPerUser();
     this.getMonthWiseIncome();
     this.createIncomeExpenseLineChart();
+    this.getCategoricalMonthWiseIncome();
   }
 
   ngAfterViewInit() {
@@ -72,21 +83,17 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   createPieChart() {
     var options = {
       cutoutPercentage: 40,
-      radius: '60%', // Set the radius of the doughnut chart
+      radius: '60%', // Set the radius of the pie chart
     };
     this.chart = new Chart('PieChart', {
       type: 'pie', //this denotes tha type of chart
 
       data: {
-        labels: ['Income', 'Expense', 'Invested'],
+        labels: ['Salary Income', 'Rental Income'],
         datasets: [
           {
-            data: [300, 50, 100],
-            backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)',
-            ],
+            data: [this.lastMonthSalaryIncome, this.lastMonthRentalIncome],
+            backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)'],
             hoverOffset: 4,
           },
         ],
@@ -99,6 +106,12 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     var options = {
       cutoutPercentage: 40,
       radius: '60%', // Set the radius of the doughnut chart
+      // plugins: {
+      //   title: {
+      //     display: true,
+      //     text: 'Categorywise Expense',
+      //   },
+      // },
     };
     this.chart = new Chart('DoughnutChart', {
       type: 'doughnut',
@@ -362,6 +375,23 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.latestMonthIncome) *
           100;
         // console.log(this.incomeChange);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getCategoricalMonthWiseIncome() {
+    this.incomeService.GetCategoricalMonthlyIncome(this.userId).subscribe(
+      (result) => {
+        this.monthlyCategoricalIncomeList = result;
+        console.log(this.monthlyCategoricalIncomeList);
+
+        this.lastMonthSalaryIncome =
+          this.monthlyCategoricalIncomeList[result.length - 1].totalAmount;
+        this.lastMonthRentalIncome =
+          this.monthlyCategoricalIncomeList[result.length - 2].totalAmount;
       },
       (error) => {
         console.log(error);

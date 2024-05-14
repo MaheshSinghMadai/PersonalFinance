@@ -143,10 +143,28 @@ namespace FinancePersonal.Server.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> MonthlyInOut([FromQuery] string userId)
+        public async Task<IActionResult> GetMonthWiseCategoricalIncomes([FromQuery] string userId)
         {
-            var 
-            return Ok();
+            try
+            {
+                var monthlyCategoricalIncome = (from e in _db.Incomes
+                                             where e.UserId == userId
+                                             group e by new { e.Date.Month, e.Source} into g
+                                             select new
+                                             {
+                                                 Date = g.Key.Month,
+                                                 TotalAmount = g.Sum(x => x.Amount),
+                                                 IncomeSource = g.Key.Source
+                                             }).OrderBy(x => x.Date);
+
+                var monthlyCategoricalIncomeList = monthlyCategoricalIncome.ToListAsync();
+
+                return Ok(await monthlyCategoricalIncomeList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
     }
 }

@@ -55,6 +55,23 @@ namespace FinancePersonal.Server.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetMonthlyInvestment([FromQuery] string userId)
+        {
+            var query = from i in _db.Investments
+                        where i.UserId == userId
+                        group i by i.Date.Month into g
+                        select new
+                        {
+                            Date = g.Key,
+                            TotalAmount = g.Sum(x => x.Amount)
+                        };
+            var monthlyInvestmentList = await query.ToListAsync();
+
+            return Ok(monthlyInvestmentList);
+        }
+
         [HttpPost]
         [Route("[action]")]
         public async Task<IActionResult> AddNewInvestment(Investment investment)

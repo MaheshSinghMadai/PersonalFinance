@@ -30,4 +30,8 @@ export class InvestmentService {
   GetNepsePortfolio(userId: string){
     return this.http.get<NepsePortfolio>(`${this.baseUrl}/Investment/GetMyNepsePortfolio?userId=${userId}`)
   }
+
+  getMonthlyInvestment(userId: string){
+    return this.http.get<any>(`${this.baseUrl}/Investment/GetMonthlyInvestment?userId=${userId}`);
+  }
 }
