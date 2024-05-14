@@ -1,3 +1,6 @@
+.main-content{
+   margin:10px;
+}
 .mat-icon {
    font-size: 20px;
 }
@@ -21,7 +24,6 @@ table, th, td {
 
  .form-control, .form-select{
    line-height:2 !important;
-    /* width:100% !important */
  }
 
  .buttons{
@@ -46,5 +48,5 @@ table, th, td {
  }
 
 .modal{
-   z-index: 0 !important;
+   z-index: 9999 !important;
 }

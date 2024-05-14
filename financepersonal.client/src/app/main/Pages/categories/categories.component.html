@@ -1,11 +1,11 @@
-<div class="row">
+<div class="row main-content">
     <div class="col-3" *ngFor="let items of categoricalExpenseCount" >
         <div class="card" (click)="toggleSelected(items)">
             <div class="card-header">
                 <p class="text-center" style="margin-top:10px">{{items.categoryName}}</p>
             </div>
             <div class="card-body" >
-                <h1 class="card-title text-center">{{items.totalAmount | number}}</h1>
+                <h1 class="card-title text-center">$ {{items.totalAmount | number}}</h1>
                 <p class="text-center">
                     <button class="btn btn-sm" (click)="toggleTable()" (click)="getCategoricalExpense(items.categoryName)" >
                         <mat-icon *ngIf="!viewTable " class="mat-icon" aria-hidden="false" aria-label="Example home icon"

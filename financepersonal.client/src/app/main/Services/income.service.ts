@@ -21,4 +21,8 @@ export class IncomeService {
   GetTotalIncomePerUser(userId: string){
     return this.http.get<any>(`${this.baseUrl}/Income/GetTotalIncomePerUser?userId=${userId}`)
   }
+
+  GetMonthlyIncome(userId: string){
+    return this.http.get<any>(`${this.baseUrl}/Income/GetMonthWiseIncomes?userId=${userId}`)
+  }
 }

@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using FinancePersonal.Core.Entities;
 using FinancePersonal.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -122,6 +123,23 @@ namespace FinancePersonal.Server.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex}");
             }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<IActionResult> GetMonthWiseIncomes([FromQuery] string userId)
+        {
+            var query = from i in _db.Incomes
+                        where i.UserId == userId
+                        group i by i.Date.Month into g
+                        select new
+                        {
+                            Date = g.Key,
+                            TotalAmount = g.Sum(x => x.Amount)
+                        };
+            var monthlyIncomesList = await query.ToListAsync();
+
+            return Ok(monthlyIncomesList);
         }
     }
 }

@@ -1,59 +1,65 @@
-
-.main-content{
+.main-content {
   background-image: linear-gradient(to right bottom, #f8f8f8, #dae7f6, #a9dbeb);
-  margin:0 !important;
+  margin: 0 !important;
 }
 
-.info-column{
+.info-column {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-  .card-title{
-    /* color:purple; */
-    font-size:15px
-  }
-  .number-value{
-    font-size:30px;
-    margin-top:10px;
-    font-weight: 600;
-  }
 
-  .card{
-    width:100%;
-    height: 150px;
-    /* border: .5px solid rgba(0, 0, 0, 0.38); */
-    margin:20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-radius: 20px;
-  }
-  
-  .section-1{
-    width: 50%;
-    margin: 10px;
-    padding: 10px ;
-    border-right: 2px solid #d2d2d2 ;
-  }
+.card-title {
+  font-size: 15px
+}
 
-.chart-container{
-  /* margin-right: 20px; */
+.number-value {
+  font-size: 30px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.card {
+  width: 100%;
+  height: 150px;
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 15px;
+}
+
+.section-1 {
+  width: 50%;
+  margin: 10px;
+  border-right: 2px solid #d2d2d2;
+}
+
+.chart-container {
   display: flex;
   flex-direction: row;
 }
 
-.bar-chart, .line-chart, .doughnut-chart, .pie-chart{
-  margin:40px;
+.bar-chart,
+.line-chart,
+.doughnut-chart,
+.pie-chart {
+  margin: 40px 20px 40px 20px;
+  width:45%;
 }
 
-  /* .card:hover{
-    background-color: #22889d;
-    color:white;
-    cursor: pointer;
-     & .card-title{
-      color: white;
-     }
-  } */
-  
-  
+.fa-chevron-up,
+.fa-chevron-down {
+  margin: 10px 0px 10px 10px;
+}
+
+.change-percent {
+  margin: 0 10px 0 10px;
+  font-size: 15px;
+}
+
+.card-footer-text {
+  color: #918686;
+  font-size: 12px;
+  margin: 20px 30px 0 0;
+}

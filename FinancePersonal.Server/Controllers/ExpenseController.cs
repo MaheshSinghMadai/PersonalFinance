@@ -52,49 +52,21 @@ namespace FinancePersonal.Server.Controllers
             try
             {
                 var validFilter = new PaginationFilter(pageFilter.PageNumber, pageFilter.PageSize);
-                List<UserExpenseWithCategory> query = new List<UserExpenseWithCategory>();
 
-                if (_cache.TryGetValue(ExpenseCacheKey, out IEnumerable<UserExpenseWithCategory> result))
-                {
-                    _logger.LogInformation("Expenses found in cache");
-                }
-                else
-                {
-                    try
-                    {
-                        await semaphore.WaitAsync();
 
-                        if (_cache.TryGetValue(ExpenseCacheKey, out result))
-                        {
-                            _logger.LogInformation("Expenses found in cache");
-                        }
-                        else
-                        {
-                            _logger.LogInformation("Expenses not found in cache. Fetching from database");
-                            query = (from e in _db.Expenses
-                                     join c in _db.Categories on e.CategoryId equals c.CategoryId
-                                     where e.UserId == userId
-                                     select new UserExpenseWithCategory
-                                     {
-                                         ExpenseId = e.ExpenseId,
-                                         Amount = e.Amount,
-                                         Date = e.Date,
-                                         Description = e.Description,
-                                         Username = e.Username,
-                                         CategoryName = c.CategoryName,
-                                         CategoryId = c.CategoryId
-                                     }).AsNoTracking().ToList();
-
-                            //For caching the data
-                            var cacheEntryOptions = CacheHelper.GetDefaultCacheOptions();
-                            _cache.Set(ExpenseCacheKey, query, cacheEntryOptions);
-                        }
-                    }
-                    finally
-                    {
-                        semaphore.Release();
-                    }
-                }
+                var query = (from e in _db.Expenses
+                             join c in _db.Categories on e.CategoryId equals c.CategoryId
+                             where e.UserId == userId
+                             select new UserExpenseWithCategory
+                             {
+                                 ExpenseId = e.ExpenseId,
+                                 Amount = e.Amount,
+                                 Date = e.Date,
+                                 Description = e.Description,
+                                 Username = e.Username,
+                                 CategoryName = c.CategoryName,
+                                 CategoryId = c.CategoryId
+                             }).AsNoTracking().ToList();
 
                 var pagedData = query
                                     .Skip((validFilter.PageNumber - 1) * pageFilter.PageSize)
@@ -359,5 +331,7 @@ namespace FinancePersonal.Server.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
+
+        
     }
 }

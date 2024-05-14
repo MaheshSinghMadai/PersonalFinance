@@ -3,42 +3,72 @@
         <div class="col-md-6 info-column d-flex flex-direction-row">
             <div class="card">
                 <div class="section-1">
-                    <div class="card-title"> Monthly Income</div>
-                    <div class="number-value">$5,553</div>
+                    <div class="card-title"> YTD Income</div>
+                    <div class="number-value d-flex flex-direction-row">
+                        $ {{totalIncomePerUser | number}}         
+                    </div>
+                    <div class="card-footer-text">
+                        Your <b>Income</b> of the year 2024
+                    </div>
                 </div>
                 <div class="section-1" style="border:none">
-                    <div class="card-title"> Monthly Expense</div>
-                    <div class="number-value">$3,443</div>
+                    <div class="card-title">Monthly Income</div>
+                    <div class="number-value d-flex flex-direction-row">$ {{latestMonthIncome | number}}
+                        <i class="fa fa-xs fa-chevron-up " style="color:#008000b5;" *ngIf="increaseIncomeBoolean">
+                        </i>
+                        <i class="fa fa-xs fa-chevron-down" style="color:red" *ngIf="!increaseIncomeBoolean"></i>   
+                        <p class="change-percent" style="color:#008000b5;">{{incomeChange | number : '1.2-2'}}%</p>
+                    </div>
+                    <div class="card-footer-text">
+                        Your <b>Income</b> of this month compared to previous month
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6 d-flex flex-direction-row">
             <div class="card">
                 <div class="section-1">
-                    <div class="card-title"> Total Expense</div>
-                    <div class="number-value">$56,565</div>
+                    <div class="card-title"> YTD Expense</div>
+                    <div class="number-value d-flex flex-direction-row">
+                        $ {{totalExpense | number}}
+                    </div>
+                    <div class="card-footer-text">
+                        Your <b>Expense</b> of the year 2024
+                    </div>
+
                 </div>
                 <div class="section-1" style="border:none">
-                    <div class="card-title"> Total Expense</div>
-                    <div class="number-value">$45,4555</div>
+                    <div class="card-title">Monthly Expense</div>
+                    <div class="number-value d-flex flex-direction-row">$ {{latestMonthExpense | number}}
+                        <i class="fa fa-xs fa-chevron-up " style="color:#008000b5;" *ngIf="increaseExpenseBoolean">
+                        </i>
+                        <i class="fa fa-xs fa-chevron-down" style="color:red" *ngIf="!increaseExpenseBoolean"></i>                  
+                        <p class="change-percent" style="color:red">{{expenseChange | number : '1.2-2'}}%</p>
+                    </div>
+                    <div class="card-footer-text">
+                        Your <b>Expense</b> of this month compared to previous month
+                    </div>
                 </div>
             </div>
-
         </div>
 
     </div>
     <div class="row chart-container">
-        <div class="col-md-5 bar-chart text-center">
-            <canvas id="BarChart">{{ chart }}</canvas>
+        <div class="row">
+            <div class=" bar-chart text-center">
+                <canvas id="BarChart">{{ chart }}</canvas>
+            </div>
+            <div class=" line-chart text-center">
+                <canvas id="LineChart">{{ chart }}</canvas>
+            </div>
         </div>
-        <div class="col-md-5 line-chart text-center">
-            <canvas id="LineChart">{{ chart }}</canvas>
-        </div>
-        <div class="col-md-5 doughnut-chart text-center">
-            <canvas id="DoughnutChart">{{ chart }}</canvas>
-        </div>
-        <div class="col-md-5 pie-chart text-center">
-            <canvas id="PieChart">{{ chart }}</canvas>
+        <div class="row">
+            <div class="doughnut-chart text-center">
+                <canvas id="DoughnutChart">{{ chart }}</canvas>
+            </div>
+            <div class="pie-chart text-center">
+                <canvas id="PieChart">{{ chart }}</canvas>
+            </div>
         </div>
     </div>
 </div>

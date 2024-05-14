@@ -19,12 +19,21 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   foodAmount: number;
   chartData: any = [];
   monthlyExpenseList: any = [];
+  monthlyIncomeList : any = [];
   categoricalMonthlyExpenseList: any = [];
   monthlyTotalAmount: any = [];
   totalExpense: number = 0;
   averageExpense: number = 0;
   totalIncomePerUser: any;
   totalInvestmentPerUser: any;
+  latestMonthIncome : number = 0;
+  penultimateMonthIncome: number = 0;
+  latestMonthExpense : number = 0;
+  penultimateMonthExpense: number = 0;
+  incomeChange : number = 0;
+  expenseChange : number = 0;
+  increaseIncomeBoolean : boolean = false;
+  increaseExpenseBoolean : boolean = false;
 
   //categorical monthly expense array
   foodData: any = [];
@@ -45,6 +54,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.getMonthlyCategoricalExpense();
     this.getTotalIncomePerUser();
     this.getTotalInvestmentPerUser();
+    this.getMonthWiseIncome();
   }
 
   ngAfterViewInit() {
@@ -184,7 +194,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.expenseService.getMonthlyExpense(this.userId).subscribe(
       (result) => {
         this.monthlyExpenseList = result;
-
+        console.log(this.monthlyExpenseList);
+        
         //separating out totalAmounts
         this.monthlyExpenseList.forEach((element) => {
           if (element.totalAmount) {
@@ -200,6 +211,16 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         //for getting monthly average
         let n = this.monthlyExpenseList.length;
         this.averageExpense = this.totalExpense / n;
+
+        this.latestMonthExpense = this.monthlyExpenseList[result.length - 1].totalAmount;
+        this.penultimateMonthExpense = this.monthlyExpenseList[result.length - 2].totalAmount;
+        
+        if(this.latestMonthExpense > this.penultimateMonthExpense){
+          this.increaseExpenseBoolean = true;
+        }
+
+        this.expenseChange = Math.abs(((this.latestMonthExpense - this.penultimateMonthExpense)/this.latestMonthExpense) * 100);
+        console.log(this.expenseChange);
       },
       (error) => {
         console.log(error);
@@ -267,5 +288,26 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         console.log(error);
       }
     );
+  }
+
+  getMonthWiseIncome(){
+    this.incomeService.GetMonthlyIncome(this.userId).subscribe(
+      (result) => {
+        this.monthlyIncomeList = result;
+        this.latestMonthIncome = this.monthlyIncomeList[result.length - 1].totalAmount;
+        this.penultimateMonthIncome = this.monthlyIncomeList[result.length - 2].totalAmount;
+        
+        if(this.latestMonthIncome > this.penultimateMonthIncome){
+          this.increaseIncomeBoolean = true;
+        }
+
+        this.incomeChange = ((this.latestMonthIncome - this.penultimateMonthIncome)/this.latestMonthIncome) * 100;
+        console.log(this.incomeChange);
+        
+      },
+      (error) => {
+        console.log(error);;
+      }
+    )
   }
 }
