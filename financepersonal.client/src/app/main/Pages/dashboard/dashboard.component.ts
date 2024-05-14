@@ -12,28 +12,28 @@ import { InvestmentService } from '../../Services/investment.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements AfterViewInit, OnInit {
-  public chart: any;
+  public chart: any = null;
   showFiller = false;
   userId: any = this.authService.currentUserSource.value.userId;
   foodExpenseCount: any = [];
   foodAmount: number;
   chartData: any = [];
   monthlyExpenseList: any = [];
-  monthlyIncomeList : any = [];
+  monthlyIncomeList: any = [];
   categoricalMonthlyExpenseList: any = [];
   monthlyTotalAmount: any = [];
   totalExpense: number = 0;
   averageExpense: number = 0;
   totalIncomePerUser: any;
   totalInvestmentPerUser: any;
-  latestMonthIncome : number = 0;
+  latestMonthIncome: number = 0;
   penultimateMonthIncome: number = 0;
-  latestMonthExpense : number = 0;
+  latestMonthExpense: number = 0;
   penultimateMonthExpense: number = 0;
-  incomeChange : number = 0;
-  expenseChange : number = 0;
-  increaseIncomeBoolean : boolean = false;
-  increaseExpenseBoolean : boolean = false;
+  incomeChange: number = 0;
+  expenseChange: number = 0;
+  increaseIncomeBoolean: boolean = false;
+  increaseExpenseBoolean: boolean = false;
 
   //categorical monthly expense array
   foodData: any = [];
@@ -55,14 +55,16 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.getTotalIncomePerUser();
     this.getTotalInvestmentPerUser();
     this.getMonthWiseIncome();
+    this.createIncomeExpenseLineChart();
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.createBarChart();
-      this.createLineChart();
+      // this.createLineChart();
       this.createDoughnutChart();
       this.createPieChart();
+      this.createIncomeExpenseLineChart();
     }, 1000);
   }
 
@@ -74,23 +76,21 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.chart = new Chart('PieChart', {
       type: 'pie', //this denotes tha type of chart
 
-      data : {
-        labels: [
-          'Income',
-          'Expense',
-          'Invested'
+      data: {
+        labels: ['Income', 'Expense', 'Invested'],
+        datasets: [
+          {
+            data: [300, 50, 100],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)',
+            ],
+            hoverOffset: 4,
+          },
         ],
-        datasets: [{
-          data: [300, 50, 100],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
-          hoverOffset: 4
-        }],  
       },
-      options : options,
+      options: options,
     });
   }
 
@@ -153,23 +153,69 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     });
   }
 
-  createLineChart() {
-    this.chart = new Chart('LineChart', {
-      type: 'line', //this denotes tha type of chart
+  createIncomeExpenseLineChart() {
+    const incomeData = this.monthlyIncomeList;
+    const expenseData = this.monthlyExpenseList;
 
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    const labels = incomeData.map((data) => monthNames[data.date - 1]);
+
+    const incomeAmounts = incomeData.map((data) => data.totalAmount);
+    const expenseAmounts = expenseData.map((data) => data.totalAmount);
+
+    this.chart = new Chart('IncomeExpenseLineChart', {
+      type: 'line',
       data: {
-        // values on X-Axis
-        labels: ['January', 'February', 'March', 'April'],
+        labels: labels,
         datasets: [
           {
-            label: 'Expense Activity',
-            data: this.monthlyTotalAmount,
-            backgroundColor: 'blue',
+            label: 'Income',
+            data: incomeAmounts,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 1)',
+            yAxisID: 'y-axis-income',
+          },
+          {
+            label: 'Expense',
+            data: expenseAmounts,
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 1)',
+            yAxisID: 'y-axis-expense',
           },
         ],
       },
       options: {
-        aspectRatio: 2.5,
+        scales: {
+          'y-axis-income': {
+            type: 'linear',
+            position: 'left',
+            title: {
+              display: true,
+              text: 'Income Amount',
+            },
+          },
+          'y-axis-expense': {
+            type: 'linear',
+            position: 'right',
+            title: {
+              display: true,
+              text: 'Expense Amount',
+            },
+          },
+        },
       },
     });
   }
@@ -195,7 +241,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
       (result) => {
         this.monthlyExpenseList = result;
         console.log(this.monthlyExpenseList);
-        
+
         //separating out totalAmounts
         this.monthlyExpenseList.forEach((element) => {
           if (element.totalAmount) {
@@ -212,15 +258,20 @@ export class DashboardComponent implements AfterViewInit, OnInit {
         let n = this.monthlyExpenseList.length;
         this.averageExpense = this.totalExpense / n;
 
-        this.latestMonthExpense = this.monthlyExpenseList[result.length - 1].totalAmount;
-        this.penultimateMonthExpense = this.monthlyExpenseList[result.length - 2].totalAmount;
-        
-        if(this.latestMonthExpense > this.penultimateMonthExpense){
+        this.latestMonthExpense =
+          this.monthlyExpenseList[result.length - 1].totalAmount;
+        this.penultimateMonthExpense =
+          this.monthlyExpenseList[result.length - 2].totalAmount;
+
+        if (this.latestMonthExpense > this.penultimateMonthExpense) {
           this.increaseExpenseBoolean = true;
         }
 
-        this.expenseChange = Math.abs(((this.latestMonthExpense - this.penultimateMonthExpense)/this.latestMonthExpense) * 100);
-        console.log(this.expenseChange);
+        this.expenseChange =
+          ((this.latestMonthExpense - this.penultimateMonthExpense) /
+            this.latestMonthExpense) *
+          100;
+        // console.log(this.expenseChange);
       },
       (error) => {
         console.log(error);
@@ -290,24 +341,30 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     );
   }
 
-  getMonthWiseIncome(){
+  getMonthWiseIncome() {
     this.incomeService.GetMonthlyIncome(this.userId).subscribe(
       (result) => {
         this.monthlyIncomeList = result;
-        this.latestMonthIncome = this.monthlyIncomeList[result.length - 1].totalAmount;
-        this.penultimateMonthIncome = this.monthlyIncomeList[result.length - 2].totalAmount;
-        
-        if(this.latestMonthIncome > this.penultimateMonthIncome){
+        console.log(this.monthlyIncomeList);
+
+        this.latestMonthIncome =
+          this.monthlyIncomeList[result.length - 1].totalAmount;
+        this.penultimateMonthIncome =
+          this.monthlyIncomeList[result.length - 2].totalAmount;
+
+        if (this.latestMonthIncome > this.penultimateMonthIncome) {
           this.increaseIncomeBoolean = true;
         }
 
-        this.incomeChange = ((this.latestMonthIncome - this.penultimateMonthIncome)/this.latestMonthIncome) * 100;
-        console.log(this.incomeChange);
-        
+        this.incomeChange =
+          ((this.latestMonthIncome - this.penultimateMonthIncome) /
+            this.latestMonthIncome) *
+          100;
+        // console.log(this.incomeChange);
       },
       (error) => {
-        console.log(error);;
+        console.log(error);
       }
-    )
+    );
   }
 }

@@ -14,7 +14,7 @@
 }
 
 .number-value {
-  font-size: 30px;
+  font-size: 25px;
   margin-top: 10px;
   font-weight: 600;
 }
@@ -44,7 +44,7 @@
 .line-chart,
 .doughnut-chart,
 .pie-chart {
-  margin: 40px 20px 40px 20px;
+  margin: 40px 20px 0px 30px;
   width:45%;
 }
 
