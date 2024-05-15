@@ -6,6 +6,8 @@ import { CategoriesComponent } from './Pages/categories/categories.component';
 import { IncomeComponent } from './Pages/income/income.component';
 import { InvestmentComponent } from './Pages/investment/investment.component';
 import { NepsePortfolioComponent } from './Pages/nepse-portfolio/nepse-portfolio.component';
+import { SettingsComponent } from './Pages/settings/settings.component';
+import { ProfileComponent } from './Pages/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,14 @@ const routes: Routes = [
   {
     path: 'nepse-portfolio',  
     component: NepsePortfolioComponent,
+  },
+  {
+    path: 'settings',  
+    component: SettingsComponent,
+  },
+  {
+    path: 'profile',  
+    component: ProfileComponent,
   },
 ];
 

@@ -5,8 +5,8 @@
                 <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
                     fontIcon="add"></mat-icon>
             </button>
-            <button class="btn btn-sm btn-outline-success" (click)="exportToExcel()">
-                <mat-icon class="mat-icon add-btn" aria-hidden="false" aria-label="Example home icon"
+            <button class="btn btn-sm btn-outline-success px-4 py-2" (click)="exportToExcel()">
+                <mat-icon class="mat-icon add-btn " aria-hidden="false" aria-label="Example home icon"
                     fontIcon="ios_share"></mat-icon> 
                     <span>
                         Export to Excel
@@ -58,7 +58,7 @@
     </div>
     }
     
-    <table class="table table-responsive table-bordered align-items-center" *ngIf="!isAdding">
+    <table class="table table-responsive align-middle mb-0 bg-white" *ngIf="!isAdding">
         <thead>
             <tr>
                 <th scope="col">S.N.</th>
@@ -78,7 +78,7 @@
                 <td>{{i+1}}</td>
                 <td>{{ income.amount }}</td>
                 <td>{{ income.date | date }}</td>
-                <td>{{ income.source }} </td>
+                <td style="text-transform: capitalize;">{{ income.source }} </td>
                 <!-- <td>
                     <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal"
                         *ngIf="isEditDelete" >

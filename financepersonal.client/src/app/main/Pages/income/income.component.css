@@ -30,3 +30,8 @@
     color:white;
     border:#006ba1;
   }
+
+  tr{
+    height:50px !important;
+    font-family: 'Poppins' !important;
+  }

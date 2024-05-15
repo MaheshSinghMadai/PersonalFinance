@@ -66,8 +66,8 @@
     </div>
   </div>
   }
-  <div style="height: 72vh; overflow: auto;">
-    <table class="table table-responsive table-bordered align-items-center" *ngIf="!isAdding">
+  <div style="height: 75vh; overflow: auto;">
+    <table class="table table-responsive align-middle mb-0 bg-white" *ngIf="!isAdding">
       <thead>
         <tr>
           <th scope="col">S.N.</th>
@@ -115,11 +115,11 @@
         [length]="totalRecords" (page)="onPageChange($event)"></mat-paginator>
     </div>
   </div>
-</div>
 
-<div class="text-center " style="margin-top: calc(100vh / 3)">
-  <div class="spinner-border text-info" role="status" *ngIf="isLoading">
-    <span class="visually-hidden">Loading...</span>
+  <div class="text-center " style="margin-top: calc(100vh / 3)">
+    <div class="spinner-border text-info" role="status" *ngIf="isLoading">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
 </div>
 

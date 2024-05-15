@@ -13,7 +13,7 @@
                 </div>
                 <div class="section-1" style="border:none">
                     <div class="card-title">Monthly Income</div>
-                    <div class="number-value d-flex flex-direction-row">$ {{latestMonthIncome | number}}
+                    <div [ngStyle]="{'color': increaseIncomeBoolean ? '#008000b5' : 'red'}" class="number-value d-flex flex-direction-row">$ {{latestMonthIncome | number}}
                         
                         <i class="fa fa-xs fa-chevron-up " style="color:#008000b5;" *ngIf="increaseIncomeBoolean"></i>
                         <p class="change-percent" style="color:#008000b5;;" *ngIf="increaseIncomeBoolean">{{incomeChange | number : '1.2-2'}}%</p>
@@ -42,13 +42,13 @@
                 </div>
                 <div class="section-1" style="border:none">
                     <div class="card-title">Monthly Expense</div>
-                    <div class="number-value d-flex flex-direction-row">$ {{latestMonthExpense | number}}
+                    <div [ngStyle]="{'color': increaseExpenseBoolean ? 'red' : '#008000b5'}" class="number-value d-flex flex-direction-row">$ {{latestMonthExpense | number}}
                         
-                        <i class="fa fa-xs fa-chevron-up " style="color:#008000b5;" *ngIf="increaseExpenseBoolean"></i>
-                        <p class="change-percent" style="color:#008000b5;"  *ngIf="increaseExpenseBoolean">{{expenseChange | number : '1.2-2'}}%</p>
+                        <i class="fa fa-xs fa-chevron-up " style="color: red;" *ngIf="increaseExpenseBoolean"></i>
+                        <p class="change-percent" style="color: red;"  *ngIf="increaseExpenseBoolean">{{expenseChange | number : '1.2-2'}}%</p>
                         
-                        <i class="fa fa-xs fa-chevron-down" style="color:red" *ngIf="!increaseExpenseBoolean"></i>                  
-                        <p class="change-percent" style="color:red"  *ngIf="!increaseExpenseBoolean">{{expenseChange | number : '1.2-2'}}%</p>
+                        <i class="fa fa-xs fa-chevron-down" style="color:#008000b5" *ngIf="!increaseExpenseBoolean"></i>                  
+                        <p class="change-percent" style="color:#008000b5" *ngIf="!increaseExpenseBoolean">{{expenseChange | number : '1.2-2'}}%</p>
                     </div>
                     <div class="card-footer-text">
                         Your <b>Expense</b> of this month compared to previous month

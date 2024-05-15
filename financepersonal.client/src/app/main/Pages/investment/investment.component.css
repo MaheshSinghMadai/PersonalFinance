@@ -1,5 +1,5 @@
 .main-content{
-    margin:10px;
+    margin:20px;
 }
 .form-label{
     font-weight: bold;
@@ -29,4 +29,9 @@
     background-color: #006ba1;
     color:white;
     border:#006ba1;
+  }
+  
+  tr{
+    height:50px !important;
+    font-family: 'Poppins' !important;
   }

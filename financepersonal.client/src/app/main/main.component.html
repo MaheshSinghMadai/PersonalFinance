@@ -4,66 +4,81 @@
             <p class="sidenav-header">
                 <span>
                     <img src="../../assets/analysis.png" style="height:30px;width:30px; margin-right: 10px;">
-                </span> मेरो Finance</p>
+                </span> मेरो-Finance
+            </p>
+        </div>
+        <div class="menu">
+            <p>Menu</p>
         </div>
         <ul class="nav-item active" routerLinkActive="active-link">
-            <a class="nav-link active" [routerLink]="['/main/dashboard']" routerLinkActive="active-link">
-                <p class="sidebar-header">
-                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-                        fontIcon="bar_chart_4_bars"></mat-icon>
-                    Dashboard
-                </p>
-            </a>
+            <button type="button" mat-button [routerLink]="['/main/dashboard']" routerLinkActive="active-link">
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="bar_chart_4_bars"></mat-icon>
+                <span>Dashboard</span>
+            </button>
         </ul>
         <ul class="nav-item active" routerLinkActive="active-link">
-            <a class="nav-link active" [routerLink]="['/main/expense']" routerLinkActive="active-link">
-                <p class="sidebar-header">
-                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-                        fontIcon="calculate"></mat-icon>
-                    Expenses
-                </p>
-            </a>
+            <button type="button" mat-button [routerLink]="['/main/expense']" routerLinkActive="active-link">
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="calculate"></mat-icon>
+                <span>Expenses</span>
+            </button>
         </ul>
         <ul class="nav-item active" routerLinkActive="active-link">
-            <a class="nav-link " [routerLink]="['/main/categories']" >
-                <p class="sidebar-header">
-                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-                        fontIcon="category"></mat-icon>
-                    Categories
-                </p>
-            </a>
+            <button type="button" mat-button [routerLink]="['/main/categories']" routerLinkActive="active-link">
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="category"></mat-icon>
+                <span>Category</span>
+            </button>
         </ul>
         <ul class="nav-item active" routerLinkActive="active-link">
-            <a class="nav-link " [routerLink]="['/main/income']" >
-                <p class="sidebar-header">
-                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-                        fontIcon="account_balance"></mat-icon>
-                    Income
-                </p>
-            </a>
+            <button type="button" mat-button [routerLink]="['/main/income']" routerLinkActive="active-link">
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="account_balance"></mat-icon>
+                <span>Income</span>
+            </button>
         </ul>
         <ul class="nav-item active" routerLinkActive="active-link">
-            <a class="nav-link " [routerLink]="['/main/investment']" routerLinkActive="active-link">
-                <p class="sidebar-header">
-                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
-                        fontIcon="monitoring"></mat-icon>
-                    Investment
-                </p>
-            </a>
+            <button type="button" mat-button [routerLink]="['/main/investment']" routerLinkActive="active-link">
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="monitoring"></mat-icon>
+                <span>Investment</span>
+            </button>
+        </ul>
+
+        <div class="menu">
+            <p>Settings</p>
+        </div>
+
+        <ul class="nav-item active" routerLinkActive="active-link">
+            <button type="button" mat-button [routerLink]="['/main/settings']" routerLinkActive="active-link">
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="settings_heart"></mat-icon>
+                <span>Settings</span>
+            </button>
+        </ul>
+        <ul class="nav-item active" routerLinkActive="active-link">
+            <button type="button" mat-button [routerLink]="['/main/profile']" routerLinkActive="active-link">
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="supervised_user_circle"></mat-icon>
+                <span>Profile</span>
+            </button>
+        </ul>
+        <ul class="nav-item active" routerLinkActive="active-link">
+            <button type="button" mat-button (click)="logout()">
+                <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon"
+                    fontIcon="logout"></mat-icon>
+                <span>Logout</span>
+            </button>
         </ul>
     </mat-drawer>
 
     <div class="example-sidenav-content">
         <div class="row nav-row py-2">
-            <div class="col-md-12 d-flex justify-content-between align-items-center">
+            <div class="col-md-12">
                 <button type="button" mat-button (click)="drawer.toggle()">
                     <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="more_vert"
                         style="color:white"></mat-icon>
-                </button>
-                <button class="logout-btn px-4" type="button" mat-button (click)="logout()">
-                    <mat-icon class="mat-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="logout"
-                        style="color:white"></mat-icon>
-                    <span style="color:white">Logout</span>
                 </button>
             </div>
         </div>

@@ -1,6 +1,10 @@
-.main-content{
-   margin:10px;
+.mat-drawer-content{
+   overflow: none !important;
 }
+.main-content{
+   margin:20px;
+}
+
 .mat-icon {
    font-size: 20px;
 }
@@ -50,3 +54,8 @@ table, th, td {
 .modal{
    z-index: 9999 !important;
 }
+
+tr{
+   height:50px !important;
+   font-family: 'Poppins' !important;
+ }
