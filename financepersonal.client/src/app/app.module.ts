@@ -30,8 +30,8 @@ import { JwtInterceptor } from './shared/interceptors/jwt-interceptor';
     ReactiveFormsModule,
     NgxDocViewerModule,
     ToastrModule.forRoot(),
-    FormsModule,
-  ],
+    FormsModule
+    ],
   providers: [
     DatePipe,
     {

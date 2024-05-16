@@ -1,3 +1,42 @@
-.main-content{
+.main-content {
     margin:20px;
+    font-family: 'Poppins';
 }
+.profile-text {
+    margin-bottom: 20px;
+}
+
+h1{
+    margin-bottom: 10px;
+}
+
+h4{
+    color: #918686;
+}
+
+.col-md-6 {
+    margin:15px 0 20px 0
+}
+
+.form-label {
+    color: #918686;
+    font-size:15px;
+}
+
+.form-control {
+    line-height:3.5 !important;
+    border-radius: 10px !important;
+  }
+
+ .save-btn {
+    margin: 10px 20px 20px 5px;
+    border: none;
+    background-color: #594aa8;
+    color: white;
+    border-radius: 5px !important;
+    padding: 10px;
+ }
+
+ .password-row {
+    margin-top:40px
+ }

@@ -11,6 +11,7 @@ import { IncomeComponent } from './Pages/income/income.component';
 import { InvestmentComponent } from './Pages/investment/investment.component';
 import { SharedModule } from '../shared/shared.module';
 import { NepsePortfolioComponent } from './Pages/nepse-portfolio/nepse-portfolio.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { NepsePortfolioComponent } from './Pages/nepse-portfolio/nepse-portfolio
         ReactiveFormsModule,
         NgxDocViewerModule,
         FormsModule,
-        DatePipe
+        DatePipe,
+        NgSelectModule
     ]
 })
 export class MainModule { }
