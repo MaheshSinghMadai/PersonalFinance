@@ -62,7 +62,6 @@ namespace FinancePersonal.Server.Controllers
             };
         }
      
-
         [HttpPost]
         [Route("[action]")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
@@ -89,7 +88,6 @@ namespace FinancePersonal.Server.Controllers
 
             return Ok();
         }
-
 
         [HttpPost("refresh-token")]
         public IActionResult RefreshToken([FromBody] UserDto user)
@@ -121,6 +119,20 @@ namespace FinancePersonal.Server.Controllers
             {
                 return BadRequest(new { error = new { code = "Internal Server Error", message = ex.GetBaseException().Message } });
             }
+        }
+
+        [HttpPatch]
+        [Route("[action]")]
+        public IActionResult UpdateProfile()
+        {
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("[action]")]
+        public IActionResult ChangePassword()
+        {
+            return Ok();
         }
     }
 }
