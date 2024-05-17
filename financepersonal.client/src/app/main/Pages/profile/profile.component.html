@@ -10,6 +10,12 @@
     
     <div class="row">
         <img class="profile-picture" src="../../../../assets/goat2.JPG" >
+        <form enctype="multipart/form-data">
+            <div>
+              <input type="file" id="profilePicture" (change)="onFileSelected($event)" required>
+            </div>
+            <button type="submit" (click)="changeProfilePicture()">Submit </button>
+          </form>
     </div>
     
     <div>
@@ -76,7 +82,7 @@
         </div>
     </div>
 
-    <button class="btn save-btn text-center" (click)="ChangePassword()">
+    <button class="btn save-btn text-center" (click)="changePassword()">
             Update
     </button>   
 </div>

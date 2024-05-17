@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
+System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 // Add services to the container.
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 

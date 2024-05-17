@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileService } from '../../Services/profile.service';
@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   userCredentials: any = [];
   updateProfileBoolean: boolean = false;
   isEditable: boolean = true;
+  selectedFile: File | null = null;
 
   userId: any = this.authService.currentUserSource.value.userId;
 
@@ -23,15 +24,13 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private toastr: ToastrService,
-    private profileService: ProfileService,
-    private http: HttpClient
+    private profileService: ProfileService
   ) {
     this.updateProfileForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       username: ['', Validators.required],
       email: ['', Validators.required],
-      // profilePicture: [''],
     });
 
     this.changePasswordForm = this.formBuilder.group({
@@ -67,7 +66,6 @@ export class ProfileComponent implements OnInit {
         this.updateProfileBoolean = false;
         this.updateProfileForm.disable();
         this.getProfileCredentials();
-
       },
       (error) => {
         console.log(error.error);
@@ -76,27 +74,50 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  ChangePassword() {
+  changePassword() {
     const body = {
       currentPassword: this.changePasswordForm.value['currentPassword'],
       newPassword: this.changePasswordForm.value['newPassword'],
     };
 
-
     this.profileService.changePassword(body, this.userId).subscribe(
       (response) => {
         this.toastr.success('Password Changed Successfully!!');
         this.changePasswordForm.reset();
-        // this.updatePasswordBoolean = false;
-        // this.updateProfileForm.disable();
         this.getProfileCredentials();
-
       },
       (error) => {
         console.log(error.error);
         this.toastr.error(error.description);
       }
     );
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+    
+  }
+
+  changeProfilePicture() {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('ProfilePicture', this.selectedFile);
+
+      this.profileService.changeProfilePicture(formData, httpOptions, this.userId).subscribe(
+        (response) => {
+          this.toastr.success('Profile picture changed successfully:', response);
+          this.getProfileCredentials();
+        },
+        (error) => {
+          console.log(error.error);
+        }
+      );
+    }
   }
 
   toggleUpdateProfile() {

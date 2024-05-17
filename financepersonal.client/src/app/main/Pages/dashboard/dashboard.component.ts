@@ -254,7 +254,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.expenseService.getMonthlyExpense(this.userId).subscribe(
       (result) => {
         this.monthlyExpenseList = result;
-        console.log(this.monthlyExpenseList);
+        // console.log(this.monthlyExpenseList);
 
         //separating out totalAmounts
         this.monthlyExpenseList.forEach((element) => {
@@ -359,7 +359,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.incomeService.GetMonthlyIncome(this.userId).subscribe(
       (result) => {
         this.monthlyIncomeList = result;
-        console.log(this.monthlyIncomeList);
+        // console.log(this.monthlyIncomeList);
 
         this.latestMonthIncome =
           this.monthlyIncomeList[result.length - 1].totalAmount;
@@ -386,7 +386,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.incomeService.GetCategoricalMonthlyIncome(this.userId).subscribe(
       (result) => {
         this.monthlyCategoricalIncomeList = result;
-        console.log(this.monthlyCategoricalIncomeList);
+        // console.log(this.monthlyCategoricalIncomeList);
 
         this.lastMonthSalaryIncome =
           this.monthlyCategoricalIncomeList[result.length - 1].totalAmount;

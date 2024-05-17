@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class ProfileService {
 
   changePassword(body:any, userId: string){
     return this.http.put<any>(`${this.baseUrl}/Profile/ChangePassword?userId=${userId}`, body)
+  }
+
+  changeProfilePicture(formData: FormData, httpOptions :any, userId: string) : Observable<any>{
+    return this.http.post(`${this.baseUrl}/Profile/ChangeProfilePicture?userId=${userId}`, formData, httpOptions)
   }
 }
