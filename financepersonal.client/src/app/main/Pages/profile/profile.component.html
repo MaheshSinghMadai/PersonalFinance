@@ -56,7 +56,7 @@
         Save Changes
 </button>
 
-    <div class="row password-row">
+    <div class="row password-row"  [formGroup]="changePasswordForm">
         <h1>
             <b>Password</b>
         </h1>
@@ -64,19 +64,19 @@
             <div class="form-group">
                 <label class="form-label">Current Password</label>
                 <input type="password" placeholder="Enter Current Password" class="form-control"
-                    formControlName="amount" name="amount">
+                    formControlName="currentPassword" name="currentPassword">
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label">New Password</label>
-                <input type="password" placeholder="Enter New Password" class="form-control" formControlName="amount"
-                    name="amount">
+                <input type="password" placeholder="Enter New Password" class="form-control" formControlName="newPassword"
+                    name="newPassword">
             </div>
         </div>
     </div>
 
-    <button class="btn save-btn text-center">
+    <button class="btn save-btn text-center" (click)="ChangePassword()">
             Update
     </button>   
 </div>

@@ -18,7 +18,7 @@ export class ProfileService {
     return this.http.put<any>(`${this.baseUrl}/Profile/UpdateProfile?userId=${userId}`, body)
   }
 
-  updatePassword(body:any, userId: string){
+  changePassword(body:any, userId: string){
     return this.http.put<any>(`${this.baseUrl}/Profile/ChangePassword?userId=${userId}`, body)
   }
 }

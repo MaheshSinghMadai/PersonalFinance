@@ -73,10 +73,28 @@ namespace FinancePersonal.Server.Controllers
             return Ok();
         }
 
-        [HttpPatch]
+        [HttpPut]
         [Route("[action]")]
-        public IActionResult ChangePassword()
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto, [FromQuery] string userId)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, changePasswordDto.CurrentPassword, changePasswordDto.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
             return Ok();
         }
     }

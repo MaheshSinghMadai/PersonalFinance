@@ -76,6 +76,29 @@ export class ProfileComponent implements OnInit {
     );
   }
 
+  ChangePassword() {
+    const body = {
+      currentPassword: this.changePasswordForm.value['currentPassword'],
+      newPassword: this.changePasswordForm.value['newPassword'],
+    };
+
+
+    this.profileService.changePassword(body, this.userId).subscribe(
+      (response) => {
+        this.toastr.success('Password Changed Successfully!!');
+        this.changePasswordForm.reset();
+        // this.updatePasswordBoolean = false;
+        // this.updateProfileForm.disable();
+        this.getProfileCredentials();
+
+      },
+      (error) => {
+        console.log(error.error);
+        this.toastr.error(error.description);
+      }
+    );
+  }
+
   toggleUpdateProfile() {
     this.updateProfileBoolean = true;
     this.updateProfileForm.enable();
