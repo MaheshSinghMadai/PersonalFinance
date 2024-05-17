@@ -40,14 +40,7 @@
           </div>
           <div class="col-md-2">
             <div class="form-group">
-              <label class="form-label">Category</label>
-              <!-- <select class="form-select" [(ngModel)]="selectedCategory" formControlName="category"
-                placeholder="Select a Category">
-                <option disabled>Choose Category</option>
-                @for (category of Categories; track category) {
-                  <option [value]="category.categoryId">{{category.categoryId}} | {{category.categoryName}}</option>
-                }
-              </select> -->
+              <label class="form-label">Category</label>       
               <ng-select class="select-status" formControlName="category" placeholder="Select a category">
                 <ng-option *ngFor="let category of Categories" [value]="category.categoryId" >
                   {{category.categoryId}} | {{category.categoryName}}

@@ -121,18 +121,6 @@ namespace FinancePersonal.Server.Controllers
             }
         }
 
-        [HttpPatch]
-        [Route("[action]")]
-        public IActionResult UpdateProfile()
-        {
-            return Ok();
-        }
-
-        [HttpPatch]
-        [Route("[action]")]
-        public IActionResult ChangePassword()
-        {
-            return Ok();
-        }
+      
     }
 }

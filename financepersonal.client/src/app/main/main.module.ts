@@ -12,6 +12,7 @@ import { InvestmentComponent } from './Pages/investment/investment.component';
 import { SharedModule } from '../shared/shared.module';
 import { NepsePortfolioComponent } from './Pages/nepse-portfolio/nepse-portfolio.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ProfileComponent } from './Pages/profile/profile.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         CategoriesComponent,
         IncomeComponent,
         InvestmentComponent,
-        NepsePortfolioComponent
+        NepsePortfolioComponent,
+        ProfileComponent
     ],
     imports: [
         CommonModule,

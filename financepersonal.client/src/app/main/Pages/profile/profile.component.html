@@ -8,39 +8,53 @@
         </h4>
     </div>
     
-    <div class="row d-flex justify-content-between">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">First Name</label>
-                <input type="text" placeholder="" class="form-control" formControlName="amount" name="amount">
+    <div class="row">
+        <img class="profile-picture" src="../../../../assets/goat2.JPG" >
+    </div>
+    
+    <div>
+        <div class="row d-flex justify-content-between" [formGroup]="updateProfileForm">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">First Name</label>
+                    <input type="text" placeholder="" class="form-control"
+                    formControlName="firstName" name="firstName" [(ngModel)]="userCredentials.firstName">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" placeholder="" class="form-control" 
+                    formControlName="lastName" name="lastName" [(ngModel)]="userCredentials.lastName">
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Last Name</label>
-                <input type="text" placeholder="" class="form-control" formControlName="amount" name="amount">
+
+        <div class="row d-flex justify-content-between" [formGroup]="updateProfileForm">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Username</label>
+                    <input type="text" placeholder="" class="form-control" 
+                    formControlName="username" name="username" [(ngModel)]="userCredentials.username">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" placeholder="" class="form-control" 
+                    [disabled] formControlName="email" name="email" [(ngModel)]="userCredentials.email">
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row d-flex justify-content-between">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Username</label>
-                <input type="text" placeholder="" class="form-control" formControlName="amount" name="amount">
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="text" placeholder="" class="form-control" formControlName="amount" name="amount">
-            </div>
-        </div>
-    </div>
 
-    <button class="btn btn-xl save-btn text-center">
-            Update
+    <button class="btn btn-xl save-btn text-center" *ngIf="!updateProfileBoolean" (click)="toggleUpdateProfile()">
+        Update
     </button>
+    <button class="btn btn-xl save-btn text-center" *ngIf="updateProfileBoolean" (click)="updateProfile()">
+        Save Changes
+</button>
 
     <div class="row password-row">
         <h1>
