@@ -3,7 +3,6 @@ using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
 namespace FinancePersonal.Server.Controllers
 {
     [ApiController]
@@ -12,12 +11,14 @@ namespace FinancePersonal.Server.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly ApplicationDbContext _db;
-
+        private readonly IWebHostEnvironment _hostingEnvironment;
         public ProfileController(
             UserManager<AppUser> userManager,
-            ApplicationDbContext db)
+            ApplicationDbContext db,
+            IWebHostEnvironment hostingEnvironment)
         {
             _userManager = userManager;
+            _hostingEnvironment = hostingEnvironment;
             _db = db;
         }
 
@@ -33,9 +34,8 @@ namespace FinancePersonal.Server.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                Username = user.UserName
+                Username = user.UserName,
             };
-
         }
 
         [HttpPut]
@@ -95,10 +95,10 @@ namespace FinancePersonal.Server.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("[action]")]
-        public async Task<IActionResult> ChangeProfilePicture([FromBody] ProfilePictureDto profilePictureDto, [FromQuery] string userId)
-        {      
+        public async Task<IActionResult> GetProfilePicture([FromQuery] string userId)
+        {
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
@@ -106,23 +106,41 @@ namespace FinancePersonal.Server.Controllers
                 return NotFound("User not found.");
             }
 
-            if (profilePictureDto.ProfilePicture == null || profilePictureDto.ProfilePicture.Length == 0)
+            if (string.IsNullOrEmpty(user.ProfilePicturePath))
+                return NotFound("Profile picture not found.");
+
+            var imageUrl = $"{Request.Scheme}://{Request.Host}/{user.ProfilePicturePath}";
+            return Ok(new { ImageUrl = imageUrl });
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<IActionResult> ChangeProfilePicture(IFormFile profilePicture, [FromQuery] string userId)
+        {      
+           
+            if (profilePicture == null || profilePicture.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            var uploadsFolder = Path.Combine("uploads");
+            if (!Directory.Exists(uploadsFolder))
+                Directory.CreateDirectory(uploadsFolder);
+
+            var uniqueFileName = $"{Guid.NewGuid()}_{profilePicture.FileName}";
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                return BadRequest("Invalid profile picture.");
+                await profilePicture.CopyToAsync(fileStream);
             }
 
-            IFormFile file = Request.Form.Files.FirstOrDefault();
-            using (var dataStream = new MemoryStream())
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
             {
-                await file.CopyToAsync(dataStream);
-                user.ProfilePicture = dataStream.ToArray();
+                return NotFound("User not found.");
             }
 
-            //using (var memoryStream = new MemoryStream())
-            //{
-            //    await profilePictureDto.ProfilePicture.CopyToAsync(memoryStream);
-            //    user.ProfilePicture = memoryStream.ToArray();
-            //}
+            user.ProfilePicturePath = uniqueFileName;
 
             var result = await _userManager.UpdateAsync(user);
 

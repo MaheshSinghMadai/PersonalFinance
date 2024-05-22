@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   updateProfileBoolean: boolean = false;
   isEditable: boolean = true;
   selectedFile: File | null = null;
+  profileImageUrl : string = '';
 
   userId: any = this.authService.currentUserSource.value.userId;
 
@@ -41,6 +42,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.updateProfileForm.disable();
     this.getProfileCredentials();
+    this.loadProfilePicture();
   }
 
   getProfileCredentials() {
@@ -94,21 +96,15 @@ export class ProfileComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
-    
+    this.selectedFile = <File>event.target.files[0]; 
   }
 
   changeProfilePicture() {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-    
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('ProfilePicture', this.selectedFile);
 
-      this.profileService.changeProfilePicture(formData, httpOptions, this.userId).subscribe(
+      this.profileService.changeProfilePicture(this.selectedFile, httpOptions, this.userId).subscribe(
         (response) => {
           this.toastr.success('Profile picture changed successfully:', response);
           this.getProfileCredentials();
@@ -118,7 +114,16 @@ export class ProfileComponent implements OnInit {
         }
       );
     }
-  }
+
+    loadProfilePicture() {
+      this.profileService.getProfilePicture(this.userId)
+        .subscribe(response => {
+          this.profileImageUrl = response.imageUrl;         
+          console.log(this.profileImageUrl);
+        }, error => {
+          console.log(error.error.error);
+        });
+    }
 
   toggleUpdateProfile() {
     this.updateProfileBoolean = true;

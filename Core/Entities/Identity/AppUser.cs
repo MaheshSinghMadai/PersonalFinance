@@ -9,6 +9,6 @@ namespace FinancePersonal.Core.Entities.Identity
         public string DisplayName { get; set; }
         public string Token { get; set; }
         public DateTime expiresAt { get; set; }
-        public byte[] ProfilePicture { get; set; }
+        public string ProfilePicturePath { get; set; }
     }
 }
