@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   updateProfileBoolean: boolean = false;
   isEditable: boolean = true;
   selectedFile: File | null = null;
-  profilePicturePath: string | null;
+  profilePicture: string | ArrayBuffer | null = null;
 
   userId: any = this.authService.currentUserSource.value.userId;
 
@@ -101,29 +101,33 @@ export class ProfileComponent implements OnInit {
       const formData = new FormData();
       formData.append('ProfilePicture', file);
 
-      this.profileService.changeProfilePicture(this.userId, formData)
+      this.profileService
+        .changeProfilePicture(this.userId, formData)
         .subscribe({
           next: (res) => {
-            console.log('Profile picture uploaded successfully');
+            this.toastr.success('Profile picture uploaded successfully');
             this.loadProfilePicture();
           },
           error: (err) => {
             console.error('Failed to upload profile picture', err);
-          }
+          },
         });
     }
   }
 
   loadProfilePicture(): void {
-    this.profileService.getProfilePicture(this.userId)
-      .subscribe(
-        (response) => {
-          this.profilePicturePath = response; 
-        },
-        (error) => {
-          console.log(error.error);
-        }
-      )
+    this.profileService.getProfilePicture(this.userId).subscribe({
+      next: (blob) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.profilePicture = reader.result;
+        };
+        reader.readAsDataURL(blob);
+      },
+      error: (err) => {
+        this.toastr.error('Failed to load profile picture');
+      },
+    });
   }
 
   toggleUpdateProfile() {

@@ -146,7 +146,7 @@ namespace FinancePersonal.Server.Controllers
         [HttpGet]
         [Route("[action]")]
          public async Task<IActionResult> GetProfilePicture([FromQuery] string userId)
-        {
+         {
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null || string.IsNullOrEmpty(user.ProfilePicture))
@@ -156,8 +156,8 @@ namespace FinancePersonal.Server.Controllers
 
             var filePath = Path.Combine(_hostEnvironment.ContentRootPath, user.ProfilePicture.TrimStart('/'));
             var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
-            return File(fileBytes, "image/jpeg"); 
-        }
+            return File(fileBytes, "application/json"); 
+         }
 
     }
 }

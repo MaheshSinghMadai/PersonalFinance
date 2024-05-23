@@ -9,12 +9,11 @@
     </div>
     
     <div class="row">
-        <img class="profile-picture" [src]="profilePicturePath" >
+        <img class="profile-picture" src="{{profilePicture}}" >
         <form enctype="multipart/form-data">
             <div>
               <input type="file" id="profilePicture" (change)="onFileSelected($event)" required>
             </div>
-            <button type="submit" >Submit </button>
           </form>
     </div>
     
