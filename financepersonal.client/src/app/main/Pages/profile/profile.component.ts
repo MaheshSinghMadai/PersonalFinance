@@ -134,4 +134,9 @@ export class ProfileComponent implements OnInit {
     this.updateProfileBoolean = true;
     this.updateProfileForm.enable();
   }
+
+  cancelUpdate(){
+    this.updateProfileBoolean = false;
+    this.updateProfileForm.disable();
+  }
 }
