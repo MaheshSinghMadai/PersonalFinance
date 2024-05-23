@@ -9,12 +9,12 @@
     </div>
     
     <div class="row">
-        <img class="profile-picture" src="{{profilePicture}}" >
+        <img class="profile-picture" [src]="profilePicture" >
         <form enctype="multipart/form-data">
             <div>
               <input type="file" id="profilePicture" (change)="onFileSelected($event)" required>
             </div>
-          </form>
+        </form>
     </div>
     
     <div>
@@ -53,13 +53,15 @@
         </div>
     </div>
 
-
     <button class="btn btn-xl save-btn text-center" *ngIf="!updateProfileBoolean" (click)="toggleUpdateProfile()">
         Update
     </button>
     <button class="btn btn-xl save-btn text-center" *ngIf="updateProfileBoolean" (click)="updateProfile()">
         Save Changes
-</button>
+    </button>
+    <button class="btn btn-xl btn-danger cancel-btn text-center" *ngIf="updateProfileBoolean" (click)="cancelUpdate()">
+        Cancel
+    </button>
 
     <div class="row password-row"  [formGroup]="changePasswordForm">
         <h1>
