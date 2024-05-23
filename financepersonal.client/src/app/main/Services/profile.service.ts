@@ -23,5 +23,12 @@ export class ProfileService {
     return this.http.put<any>(`${this.baseUrl}/Profile/ChangePassword?userId=${userId}`, body)
   }
 
+  changeProfilePicture(userId: string, formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/Profile/ChangeProfilePicture?userId=${userId}`, formData);
+  }
+
+  getProfilePicture(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/Profile/GetProfilePicture?userId=${userId}`, { responseType: 'text' as 'json' });
+  }
   
 }

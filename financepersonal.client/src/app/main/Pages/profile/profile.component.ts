@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
   updateProfileBoolean: boolean = false;
   isEditable: boolean = true;
   selectedFile: File | null = null;
+  profilePicturePath: string | null;
 
   userId: any = this.authService.currentUserSource.value.userId;
 
@@ -41,6 +42,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.updateProfileForm.disable();
     this.getProfileCredentials();
+    this.loadProfilePicture();
   }
 
   getProfileCredentials() {
@@ -93,10 +95,35 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
-    
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('ProfilePicture', file);
+
+      this.profileService.changeProfilePicture(this.userId, formData)
+        .subscribe({
+          next: (res) => {
+            console.log('Profile picture uploaded successfully');
+            this.loadProfilePicture();
+          },
+          error: (err) => {
+            console.error('Failed to upload profile picture', err);
+          }
+        });
+    }
+  }
+
+  loadProfilePicture(): void {
+    this.profileService.getProfilePicture(this.userId)
+      .subscribe(
+        (response) => {
+          this.profilePicturePath = response; 
+        },
+        (error) => {
+          console.log(error.error);
+        }
+      )
   }
 
   toggleUpdateProfile() {

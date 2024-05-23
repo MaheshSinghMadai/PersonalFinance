@@ -297,7 +297,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
     this.expenseService.getMonthlyCategoricalExpense(this.userId).subscribe(
       (result) => {
         this.categoricalMonthlyExpenseList = result;
-        console.log(this.categoricalMonthlyExpenseList);
+        // console.log(this.categoricalMonthlyExpenseList);
 
         //separating out food expense
         this.categoricalMonthlyExpenseList.forEach((element) => {
@@ -327,7 +327,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
           }
         });
 
-        console.log(this.foodData, this.travelData, this.othersData, this.miscData);
+        // console.log(this.foodData, this.travelData, this.othersData, this.miscData);
         
       },
       (error) => {
