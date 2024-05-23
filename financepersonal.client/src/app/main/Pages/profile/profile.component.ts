@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   isEditable: boolean = true;
   selectedFile: File | null = null;
   profileImageUrl : string = '';
+  profilePicture: string | ArrayBuffer | null = null;
 
   userId: any = this.authService.currentUserSource.value.userId;
 
@@ -97,31 +98,40 @@ export class ProfileComponent implements OnInit {
 
   onFileSelected(event: any) {
     this.selectedFile = <File>event.target.files[0]; 
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.profilePicture = reader.result;
+        if (typeof this.profilePicture === 'string') {
+          this.changeProfilePicture(this.profilePicture);
+        }
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
 
-  changeProfilePicture() {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    };
-
-      this.profileService.changeProfilePicture(this.selectedFile, httpOptions, this.userId).subscribe(
-        (response) => {
-          this.toastr.success('Profile picture changed successfully:', response);
-          this.getProfileCredentials();
+  changeProfilePicture(base64Image: string) {
+    const payload = { ProfilePicture: base64Image };
+    this.profileService.changeProfilePicture(this.userId, payload)
+      .subscribe({
+        next: (res) => {
+          console.log('Profile picture uploaded successfully');
         },
-        (error) => {
-          console.log(error.error);
+        error: (err) => {
+          console.error('Failed to upload profile picture', err);
         }
-      );
+      });
     }
 
-    loadProfilePicture() {
+    loadProfilePicture(): void {
       this.profileService.getProfilePicture(this.userId)
-        .subscribe(response => {
-          this.profileImageUrl = response.imageUrl;         
-          console.log(this.profileImageUrl);
-        }, error => {
-          console.log(error.error.error);
+        .subscribe({
+          next: (res) => {
+            this.profilePicture = res.profilePicture;
+          },
+          error: (err) => {
+            console.error('Failed to load profile picture', err);
+          }
         });
     }
 

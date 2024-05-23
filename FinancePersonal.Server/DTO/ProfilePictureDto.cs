@@ -2,6 +2,6 @@
 {
     public class ProfilePictureDto
     {
-        public IFormFile ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
     }
 }

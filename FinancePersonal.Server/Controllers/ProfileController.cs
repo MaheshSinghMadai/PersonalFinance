@@ -3,6 +3,7 @@ using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace FinancePersonal.Server.Controllers
 {
     [ApiController]
@@ -103,36 +104,16 @@ namespace FinancePersonal.Server.Controllers
 
             if (user == null)
             {
-                return NotFound("User not found.");
+                return NotFound(new { message = "User not found." });
             }
 
-            if (string.IsNullOrEmpty(user.ProfilePicturePath))
-                return NotFound("Profile picture not found.");
-
-            var imageUrl = $"{Request.Scheme}://{Request.Host}/{user.ProfilePicturePath}";
-            return Ok(new { ImageUrl = imageUrl });
+            return Ok(new { profilePicture = user.ProfilePicture });
         }
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> ChangeProfilePicture(IFormFile profilePicture, [FromQuery] string userId)
+        public async Task<IActionResult> ChangeProfilePicture([FromBody] ProfilePictureDto model, [FromQuery] string userId)
         {      
-           
-            if (profilePicture == null || profilePicture.Length == 0)
-                return BadRequest("No file uploaded.");
-
-            var uploadsFolder = Path.Combine("uploads");
-            if (!Directory.Exists(uploadsFolder))
-                Directory.CreateDirectory(uploadsFolder);
-
-            var uniqueFileName = $"{Guid.NewGuid()}_{profilePicture.FileName}";
-            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await profilePicture.CopyToAsync(fileStream);
-            }
-
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
@@ -140,14 +121,10 @@ namespace FinancePersonal.Server.Controllers
                 return NotFound("User not found.");
             }
 
-            user.ProfilePicturePath = uniqueFileName;
+            user.ProfilePicture = model.ProfilePicture;
 
-            var result = await _userManager.UpdateAsync(user);
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(result.Errors);
-            }
+            _db.Entry(user).State = EntityState.Modified;
+            await _db.SaveChangesAsync();
 
             return Ok();
         }

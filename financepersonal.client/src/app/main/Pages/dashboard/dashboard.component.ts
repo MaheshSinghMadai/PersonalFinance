@@ -137,7 +137,7 @@ export class DashboardComponent implements AfterViewInit, OnInit {
 
       data: {
         // values on X-Axis
-        labels: ['January', 'February', 'March', 'April'],
+        labels: ['January', 'February', 'March', 'April','May'],
         datasets: [
           {
             label: 'Food',
@@ -296,8 +296,8 @@ export class DashboardComponent implements AfterViewInit, OnInit {
   getMonthlyCategoricalExpense() {
     this.expenseService.getMonthlyCategoricalExpense(this.userId).subscribe(
       (result) => {
-        // console.log(result);
         this.categoricalMonthlyExpenseList = result;
+        console.log(this.categoricalMonthlyExpenseList);
 
         //separating out food expense
         this.categoricalMonthlyExpenseList.forEach((element) => {
@@ -326,6 +326,9 @@ export class DashboardComponent implements AfterViewInit, OnInit {
             this.miscData.push(element.totalAmount);
           }
         });
+
+        console.log(this.foodData, this.travelData, this.othersData, this.miscData);
+        
       },
       (error) => {
         console.log(error);

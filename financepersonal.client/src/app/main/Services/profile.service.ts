@@ -27,9 +27,7 @@ export class ProfileService {
     return this.http.get(`${this.baseUrl}/Profile/GetProfilePicture?userId=${userId}`);
   }
   
-  changeProfilePicture(file: File, httpOptions :any, userId: string) : Observable<any>{
-    const formData = new FormData;
-    formData.append('file', file);
-    return this.http.post(`${this.baseUrl}/Profile/ChangeProfilePicture?userId=${userId}`, formData, httpOptions)
+  changeProfilePicture(userId: string,payload: { ProfilePicture: string }) : Observable<any>{
+    return this.http.post(`${this.baseUrl}/Profile/ChangeProfilePicture?userId=${userId}`, payload)
   }
 }
