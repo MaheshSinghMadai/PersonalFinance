@@ -23,11 +23,5 @@ export class ProfileService {
     return this.http.put<any>(`${this.baseUrl}/Profile/ChangePassword?userId=${userId}`, body)
   }
 
-  getProfilePicture(userId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/Profile/GetProfilePicture?userId=${userId}`);
-  }
   
-  changeProfilePicture(userId: string,payload: { ProfilePicture: string }) : Observable<any>{
-    return this.http.post(`${this.baseUrl}/Profile/ChangeProfilePicture?userId=${userId}`, payload)
-  }
 }

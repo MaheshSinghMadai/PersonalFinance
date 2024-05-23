@@ -99,27 +99,6 @@ export class ProfileComponent implements OnInit {
     
   }
 
-  changeProfilePicture() {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    };
-    
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('ProfilePicture', this.selectedFile);
-
-      this.profileService.changeProfilePicture(formData, httpOptions, this.userId).subscribe(
-        (response) => {
-          this.toastr.success('Profile picture changed successfully:', response);
-          this.getProfileCredentials();
-        },
-        error: (err) => {
-          console.error('Failed to upload profile picture', err);
-        }
-      });
-    }
-  }
-
   toggleUpdateProfile() {
     this.updateProfileBoolean = true;
     this.updateProfileForm.enable();
