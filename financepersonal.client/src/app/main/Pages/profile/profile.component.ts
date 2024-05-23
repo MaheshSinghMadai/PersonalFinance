@@ -17,8 +17,6 @@ export class ProfileComponent implements OnInit {
   updateProfileBoolean: boolean = false;
   isEditable: boolean = true;
   selectedFile: File | null = null;
-  profileImageUrl : string = '';
-  profilePicture: string | ArrayBuffer | null = null;
 
   userId: any = this.authService.currentUserSource.value.userId;
 
@@ -43,7 +41,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.updateProfileForm.disable();
     this.getProfileCredentials();
-    this.loadProfilePicture();
   }
 
   getProfileCredentials() {
@@ -97,43 +94,31 @@ export class ProfileComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.selectedFile = <File>event.target.files[0]; 
-    if (this.selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.profilePicture = reader.result;
-        if (typeof this.profilePicture === 'string') {
-          this.changeProfilePicture(this.profilePicture);
-        }
-      };
-      reader.readAsDataURL(this.selectedFile);
-    }
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+    
   }
 
-  changeProfilePicture(base64Image: string) {
-    const payload = { ProfilePicture: base64Image };
-    this.profileService.changeProfilePicture(this.userId, payload)
-      .subscribe({
-        next: (res) => {
-          console.log('Profile picture uploaded successfully');
+  changeProfilePicture() {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+    
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('ProfilePicture', this.selectedFile);
+
+      this.profileService.changeProfilePicture(formData, httpOptions, this.userId).subscribe(
+        (response) => {
+          this.toastr.success('Profile picture changed successfully:', response);
+          this.getProfileCredentials();
         },
         error: (err) => {
           console.error('Failed to upload profile picture', err);
         }
       });
     }
-
-    loadProfilePicture(): void {
-      this.profileService.getProfilePicture(this.userId)
-        .subscribe({
-          next: (res) => {
-            this.profilePicture = res.profilePicture;
-          },
-          error: (err) => {
-            console.error('Failed to load profile picture', err);
-          }
-        });
-    }
+  }
 
   toggleUpdateProfile() {
     this.updateProfileBoolean = true;

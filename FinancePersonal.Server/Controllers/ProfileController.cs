@@ -3,7 +3,7 @@ using FinancePersonal.Infrastructure.Data;
 using FinancePersonal.Server.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 namespace FinancePersonal.Server.Controllers
 {
     [ApiController]
@@ -12,14 +12,12 @@ namespace FinancePersonal.Server.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly ApplicationDbContext _db;
-        private readonly IWebHostEnvironment _hostingEnvironment;
+
         public ProfileController(
             UserManager<AppUser> userManager,
-            ApplicationDbContext db,
-            IWebHostEnvironment hostingEnvironment)
+            ApplicationDbContext db)
         {
             _userManager = userManager;
-            _hostingEnvironment = hostingEnvironment;
             _db = db;
         }
 
@@ -35,8 +33,9 @@ namespace FinancePersonal.Server.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                Username = user.UserName,
+                Username = user.UserName
             };
+
         }
 
         [HttpPut]
@@ -96,10 +95,10 @@ namespace FinancePersonal.Server.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("[action]")]
-        public async Task<IActionResult> GetProfilePicture([FromQuery] string userId)
-        {
+        public async Task<IActionResult> ChangeProfilePicture([FromBody] ProfilePictureDto profilePictureDto, [FromQuery] string userId)
+        {      
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
@@ -107,21 +106,25 @@ namespace FinancePersonal.Server.Controllers
                 return NotFound(new { message = "User not found." });
             }
 
-            return Ok(new { profilePicture = user.ProfilePicture });
-        }
-
-        [HttpPost]
-        [Route("[action]")]
-        public async Task<IActionResult> ChangeProfilePicture([FromBody] ProfilePictureDto model, [FromQuery] string userId)
-        {      
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if (user == null)
+            if (profilePictureDto.ProfilePicture == null || profilePictureDto.ProfilePicture.Length == 0)
             {
-                return NotFound("User not found.");
+                return BadRequest("Invalid profile picture.");
             }
 
-            user.ProfilePicture = model.ProfilePicture;
+            IFormFile file = Request.Form.Files.FirstOrDefault();
+            using (var dataStream = new MemoryStream())
+            {
+                await file.CopyToAsync(dataStream);
+                user.ProfilePicture = dataStream.ToArray();
+            }
+
+            //using (var memoryStream = new MemoryStream())
+            //{
+            //    await profilePictureDto.ProfilePicture.CopyToAsync(memoryStream);
+            //    user.ProfilePicture = memoryStream.ToArray();
+            //}
+
+            var result = await _userManager.UpdateAsync(user);
 
             _db.Entry(user).State = EntityState.Modified;
             await _db.SaveChangesAsync();
